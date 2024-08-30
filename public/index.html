@@ -2,81 +2,65 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/index.css">
+  <!--Biblioteca AOS-->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="./assets/icon/icon.png">
+  <title>Alianza | Home</title>
 </head>
 
 <body>
-    <div class="header">
+  <section id="home">
+    <div class="fundo">
+      <nav>
+        <img src="./assets/imgs/alianza_logo.png" alt="logo-escrito" height="60vw">
+
+        <div class="nav_botao">
+          <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#sobre">SOBRE</a></li>
+            <li><a href="#solucoes">SOLUÇÕES</a></li>
+            <li><a href="#idioma">IDIOMA</a></li>
+          </ul>
+          <a href="./login.html"><button id="button_entrar" onclick="entrar()">ENTRAR</button></a>
+        </div>
+      </nav>
       <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
+        <div class="caixa">
+          <h1><span>POTENCIALIZANDO<br> VIAGENS</span> EM UM<br> MUNDO MOVIDO<br> POR DADOS</h1>
+        </div>
+        <div id="div_seta">
+          <img src="./assets/icon/setas_duplas.png" alt="">
         </div>
       </div>
     </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-        <span class="version">v1.0.0</span>
+  </section>
+
+  <section id="sitema_de_analise">
+    <div>
+      <div>
+        <h1>SISTEMA DE ANÁLISE</h1>
+        <p>Nosso sistema de análise de voo é alimentado pelo formato mais moderno, dando acesso aos dados mais recentes disponíveis e permitindo que você se adapte com confiança às mudanças de voo à medida que elas acontecem.</p>
+        <div>
+          <h3>SABER MAIS</h3>
+          <img src="./assets/icon/seta.png" alt="">
+        </div>
       </div>
+      <img src="./assets/imgs/analise_de_sistemas.png" alt="">
     </div>
-  </body>
+  </section>
+
+</body>
 
 </html>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
