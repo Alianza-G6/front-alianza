@@ -35,12 +35,15 @@ body {
 .amarelo {
   color: #ffcb13;
 }
+
 .azul {
   color: #006feb;
 }
+
 .vermelho {
   color: #e90100;
 }
+
 .forte {
   font-weight: lighter;
 }
@@ -140,6 +143,7 @@ nav img {
   cursor: pointer;
   transition: background-color 0.7s ease, color 0.7s ease;
 }
+
 #button_entrar:hover {
   color: #ffffff;
   background-image: linear-gradient(to center, #ffcb13, #342b0b);
@@ -156,6 +160,7 @@ nav img {
   font-size: 26pt;
   background-color: rgba(0, 0, 0, 0);
 }
+
 #div_seta {
   display: flex;
   flex-direction: column;
@@ -163,6 +168,7 @@ nav img {
   align-items: center;
   width: 100%;
 }
+
 #div_seta img {
   display: flex;
   justify-content: center;
@@ -177,9 +183,11 @@ nav img {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(16px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -216,30 +224,36 @@ nav img {
 .div_sistemaDeAnalise {
   margin-top: 14vh;
   padding-top: 21vh;
-  height: 72vh;
+  height: 60vh;
   display: flex;
   flex-direction: row;
   margin-inline: 15vh;
   justify-content: space-between;
 }
+
 #div_caixaTexto {
   width: 50%;
   color: #000000;
 }
+
 #div_caixaTexto h1 {
   font-size: 22pt;
   color: #000000;
 }
+
 #div_caixaTexto p {
   font-size: 14pt;
 }
+
 #div_caixaImagem {
   margin-left: 100px;
   width: 50%;
 }
+
 #div_caixaImagem img {
   height: 45vh;
 }
+
 #div_saberMais {
   display: flex;
   flex-direction: row;
@@ -247,15 +261,16 @@ nav img {
   gap: 0.5vw;
 }
 
-/* .elipse {
+.elipse {
   z-index: 0;
-  width: 100%; 
-  height: 15vh;     
-  background-color: #ffffff; 
-  border-radius: 50%;   
-} */
+  width: 100%;
+  height: 27vh;
+  background-color: #ffffff;
+  border-radius: 0% 0% 48rem 48rem;
+  position: absolute;
+}
 
-.div_beneficios{
+.div_beneficios {
   height: 90vh;
   width: 100%;
   z-index: 2;
@@ -266,19 +281,22 @@ nav img {
   align-items: center;
 }
 
-.div_beneficios h1{
+.div_beneficios h1 {
+  z-index: 2;
   font-size: 24pt;
   text-decoration: underline;
+  color: #000000;
   text-decoration-color: #ffcb13;
 }
 
-.div_caixaBeneficio{
+.div_caixaBeneficio {
   display: flex;
   flex-direction: row;
   gap: 1vw;
 }
 
-.div_conteinerBeneficio{
+.div_conteinerBeneficio {
+  z-index: 2;
   background-color: #17141d;
   height: 55vh;
   width: 20vw;
@@ -289,12 +307,12 @@ nav img {
   border-radius: 15px;
 }
 
-.div_conteinerBeneficio img{
+.div_conteinerBeneficio img {
   height: 100px;
   width: 100px;
 }
 
-.div_beneficiosTexto{
+.div_beneficiosTexto {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,96 +320,98 @@ nav img {
   text-align: center;
   width: 80%;
 }
-.div_sobre_nos h1{
-font-size: 24pt;
-    text-decoration: underline;
-    text-decoration-color: #ffcb13; }
 
-    .div_sobre_nos {
-      height: 120vh;
-      width: 100%;
-      z-index: 2;
-      background-color: #06050D;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .div_sobre_nos h1 {
-      font-size: 24pt;
-      text-decoration: underline;
-      text-decoration-color: #ffcb13;
-    }
-    
-    .quadradoSobre {
-      height: 80vh;
-      width: 62vw;
-      background: black;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .imgAlianza {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #17141D;
-      display: flex;
-      align-items: center;
-      gap: 6vh;
-    }
-    
-    .imgAlianza img {
-      width: 70%;
-      height: 80%;
-      object-fit: cover;
-      margin-right: 5vh;
-      border-radius: 15px;
-    }
-    
-    .vector-img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 161%; 
-      height: 29vh; 
-     
-    }
-
-   
-    .vector-img3 {
-      position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 161%;
-    height: 50vh;
+.div_sobre_nos h1 {
+  font-size: 24pt;
+  text-decoration: underline;
+  text-decoration-color: #ffcb13;
 }
-     
-.div_contato{
+
+.div_sobre_nos {
+  height: 120vh;
+  width: 100%;
+  z-index: 2;
+  background-color: #06050D;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.div_sobre_nos h1 {
+  font-size: 24pt;
+  text-decoration: underline;
+  text-decoration-color: #ffcb13;
+}
+
+.quadradoSobre {
+  height: 80vh;
+  width: 62vw;
+  background: black;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgAlianza {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #17141D;
+  display: flex;
+  align-items: center;
+  gap: 6vh;
+}
+
+.imgAlianza img {
+  width: 70%;
+  height: 80%;
+  object-fit: cover;
+  margin-right: 5vh;
+  border-radius: 15px;
+}
+
+.vector-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 161%;
+  height: 29vh;
+
+}
+
+
+.vector-img3 {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 161%;
+  height: 50vh;
+}
+
+.div_contato {
   height: 45vh;
-    background-color: #252525;
-    width: 100vw;
-    display: flex;
+  background-color: #252525;
+  width: 100vw;
+  display: flex;
 
-    align-items: center;
-    flex-direction: row;
-    gap: 25vh;
+  align-items: center;
+  flex-direction: row;
+  gap: 25vh;
 }
 
-.div_contato h3{
-  font-size:18pt;
+.div_contato h3 {
+  font-size: 18pt;
   text-decoration: underline;
   text-decoration-color: #AF8902;
   margin: 0;
 }
 
 .coluna1 {
-  
+
   display: flex;
   flex-direction: column;
   height: 35vh;
@@ -406,10 +426,10 @@ font-size: 24pt;
 
 .redesSociais {
   display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 2vh;
-    margin-top: 3vh;
+  align-items: center;
+  flex-direction: row;
+  gap: 2vh;
+  margin-top: 3vh;
 }
 
 .coluna2 {
@@ -421,10 +441,10 @@ font-size: 24pt;
 
 .coluna2 img {
   width: 3vw;
-    height: 5vh;
+  height: 5vh;
 }
 
-.imgTexto{
+.imgTexto {
   margin-top: 3vh;
   display: flex;
   justify-content: center;
@@ -434,12 +454,13 @@ font-size: 24pt;
 
 
 
-.coluna3{ 
+.coluna3 {
   display: flex;
-    flex-direction: column;
-    height: 35vh;
-    width: 17vw;
+  flex-direction: column;
+  height: 35vh;
+  width: 17vw;
 }
+
 .form {
   display: flex;
   gap: 1.5vh;
@@ -453,11 +474,11 @@ font-size: 24pt;
   color: white;
 }
 
-.inputMsg{ 
+.inputMsg {
   height: 7vh;
 }
 
-.form button{
+.form button {
   width: 21vw;
   background-color: #AF8902;
   height: 5vh;
@@ -470,7 +491,7 @@ font-size: 24pt;
   height: 4vh;
 }
 
-.alinhamento{
+.alinhamento {
   display: flex;
   align-items: center;
   gap: 1.5vh;
@@ -479,8 +500,8 @@ font-size: 24pt;
 
 .fundoSobreNos {
   position: absolute;
-    width: 100vw;
-    height: 66vh;
+  width: 100vw;
+  height: 66vh;
 }
 
 .imgAlianza p {
