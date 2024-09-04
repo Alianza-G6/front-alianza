@@ -14,6 +14,7 @@ body {
   color: white;
   margin: 0;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -204,8 +205,100 @@ nav img {
   margin-left: 5vw;
   text-align: left;
 }
-
+/* 
 .caixa span {
   text-decoration: underline;
   text-decoration-color: #ffcb13;
+} */
+
+
+
+.div_sistemaDeAnalise {
+  margin-top: 14vh;
+  padding-top: 21vh;
+  height: 72vh;
+  display: flex;
+  flex-direction: row;
+  margin-inline: 15vh;
+  justify-content: space-between;
+}
+#div_caixaTexto {
+  width: 50%;
+  color: #000000;
+}
+#div_caixaTexto h1 {
+  font-size: 22pt;
+  color: #000000;
+}
+#div_caixaTexto p {
+  font-size: 14pt;
+}
+#div_caixaImagem {
+  margin-left: 100px;
+  width: 50%;
+}
+#div_caixaImagem img {
+  height: 45vh;
+}
+#div_saberMais {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.elipse {
+  z-index: 0;
+  width: 100%;    /* Largura da elipse */
+  height: 15vh;     /* Altura da elipse */
+  background-color: #ffffff; 
+  border-radius: 50%;   
+}
+
+.div_beneficios{
+  height: 120vh;
+  width: 100%;
+  z-index: 2;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div_beneficios h1{
+  font-size: 24pt;
+  text-decoration: underline;
+  text-decoration-color: #ffcb13;
+}
+
+.div_caixaBeneficio{
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+}
+
+.div_conteinerBeneficio{
+  background-color: #17141d;
+  height: 55vh;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.div_conteinerBeneficio img{
+  height: 100px;
+  width: 100px;
+}
+
+.div_beneficiosTexto{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
 }
