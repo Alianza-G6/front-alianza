@@ -1,124 +1,124 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      overflow: hidden;
-    color: white;
-  }
-  
-  .solta{
-      position: absolute;
-      top: 2.5%;
-      left: 10%;
-      width: 75vw;
-      height: 95vh;
-  }
-  
-  .fundo {
-    background-color: black;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url(../assets/imgs/login/fundo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  
-  .container {
-    display: flex;
-    position: absolute;
-    z-index: 50;
-    backdrop-filter: blur(10px);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 30%;
-    height: 80vh;
-    border: 1px solid #FFCB13;
-    background-color: #151515;
-    border-radius: 10px;
-    padding: 1.5rem;
-    gap: 3rem;
-  }
-  
-  
-  .align {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 30%;
-    width: 100%;
-    gap: 1rem;
-  }
-  
-  .credenciais p {
-    font-weight: 700;
-  }
-  
-  .credenciais {
-    width: 80%;
-    height: 30px;
-  }
-  
-  .input {
-    width: calc(100% - 5px);
-    height: 30px;
-    border: 2px solid #252525;
-    margin-top: 8px;
-    background-color: #151515;
-  }
-  
-  .align.start {
-    align-items: end;
-    width: 80%;
-  }
-  
-  .botao {
-    width: 50%;
-    height: 35px;
-    background-color: #ffcb13;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 0.5rem;
-    border-radius: 5px;
-  }
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow: hidden;
+  color: white;
+}
 
-  .botao p{
-    color: black;
-    
+.solta {
+  position: absolute;
+  top: 2.5%;
+  left: 10%;
+  width: 75vw;
+  height: 95vh;
+}
+
+.fundo {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../assets/imgs/login/fundo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.container {
+  display: flex;
+  position: absolute;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 30%;
+  height: 80vh;
+  border: 1px solid #ffcb13;
+  background-color: #151515;
+  border-radius: 10px;
+  padding: 1.5rem;
+  gap: 3rem;
+}
+
+.align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: 1rem;
+}
+
+.credenciais p {
+  font-weight: 700;
+}
+
+.credenciais {
+  width: 80%;
+  gap: 3rem;
+}
+
+.input {
+  width: calc(100% - 28px);
+  height: 25px;
+  border: 2px solid #ffcb13;
+  margin-top: 8px;
+  background-color: #151515;
+  padding: 8px;
+}
+.input:focus {
+  outline: none;
+}
+
+.align.start {
+  align-items: end;
+  width: 80%;
+}
+
+.botao {
+  width: 50%;
+  height: 35px;
+  background-color: #ffcb13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.botao p {
+  color: black;
+}
+
+.alianza {
+  color: #ffcb13;
+  text-decoration: underline;
+  text-decoration-color: #ffcb13;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 80%;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-  
-  .alianza {
-    color: #ffcb13;
-    text-decoration: underline;
-    text-decoration-color: #ffcb13;
+  html {
+    overflow: hidden !important;
   }
-  
-  @media (max-width: 450px) {
-    .container {
-      width: 80%;
-      height: 60%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-    }
-    html{
-      overflow: hidden !important;
-    }
-    .solta{
-      left: -25%;
-      width: 230vw;
-      height: 100vh;
-    }
-  
+  .solta {
+    left: -25%;
+    width: 230vw;
+    height: 100vh;
   }
-  
+}

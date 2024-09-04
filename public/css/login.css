@@ -94,7 +94,7 @@
   text-decoration-color: #ffcb13;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
   .container {
     width: 80%;
     height: 60%;
