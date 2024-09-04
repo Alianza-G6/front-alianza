@@ -33,7 +33,7 @@ body {
 }
 
 .amarelo {
-  color: #f8b80e;
+  color: #ffcb13;
 }
 .azul {
   color: #006feb;
@@ -205,11 +205,11 @@ nav img {
   margin-left: 5vw;
   text-align: left;
 }
-/* 
+
 .caixa span {
   text-decoration: underline;
   text-decoration-color: #ffcb13;
-} */
+}
 
 
 
@@ -247,13 +247,13 @@ nav img {
   gap: 0.5vw;
 }
 
-.elipse {
+/* .elipse {
   z-index: 0;
-  width: 100%;    /* Largura da elipse */
-  height: 15vh;     /* Altura da elipse */
+  width: 100%; 
+  height: 15vh;     
   background-color: #ffffff; 
   border-radius: 50%;   
-}
+} */
 
 .div_beneficios{
   height: 120vh;
