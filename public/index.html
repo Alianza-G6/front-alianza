@@ -1,159 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <!--Biblioteca AOS-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/index.css">
-  <!--Biblioteca AOS-->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/icon/icon.png" />
+    <title>Alianza | Home</title>
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
-    rel="stylesheet">
-  <link rel="icon" href="./assets/icon/icon.png">
-  <title>Alianza | Home</title>
-</head>
+  <body>
+    <section id="home">
+      <div class="fundo">
+        <nav>
+          <img
+            src="./assets/imgs/alianza_logo.png"
+            alt="logo-escrito"
+            height="60vw"
+          />
 
-<body>
-  <section id="home">
-    <div class="fundo">
-      <nav>
-        <img src="./assets/imgs/alianza_logo.png" alt="logo-escrito" height="60vw">
-
-        <div class="nav_botao">
-          <ul>
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#sobre">SOBRE</a></li>
-            <li><a href="#solucoes">SOLUÇÕES</a></li>
-            <li><a href="#idioma">IDIOMA</a></li>
-          </ul>
-          <a href="./login.html"><button id="button_entrar" onclick="entrar()">ENTRAR</button></a>
-        </div>
-      </nav>
-      <div class="container">
-        <div class="caixa">
-          <h1><span>POTENCIALIZANDO<br> VIAGENS</span> EM UM<br> MUNDO MOVIDO<br> POR DADOS</h1>
-        </div>
-        <div id="div_seta">
-          <img src="./assets/icon/setas_duplas.png" alt="">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="sitema_de_analise">
-    <div class="div_sistemaDeAnalise">
-      <div data-aos="fade-left" data-aos-duration="500" id="div_caixaTexto">
-        <h1>SISTEMA DE ANÁLISE</h1>
-        <p>Nosso sistema de análise de voo é alimentado pelo<br> formato mais moderno, dando acesso aos dados mais<br>
-          recentes
-          disponíveis e permitindo que você se adapte<br> com confiança às mudanças de voo à medida que elas<br>
-          acontecem.</p>
-        <div id="div_saberMais">
-          <h3 class="amarelo">SABER MAIS</h3>
-          <img src="./assets/icon/seta.png" alt="" width="15px" height="15px">
-        </div>
-      </div>
-      <div id="div_caixaImagem">
-        <img src="./assets/imgs/analise_de_sistemas.png" alt="">
-      </div>
-    </div>
-  </section>
-  <div class="elipse"></div>
-
-  <section id="beneficios">
-    <div class="div_beneficios">
-      <h1>BENEFÍCIOS</h1>
-      <div class="div_caixaBeneficio">
-        <div class="div_conteinerBeneficio">
-          <img src="./assets/icon/dados-criptografados 1.png" alt="">
-          <div class="div_beneficiosTexto">
-            <h3>Integridade de Dados</h3>
-            <p>Com nosso processo de ETL, você assegura que suas infomações sejam precisas e consistentes.</p>
+          <div class="nav_botao">
+            <ul class="nav">
+              <li><a href="#home">HOME</a></li>
+              <li><a href="#sobre">SOBRE</a></li>
+              <li><a href="#solucoes">SOLUÇÕES</a></li>
+              <li><a href="#idioma">IDIOMA</a></li>
+            </ul>
+            <a href="./login.html"
+              ><button id="button_entrar" onclick="entrar()">ENTRAR</button></a
+            >
           </div>
-        </div>
-        <div class="div_conteinerBeneficio">
-          <img src="./assets/icon/eficiencia (1) 1.png" alt="">
-          <div class="div_beneficiosTexto">
-            <h3>Eficiência Operacional</h3>
-            <p>Automatize a coleta e o processamento de dados, reduzindo significativamente o tempo e o esforço.</p>
+        </nav>
+        <div class="container">
+          <div class="caixa">
+            <h1>
+              <span
+                >POTENCIALIZANDO<br />
+                VIAGENS</span
+              >
+              EM UM<br />
+              MUNDO MOVIDO<br />
+              POR DADOS
+            </h1>
           </div>
-        </div>
-        <div class="div_conteinerBeneficio">
-          <img src="./assets/icon/escalabilidade (1) 1.png" alt="">
-          <div class="div_beneficiosTexto">
-            <h3>Escalabilidade</h3>
-            <p>À medida que sua empresa cresce, nossas soluções de ETL crescem com você, adaptado-se facilmente a novos
-              volumes de dados e fontes.</p>
-          </div>
-        </div>
-        <div class="div_conteinerBeneficio">
-          <img src="./assets/icon/reducao (1) 1.png" alt="">
-          <div class="div_beneficiosTexto">
-            <h3>Redução de custos</h3>
-            <p>Com processos otimizados e automatizados, você minimiza desperdicíos e maximiza o uso dos resursos.</p>
+          <div id="div_seta">
+            <img src="./assets/icon/setas_duplas.png" alt="" />
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="sobre_nos">
+    <section id="sitema_de_analise">
+      <div class="div_sistemaDeAnalise">
+        <div data-aos="fade-left" data-aos-duration="500" id="div_caixaTexto">
+          <h1>SISTEMA DE ANÁLISE</h1>
+          <p>
+            Nosso sistema de análise de voo é alimentado pelo<br />
+            formato mais moderno, dando acesso aos dados mais<br />
+            recentes disponíveis e permitindo que você se adapte<br />
+            com confiança às mudanças de voo à medida que elas<br />
+            acontecem.
+          </p>
+          <div id="div_saberMais">
+            <h3 class="amarelo">SABER MAIS</h3>
+            <img
+              src="./assets/icon/seta.png"
+              alt=""
+              width="15px"
+              height="15px"
+            />
+          </div>
+        </div>
+        <div id="div_caixaImagem">
+          <img src="./assets/imgs/analise_de_sistemas.png" alt="" />
+        </div>
+      </div>
+    </section>
+    <div class="elipse"></div>
+
+    <section id="beneficios">
+      <div class="div_beneficios">
+        <h1>BENEFÍCIOS</h1>
+        <div class="div_caixaBeneficio">
+          <div class="div_conteinerBeneficio">
+            <img src="./assets/icon/dados-criptografados 1.png" alt="" />
+            <div class="div_beneficiosTexto">
+              <h3>Integridade de Dados</h3>
+              <p>
+                Com nosso processo de ETL, você assegura que suas infomações
+                sejam precisas e consistentes.
+              </p>
+            </div>
+            S
+          </div>
+          <div class="div_conteinerBeneficio">
+            <img src="./assets/icon/eficiencia (1) 1.png" alt="" />
+            <div class="div_beneficiosTexto">
+              <h3>Eficiência Operacional</h3>
+              <p>
+                Automatize a coleta e o processamento de dados, reduzindo
+                significativamente o tempo e o esforço.
+              </p>
+            </div>
+          </div>
+          <div class="div_conteinerBeneficio">
+            <img src="./assets/icon/escalabilidade (1) 1.png" alt="" />
+            <div class="div_beneficiosTexto">
+              <h3>Escalabilidade</h3>
+              <p>
+                À medida que sua empresa cresce, nossas soluções de ETL crescem
+                com você, adaptado-se facilmente a novos volumes de dados e
+                fontes.
+              </p>
+            </div>
+          </div>
+          <div class="div_conteinerBeneficio">
+            <img src="./assets/icon/reducao (1) 1.png" alt="" />
+            <div class="div_beneficiosTexto">
+              <h3>Redução de custos</h3>
+              <p>
+                Com processos otimizados e automatizados, você minimiza
+                desperdicíos e maximiza o uso dos resursos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre_nos">
       <div class="div_sobre_nos">
         <h1>SOBRE NÓS</h1>
         <div class="quadradoSobre">
-          <img class="fundoSobreNos" src="assets/imgs/fundoSobreNos.png" alt="">
+          <img
+            class="fundoSobreNos"
+            src="assets/imgs/fundoSobreNos.png"
+            alt=""
+          />
           <div class="imgAlianza">
-            <p>A ALIANZA fornece soluções de ETL para companhias aéreas, transformando dados para otimizar operações e decisões. Nossa tecnologia avança e abordagem personalizada maximizam o valor das informações.</p>
-           <img src="assets/imgs/alianza.jpg" alt="">
+            <p>
+              A ALIANZA fornece soluções de ETL para companhias aéreas,
+              transformando dados para otimizar operações e decisões. Nossa
+              tecnologia avança e abordagem personalizada maximizam o valor das
+              informações.
+            </p>
+            <img src="assets/imgs/alianza.jpg" alt="" />
           </div>
-      
-        </div>
-
-      </div>
-  </section>
-
-
-  <section id="contato">
-    <div class="div_contato">
-      <br><br>
-      <div class="coluna1">
-      <h3>SOBRE: </h3>
-      <br>
-      <span>A ALIANZA é líder em soluções de ETL especializadas para o setor aéreo. Nossa missão é transformar dados em insights valiosos para otimizar operações e apoiar decisões estratégicas.</span>
-      <div class="redesSociais">
-      <img src="assets/imgs/face.png" alt=""><img src="assets/imgs/x.png" alt=""><img src="assets/imgs/instagram.png" alt=""><img src="assets/imgs/youtube.png" alt=""> </div></div>
-
-      <div class="coluna2">
-        <h3>ENDEREÇO:</h3>
-        <div class="imgTexto">
-          <div class="alinhamento">
-          <img src="assets/imgs/ponteiro.png" alt=""> <span>Rua Haddock Lobo 595</span> </div>
-          <div class="alinhamento">
-          <img src="assets/imgs/telefone.png" alt=""> <span>(11)94115-6437 </span></div>
-          <div class="alinhamento">
-          <img src="assets/imgs/email.png" alt=""> <span>alianza@sptech.school</span></div>
         </div>
       </div>
-      <div class="coluna3">
-        <h3>CONTATE-NOS:</h3>
-        <div class="form">
-          <span >Email *</span>
-          <input class="inputEmail" type="text">
-          <span>Mensagem *</span>
-          <input class="inputMsg" type="text">
-          <button>Enviar</button>
+    </section>
+
+    <section id="contato">
+      <div class="div_contato">
+        <br /><br />
+        <div class="coluna1">
+          <h3>SOBRE:</h3>
+          <br />
+          <span
+            >A ALIANZA é líder em soluções de ETL especializadas para o setor
+            aéreo. Nossa missão é transformar dados em insights valiosos para
+            otimizar operações e apoiar decisões estratégicas.</span
+          >
+          <div class="redesSociais">
+            <img src="assets/imgs/face.png" alt="" /><img
+              src="assets/imgs/x.png"
+              alt=""
+            /><img src="assets/imgs/instagram.png" alt="" /><img
+              src="assets/imgs/youtube.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="coluna2">
+          <h3>ENDEREÇO:</h3>
+          <div class="imgTexto">
+            <div class="alinhamento">
+              <img src="assets/imgs/ponteiro.png" alt="" />
+              <span>Rua Haddock Lobo 595</span>
+            </div>
+            <div class="alinhamento">
+              <img src="assets/imgs/telefone.png" alt="" />
+              <span>(11)94115-6437 </span>
+            </div>
+            <div class="alinhamento">
+              <img src="assets/imgs/email.png" alt="" />
+              <span>alianza@sptech.school</span>
+            </div>
+          </div>
+        </div>
+        <div class="coluna3">
+          <h3>CONTATE-NOS:</h3>
+          <div class="form">
+            <span>Email *</span>
+            <input class="inputEmail" type="text" />
+            <span>Mensagem *</span>
+            <input class="inputMsg" type="text" />
+            <button>Enviar</button>
+          </div>
         </div>
       </div>
-    </div>
-
-
-  </section>
-
-</body>
-
+    </section>
+  </body>
 </html>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
