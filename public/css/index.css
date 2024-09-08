@@ -7,6 +7,7 @@
 
 html,
 body {
+
   background-repeat: no-repeat;
   background-size: 100%;
   font-family: "Arimo", sans-serif;
@@ -219,6 +220,8 @@ nav img {
   text-decoration-color: #ffcb13;
 }
 
+
+
 .div_sistemaDeAnalise {
   margin-top: 14vh;
   padding-top: 21vh;
@@ -272,7 +275,7 @@ nav img {
   height: 90vh;
   width: 100%;
   z-index: 2;
-  background-color: #06050d;
+  background-color: #06050D;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -322,7 +325,7 @@ nav img {
 #sobre_nos {
   background-image: url(assets/imgs/fundoSobreNos.png);
   width: 100vw;
-  height: 100% !important;
+  height: 120vh;
 }
 
 .div_sobre_nos h1 {
@@ -332,15 +335,14 @@ nav img {
 }
 
 .div_sobre_nos {
-  height: auto !important;
+  height: 120vh;
   width: 100%;
   z-index: 2;
-  background-color: #06050d;
+  background-color: #06050D;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 2rem;
 }
 
 .div_sobre_nos h1 {
@@ -363,12 +365,11 @@ nav img {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #17141d;
+  background-color: #17141D;
   display: flex;
   align-items: center;
   gap: 6vh;
 }
-
 
 .imgAlianza img {
   width: 70%;
@@ -385,7 +386,9 @@ nav img {
   transform: translate(-50%, -50%);
   width: 161%;
   height: 29vh;
+
 }
+
 
 .vector-img3 {
   position: absolute;
@@ -410,11 +413,12 @@ nav img {
 .div_contato h3 {
   font-size: 18pt;
   text-decoration: underline;
-  text-decoration-color: #af8902;
+  text-decoration-color: #AF8902;
   margin: 0;
 }
 
 .coluna1 {
+
   display: flex;
   flex-direction: column;
   height: 35vh;
@@ -434,8 +438,6 @@ nav img {
   gap: 2vh;
   margin-top: 3vh;
 }
-
-
 
 .coluna2 {
   display: flex;
@@ -457,18 +459,20 @@ nav img {
   gap: 2.5vh;
 }
 
+
+
 .coluna3 {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  gap: 10px;
+  height: 35vh;
+  width: 17vw;
 }
 
 .form {
   display: flex;
   gap: 1.5vh;
   flex-direction: column;
-  margin: 0 !important;
+  margin-top: 2vh;
 }
 
 .form input {
@@ -482,8 +486,8 @@ nav img {
 }
 
 .form button {
-  width: 100%;
-  background-color: #af8902;
+  width: 21vw;
+  background-color: #AF8902;
   height: 5vh;
   color: white;
   cursor: pointer;
@@ -500,11 +504,6 @@ nav img {
   gap: 1.5vh;
 }
 
-.alinhamento img, .redesSociais{
-  width: 35px;
-  height: 35px;
-  filter: invert(0.5);
-}
 
 .fundoSobreNos {
   position: absolute;
@@ -518,9 +517,8 @@ nav img {
   margin-left: 3vh;
 }
 
-@media (max-width: 600px) {
-  body {
-  }
+@media (max-width:600px) {
+  body {}
 
   .nav {
     display: none;
@@ -614,7 +612,7 @@ nav img {
     height: fit-content;
     width: 100%;
     z-index: 2;
-    background-color: #06050d;
+    background-color: #06050D;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -637,15 +635,14 @@ nav img {
   }
 
   .div_sobre_nos {
-    height: auto;
+    height: 120vh;
     width: 100%;
     z-index: 2;
-    background-color: #06050d;
+    background-color: #06050D;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-bottom: 2rem;
   }
 
   .imgAlianza p {
@@ -655,8 +652,8 @@ nav img {
   }
 
   .imgAlianza img {
-    width: 60vw;
-    height: auto !important;
+    width: 70vw;
+    height: 80vh;
     object-fit: cover;
     margin-right: 0;
     border-radius: 15px;
@@ -691,7 +688,7 @@ nav img {
     margin-top: 2vh;
     align-items: flex-start;
     margin-left: 2vh;
-  }
+}
 
   .form input {
     background-color: #565656;
@@ -701,10 +698,10 @@ nav img {
 
   .form button {
     width: 52vw;
-    background-color: #af8902;
+    background-color: #AF8902;
     height: 5vh;
     color: white;
     cursor: pointer;
     font-size: 1.2rem;
-  }
+}
 }

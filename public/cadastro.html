@@ -27,17 +27,17 @@
         <div class="align">
           <div class="credenciais">
             <p>Email</p>
-            <input type="email" class="input"/>
+            <input type="email" id="input_email" class="input"/>
           </div>
 
           <div class="credenciais">
             <p>Senha</p>
-            <input type="password" class="input"/>
+            <input type="password" id="input_senha" class="input"/>
           </div>
 
           <div class="credenciais">
             <p>Confirmação de Senha</p>
-            <input type="password" class="input"/>
+            <input type="password" id="input_confirmar" class="input"/>
           </div>
 
 
@@ -45,7 +45,7 @@
 
         <div class="align start">
           <div class="botao">
-            <p>Criar Conta</p>
+            <button onclick="CriarConta()" class="buttonCriar">Criar Conta</button>
           </div>
           <b
             >Já possui uma conta na
@@ -58,6 +58,30 @@
 </html>
 
 <script>
+
+
+
+function CriarConta() {
+
+  const emailUser = input_email.value 
+  const senhaUser = input_senha.value
+  const confirmarSenha = input_confirmar.value 
+
+
+  if(emailUser.includes('@')  && senhaUser.length>7 && confirmarSenha==senhaUser) {
+    alert(`Conta criado com sucesso!`)
+    window.location.href='login.html'
+  }
+
+  else {
+    
+    alert(`Conta negada!`)
+  }
+
+
+}
+
+
   // // Array para armazenar empresas cadastradas para validação de código de ativação
   // let listaEmpresasCadastradas = [];
 
