@@ -111,3 +111,10 @@
   }
 
 }
+
+.buttonEntrar{ 
+  color: black;
+  background-color: #ffcb13;
+  font-size: 18px;
+  cursor: pointer;
+}

@@ -26,17 +26,17 @@
             <div class="align">
                 <div class="credenciais">
                     <p>Email</p>
-                    <input type="email" class="input">
+                    <input type="email" class="input" id="input_email">
                 </div>
                 <div class="credenciais">
                     <p>Senha</p>
-                    <input type="password" class="input">
+                    <input type="password" class="input" id="input_senha">
                 </div>
             </div>
 
             <div class="align start">
                 <div class="botao">
-                    <p>Entrar</p>
+                    <button onclick="login()" class="buttonEntrar">Entrar</button>
                 </div>
                 <b>Não possui uma conta na <a href="cadastro.html"><span class="alianza">ALIANZA?</span></a></b>
             </div>
@@ -50,6 +50,26 @@
 </html>
 
 <script>
+
+
+
+    function login() {
+
+
+         const emailUser = input_email.value
+         const senhaUser = input_senha.value 
+        if(emailUser=='moises@gmail.com' && senhaUser=='12345678') {
+
+            alert(`Logado com sucesso`)
+        window.location.href='index.html'
+    }
+
+
+        else {
+            alert(`Conta inexistente!`)
+        }
+
+    }
 
 
     function entrar() {
