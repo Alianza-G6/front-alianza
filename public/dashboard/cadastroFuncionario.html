@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard/pontualidadeAtrasos.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
-    <title>Dashboard - Alianza</title>
+    <title>Cadastro de Funcionários - Alianza</title>
 </head>
 
 <body>
@@ -24,12 +24,12 @@
                 <p>Olá, Usuário</p>
             </div>
             <ul>
-                <li><b><a href="./dashboard.html">Dashboard</a></b></li>
+                <li><a href="./dashboard.html">Dashboard</a></li>
                 <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li><b><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></b></li>
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html"><div id="caixa-config">
@@ -44,64 +44,12 @@
         <div id="div-nav">
             <div id="caixa-nav">
                 <img id="imgOpenMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
-                <h1>DASHBOARD</h1>
+                <h1>CADASTRO DE FUNCIONÁRIOS</h1>
             </div>
             <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
         </div>
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
 
-        <!-- Aqui começa as KPIs -->
-        <div id="div-kpis">
-            <div id="voos-pontuais" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Percentual de Voos Pontuais (%)</p>
-                </div>
-                <div class="info-kpi">
-                    <span>18</span>
-                </div>
-            </div>
-            <div id="voos-atrasados" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Percentual de Voos Atrasados (%)</p>
-                </div>
-                <div class="info-kpi">
-                    <span>50</span>
-                </div>
-            </div>
-            <div id="media-atraso" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Média de atraso por Voo (minutos)</p>
-                </div>
-                <div class="info-kpi">
-                    <span>26,5</span>
-                </div>
-            </div>
-            <div id="rotas-problematicas" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Número de Rotas Problemáticas</p>
-                </div>
-                <div class="info-kpi">
-                    <span>18</span>
-                </div>
-            </div>
-        </div>
-        <!-- Aqui termina as KPIs -->
-
-        <!-- Aqui inicia o gráfico -->
-        <div id="div-grafico">
-            <div id="grafico"></div>
-            <div id="info-grafico">
-                <div id="div-legenda-atrasos">
-                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
-                    <p>Atrasos</p>
-                </div>
-                <div id="div-legenda-pontuais">
-                    <div class="legenda-grafico" id="cor-legenda-pontuais"></div>
-                    <p>Pontualidades</p>
-                </div>
-            </div>
-        </div>
-        <!-- Aqui termina o gráfico -->
     </div>
 
     <script>

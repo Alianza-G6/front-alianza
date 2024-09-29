@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard/configuracoes.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
-    <title>Dashboard - Alianza</title>
+    <title>Configurações - Alianza</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                 <p>Olá, Usuário</p>
             </div>
             <ul>
-                <li><b><a href="./dashboard.html">Dashboard</a></b></li>
+                <li><a href="./dashboard.html">Dashboard</a></li>
                 <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
@@ -43,65 +43,50 @@
         <!-- Aqui começa a "navzinha" digamos assim, copie a partir daqui também-->
         <div id="div-nav">
             <div id="caixa-nav">
-                <img id="imgOpenMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
-                <h1>DASHBOARD</h1>
+                <img id="imgOpenMenu" class="imgMenu" src="../assets/imgs/configuracoes/menu.png" alt="">
+                <h1>CONFIGURAÇÕES</h1>
             </div>
             <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
         </div>
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
 
-        <!-- Aqui começa as KPIs -->
-        <div id="div-kpis">
-            <div id="voos-pontuais" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Percentual de Voos Pontuais (%)</p>
+        <div id="configuracoes">
+            <div id="opcoes-config">
+                <div class="opcoes" id="fonte">
+                    <p>Fonte</p>
+                    <div id="img-fonte">
+                        <img src="../assets/imgs/configuracoes/menos.png" alt="img-lupa-menos">
+                        <img src="../assets/imgs/configuracoes/mais.png" alt="img-lupa-mais">
+                    </div>
                 </div>
-                <div class="info-kpi">
-                    <span>18</span>
+                <div class="opcoes" id="editar-conta">
+                    <p>Editar Conta</p>
+                    <img src="../assets/imgs/configuracoes/editar.png" alt="img-lapis-editar">
+                </div>
+                <div class="opcoes" id="ajuda">
+                    <p>Ajuda</p>
+                    <img src="../assets/imgs/configuracoes/ajuda.png" alt="img-ajuda">
+                </div>
+                <div class="opcoes" id="feedback">
+                    <p>Feedback</p>
+                    <img src="../assets/imgs/configuracoes/feedback.png" alt="img-feedback">
+                </div>
+                <div class="opcoes" id="sair">
+                    <p>Sair</p>
+                    <img src="../assets/imgs/configuracoes/sair.png" alt="">
                 </div>
             </div>
-            <div id="voos-atrasados" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Percentual de Voos Atrasados (%)</p>
+            <div id="logo-config">
+                <div id="div-img-logo-black">
+                    <img src="../assets/imgs/configuracoes/logo-black.png" alt="img-logo-black">
                 </div>
-                <div class="info-kpi">
-                    <span>50</span>
-                </div>
-            </div>
-            <div id="media-atraso" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Média de atraso por Voo (minutos)</p>
-                </div>
-                <div class="info-kpi">
-                    <span>26,5</span>
-                </div>
-            </div>
-            <div id="rotas-problematicas" class="kpi">
-                <div class="titulo-kpi">
-                    <p>Número de Rotas Problemáticas</p>
-                </div>
-                <div class="info-kpi">
-                    <span>18</span>
+                <div id="copyright">
+                    <p>Alianza v1.10</p>
+                    <span>Copyright ©2024 Alianza. Todos os diretos reservados</span>
                 </div>
             </div>
         </div>
-        <!-- Aqui termina as KPIs -->
 
-        <!-- Aqui inicia o gráfico -->
-        <div id="div-grafico">
-            <div id="grafico"></div>
-            <div id="info-grafico">
-                <div id="div-legenda-atrasos">
-                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
-                    <p>Atrasos</p>
-                </div>
-                <div id="div-legenda-pontuais">
-                    <div class="legenda-grafico" id="cor-legenda-pontuais"></div>
-                    <p>Pontualidades</p>
-                </div>
-            </div>
-        </div>
-        <!-- Aqui termina o gráfico -->
     </div>
 
     <script>
