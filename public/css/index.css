@@ -124,12 +124,13 @@ nav a {
 }
 
 nav img {
-  height: 100px;
+  height: 5vw;
 }
 
 .nav_botao {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 #button_entrar {
@@ -530,7 +531,7 @@ nav img {
   }
 
   nav img {
-    height: 70px;
+    height: 30px;
   }
 
   nav {
