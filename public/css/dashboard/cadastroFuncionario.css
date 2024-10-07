@@ -203,7 +203,7 @@
     }
     
     .funcionario {
-        background-color: #FFCB13; 
+        background-color: #D9D9D9; 
         color: black;
         border-radius: 5px;
         text-align: center; 
@@ -217,11 +217,13 @@
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 29px;
-        background-color: #FFCB13;
+        background-color: #D9D9D9;
         color: black;
         padding: 15px;
         font-size: 1rem;
         font-weight: bold;
+        width: 45vw;
+        margin-left: 2vh;
         
        
     }

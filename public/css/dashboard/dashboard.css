@@ -140,7 +140,7 @@ body {
 }
 
 .kpi{
-    height: 32vh;
+    height: 25vh;
     width: 16vw;
     color: #000000;
     font-weight: bold;
@@ -174,8 +174,8 @@ body {
 }
 
 #grafico{
-    height: 40vh;
-    width: 40vw;
+    height: 50vh;
+    width: 50vw;
     background-color: #dbd0c8;
 }
 
