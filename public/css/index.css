@@ -130,6 +130,7 @@ nav img {
 .nav_botao {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 #button_entrar {
@@ -531,7 +532,9 @@ nav img {
   }
 
   nav img {
+
     height: 8vw;
+
   }
 
   nav {
