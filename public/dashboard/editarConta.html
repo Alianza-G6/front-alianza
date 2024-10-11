@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../css/editarConta.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container-principal">
+        <div class="right-side">
+
+        <div class="img-alianza">
+            <img src="../assets/imgs/configuracoes/logo-black.png" alt="">
+
+        </div>
+        <div id="copyright">''
+            <p>Alianza v1.10</p>
+            <span>Copyright ©2024 Alianza. Todos os diretos reservados</span>
+        </div>
+    </div>
+    <div class="container-gerenciar-conta"> 
+        
+        <h2>Gerenciar Conta</h2>
+     
+        <div class="alteracoes-conta">
+     
+        <div class="box-editar-email">
+            <h3>Alterar Email</h3>
+            <form id="editarEmailForm" class="editar-email-form">
+                <div class="form-group">
+                    <label for="novoEmail">Digite seu email atual:</label>
+                    <input type="email" id="emailAtual" name="emailAtual" placeholder="Digite seu email atual" required>
+                </div>
+                <div class="form-group">
+                    <label for="novoEmail">Novo Email:</label>
+                    <input type="email" id="novoEmail" name="novoEmail" placeholder="Digite seu novo email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="senhaAtualEmail">Senha Atual:</label>
+                    <input type="password" id="senhaAtualEmail" name="senhaAtualEmail" placeholder="Confirme sua senha atual" required>
+                </div>
+    
+                <button type="submit" class="btn-salvar">Salvar Email</button>
+            </form>
+        </div>
+    
+      
+        <div class="box-editar-senha">
+            <h3>Alterar Senha</h3>
+            <form id="editarSenhaForm" class="editar-senha-form">
+                <div class="form-group">
+                    <label for="novoEmail">Digite seu email atual:</label>
+                    <input type="email" id="emailAtual" name="emailAtual" placeholder="Digite seu email atual" required>
+                </div>
+                <div class="form-group">
+                    <label for="novaSenha">Nova Senha:</label>
+                    <input type="password" id="novaSenha" name="novaSenha" placeholder="Digite sua nova senha" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="senhaAtual">Senha Atual:</label>
+                    <input type="password" id="senhaAtual" name="senhaAtual" placeholder="Confirme sua senha atual" required>
+                </div>
+    
+                <button type="submit" class="btn-salvar">Salvar Senha</button>
+            </form>
+        </div></div>
+    
+        <hr>
+    
+    
+        <div class="excluir-conta">
+            <h3>Excluir Conta</h3>
+            <p>Excluir sua conta irá remover permanentemente todos os seus dados. Essa ação não pode ser desfeita.</p>
+            <button id="btnExcluirConta" class="btn-excluir">Excluir Conta</button>
+        </div>
+    </div>
+    
+</div>
+    
+</body>
+</html>
