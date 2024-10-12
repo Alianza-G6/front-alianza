@@ -28,10 +28,10 @@
      
         <div class="box-editar-email">
             <h3>Alterar Email</h3>
-            <form id="editarEmailForm" class="editar-email-form">
+            <form id="editarEmailForm" class="editar-email-form" onsubmit="return emailMudar()">
                 <div class="form-group">
                     <label for="novoEmail">Digite seu email atual:</label>
-                    <input type="email" id="emailAtual" name="emailAtual" placeholder="Digite seu email atual" required>
+                    <input type="email" id="trocarEmail" name="emailAtual" placeholder="Digite seu email atual" required>
                 </div>
                 <div class="form-group">
                     <label for="novoEmail">Novo Email:</label>
@@ -53,7 +53,7 @@
             <form id="editarSenhaForm" class="editar-senha-form">
                 <div class="form-group">
                     <label for="novoEmail">Digite seu email atual:</label>
-                    <input type="email" id="emailAtual" name="emailAtual" placeholder="Digite seu email atual" required>
+                    <input type="email" id="emailAtualTrocar" name="emailAtual" placeholder="Digite seu email atual" required>
                 </div>
                 <div class="form-group">
                     <label for="novaSenha">Nova Senha:</label>
@@ -83,3 +83,66 @@
     
 </body>
 </html>
+
+<script>
+
+
+function emailMudar() {
+        var emailVar = trocarEmail.value;
+        var senhaVar = senhaAtualEmail.value;
+        var emailNovo = novoEmail.value
+
+        if (emailVar == "" || senhaVar == "") {
+          
+            return false;
+        }
+        else {
+            console.log("FORM LOGIN: ", emailVar);
+            console.log("FORM SENHA: ", senhaVar);
+    
+            fetch("/usuarios/emailNovo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    emailNovoServer: emailNovo
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+    
+                if (resposta.ok) {
+                    console.log(resposta);
+                    
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                      
+                        sessionStorage.ID_USUARIO = json.id;
+    
+                
+    
+                    });
+    
+                } else {
+    
+                    console.log("Houve um erro ao tentar realizar o login!");
+    
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+    
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+    
+            return false;
+        }
+    }
+
+
+</script>
