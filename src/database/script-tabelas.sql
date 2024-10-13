@@ -1,62 +1,100 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE Alianza;
 
-/*
-comandos para mysql server
-*/
+USE Alianza;
 
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+-- Tabela que define tipos de empresas (ex.: Companhia Aérea, Aeroporto)
+CREATE TABLE tbTipoEmpresa (
+    idTipoEmpresa INT PRIMARY KEY,
+    tipo VARCHAR(45)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+-- Tabela de empresas, com relação ao tipo de empresa
+CREATE TABLE tbEmpresa (
+    idEmpresa INT PRIMARY KEY,
+    razaoSocial VARCHAR(45),
+    siglaICAO VARCHAR(3),
+    cnpj CHAR(14) UNIQUE,
+    fkTipoEmpresa INT,
+    FOREIGN KEY (fkTipoEmpresa) REFERENCES tbTipoEmpresa(idTipoEmpresa)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+-- Tabela que define tipos de usuários (ex.: administrador, operador)
+CREATE TABLE tbTipoUsuario (
+    idTipoUsuario INT PRIMARY KEY,
+    tipo VARCHAR(45)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+-- Tabela de usuários, com relação ao tipo de usuário e à empresa
+CREATE TABLE tbUsuario (
+    idUsuario INT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    CPF CHAR(11) NOT NULL UNIQUE,
+    Cargo VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL UNIQUE,
+    Senha VARCHAR(10) NOT NULL,
+    fkTipoUsuario INT,
+    fkEmpresa INT,
+    FOREIGN KEY (fkTipoUsuario) REFERENCES tbTipoUsuario(idTipoUsuario),
+    FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+-- Tabela de aeroportos
+CREATE TABLE tbAeroporto (
+    idAeroporto INT PRIMARY KEY,
+    nome VARCHAR(45),
+    siglaICAO VARCHAR(3)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+-- Tabela de companhias aéreas
+CREATE TABLE tbCompanhia (
+    idCompanhia INT PRIMARY KEY,
+    nome VARCHAR(45),
+    siglaICAO VARCHAR(3)
+);
+
+-- Tabela que define o status do voo
+CREATE TABLE tbStatusVoo (
+    idStatusVoo INT PRIMARY KEY,
+    status VARCHAR(20) NOT NULL
+);
+
+-- Tabela de voos
+CREATE TABLE voo (
+    idVoo INT PRIMARY KEY,
+    fkCompanhia INT,
+    FOREIGN KEY (fkCompanhia) REFERENCES tbCompanhia(idCompanhia),
+    numeroVoo VARCHAR(10),
+    fkAeroportoOrigem INT,
+    FOREIGN KEY (fkAeroportoOrigem) REFERENCES tbAeroporto(idAeroporto),
+    partidaPrevista DATETIME,
+    partidaReal DATETIME,
+    fkAeroportoDestino INT,
+    FOREIGN KEY (fkAeroportoDestino) REFERENCES tbAeroporto(idAeroporto),
+    chegadaPrevista DATETIME,
+    chegadaReal DATETIME,
+    fkStatusVoo INT,
+    FOREIGN KEY (fkStatusVoo) REFERENCES tbStatusVoo(idStatusVoo)
+);
+
+SELECT v.idVoo, 
+       c.nome AS Companhia, 
+       a1.nome AS AeroportoSaida, 
+       a2.nome AS AeroportoChegada, 
+       v.partidaPrevista, 
+       v.partidaReal, 
+       v.chegadaPrevista, 
+       v.chegadaReal, 
+       s.status AS SituacaoVoo
+FROM voo v
+JOIN tbCompanhia c ON v.fkCompanhia = c.idCompanhia
+JOIN tbAeroporto a1 ON v.fkAeroportoOrigem = a1.idAeroporto
+JOIN tbAeroporto a2 ON v.fkAeroportoDestino = a2.idAeroporto
+JOIN tbStatusVoo s ON v.fkStatusVoo = s.idStatusVoo;
+
+SELECT u.Nome AS Funcionario, 
+       u.Cargo, 
+       e.razaoSocial AS Empresa
+FROM tbUsuario u
+JOIN tbEmpresa e ON u.fkEmpresa = e.idEmpresa
+JOIN tbTipoEmpresa te ON e.fkTipoEmpresa = te.idTipoEmpresa
+WHERE te.tipo = 'Aeroporto';  -- Ou 'Companhia Aérea', dependendo do caso.
