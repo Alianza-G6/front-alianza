@@ -134,8 +134,7 @@
         width: 100vw;
         height: 85vh;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: row;
     }
 
     .formCadastro{
@@ -150,7 +149,7 @@
     .formCadastro span {
         font-size: 1.2rem;
     }
-    .infoFunc {
+    /* .infoFunc {
         width: 50%;
         height: 65vh;
         background-color: #A6A6A6;
@@ -158,15 +157,14 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-    }
+    } */
 
     .formCadastro input{
         background-color: #D9D9D9;
         width: 20vw;
         height: 7vh;
         border-radius: 10px;
-        border:none
-        
+        font-size: 2.5vh;
     }
 
     .inputForm{
@@ -213,7 +211,9 @@
             justify-content: center;   
     }
     
-    .dadosInformativos {
+
+    /* .dadosInformativos {
+
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 29px;
@@ -226,7 +226,9 @@
         margin-left: 2vh;
         
        
-    }
+
+    } */
+
 
     .container img {
         width: 2.4vw;
@@ -234,6 +236,91 @@
     }
     
 
-    .testNome{
+
+    /* .testNome{
         margin-left:2vh
+    } */
+
+
+
+    /* TESTEEEEEEEEEEEEE */
+    .funcionario_cadastrado {
+        height: 88vh;
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        background-color: #312c42;
+        align-items: center;
     }
+    
+    .funcionario_cadastrado h2 {
+        font-size: 25pt;    
+        font-weight: 400;
+    
+    }
+    
+    .funcionario {
+        background-color: #eceacd;
+        border-radius:10px;
+        height: 8vh;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    #div_lista_funcionarios{
+        gap: 30px;
+        width: 70%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+    
+    }
+    
+    #info_funcionario {
+        padding-top: 10px;
+        margin-left: 10px;
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    #info_funcionario p{
+        display: flex;
+        font-weight: 400;
+        font-size: 3vh;
+        margin: 0;
+    }
+    
+    #info_funcionario span{
+        font-weight: 400;
+        font-size:2.5vh ;
+        color: #1B1EE5F7;
+    
+    }
+    
+    
+    #img_editar {
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        height: 100%;
+        width: 20%;
+        background-color: bisque;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    
+    .funcionario img {
+        width: 4vw;
+        height: 8vh;
+    }
+    
