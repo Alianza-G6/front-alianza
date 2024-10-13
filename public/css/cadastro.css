@@ -36,13 +36,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 30%;
+  width: 35%;
   height: 80vh;
   border: 1px solid #ffcb13;
   background-color: #151515;
   border-radius: 10px;
   padding: 1.5rem;
-  gap: 3rem;
+
 }
 
 .align {
@@ -62,7 +62,7 @@
 .credenciais {
   width: 80%;
   gap: 3rem;
-  height: 100px;
+  height: 60px;
 }
 
 .input {
@@ -78,9 +78,37 @@
 }
 
 .align.start {
-  align-items: end;
+  align-items: center;
   width: 80%;
+  margin-top: 6vh;
 }
+
+.selects{
+  display: flex;
+    gap: 15rem;
+    margin-top: 3vh;
+}
+
+.selectUser{
+ width: auto;
+  height:auto;
+  border: 2px solid #ffcb13;
+  margin-top: 8px;
+  background-color: #151515;
+  padding: 8px;
+}
+
+.selectCompania{
+  width: auto;
+  height: auto;
+  border: 2px solid #ffcb13;
+  margin-top: 8px;
+  background-color: #151515;
+  padding: 8px;
+  overflow: scroll;
+}
+
+
 h1 {
   height: 100px;
 }
@@ -95,6 +123,12 @@ h1 {
   font-size: 16px;
   padding: 0.5rem;
   border-radius: 5px;
+}
+
+.formCadastro{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .buttonCriar {

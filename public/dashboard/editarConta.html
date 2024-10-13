@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../css/editarConta.css">
+    <title>Document</title>
+    
+</head>
+<body>
+
+    <div class="container-principal">
+        <div class="right-side">
+
+        <div class="img-alianza">
+            <img src="../assets/imgs/configuracoes/logo-black.png" alt="">
+
+        </div>
+        <div id="copyright">''
+            <p>Alianza v1.10</p>
+            <span>Copyright ©2024 Alianza. Todos os diretos reservados</span>
+        </div>
+    </div>
+    <div class="container-gerenciar-conta"> 
+        
+        <h2>Gerenciar Conta</h2>
+     
+        <div class="alteracoes-conta">
+     
+        <div class="box-editar-email">
+            <h3>Alterar Email</h3>
+            <form id="editarEmailForm" class="editar-email-form" onsubmit="return emailMudar()">
+                <div class="form-group">
+                    <label for="novoEmail">Digite seu email atual:</label>
+                    <input type="email" id="trocarEmail" name="emailAtual" placeholder="Digite seu email atual" required>
+                </div>
+                <div class="form-group">
+                    <label for="novoEmail">Novo Email:</label>
+                    <input type="email" id="novoEmail" name="novoEmail" placeholder="Digite seu novo email" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="senhaAtualEmail">Senha Atual:</label>
+                    <input type="password" id="senhaAtualEmail" name="senhaAtualEmail" placeholder="Confirme sua senha atual" required>
+                </div>
+    
+                <button type="submit" class="btn-salvar">Alterar Email</button>
+            </form>
+        </div>
+    
+      
+        <div class="box-editar-senha">
+            <h3>Alterar Senha</h3>
+            <form id="editarSenhaForm" class="editar-senha-form" onsubmit="return mudarSenha(event)">
+                <div class="form-group">
+                    <label for="novoEmail">Digite seu email atual:</label>
+                    <input type="email" id="emailAtualTrocar" name="emailAtual" placeholder="Digite seu email atual" required>
+                </div>
+                <div class="form-group">
+                    <label for="novaSenha">Nova Senha:</label>
+                    <input type="password" id="novaSenha" name="novaSenha" placeholder="Digite sua nova senha" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="senhaAtual">Senha Atual:</label>
+                    <input type="password" id="senhaAtual" name="senhaAtual" placeholder="Confirme sua senha atual" required>
+                </div>
+    
+                <button type="submit" class="btn-salvar">Alterar Senha</button>
+            </form>
+        </div></div>
+    
+        <hr>
+    
+        <div class="excluir-conta">
+            <h3>Excluir Conta</h3>
+            <p>Excluir sua conta irá remover permanentemente todos os seus dados. Essa ação não pode ser desfeita.</p>
+            <button id="btnExcluirConta" class="btn-excluir">Excluir Conta</button>
+        </div>
+
+        <div id="modalExcluirConta" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Confirmar Exclusão de Conta</h3>
+                <form id="excluirContaForm" onsubmit="return deletarConta()">
+                    <div class="form-group">
+                        <label for="emailExcluir">Digite seu Email:</label>
+                        <input type="email" id="emailExcluir" placeholder="Digite seu email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senhaExcluir">Senha:</label>
+                        <input type="password" id="senhaExcluir"  placeholder="Digite sua senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarSenhaExcluir">Confirmar Senha:</label>
+                        <input type="password" id="confirmarSenhaExcluir" placeholder="Confirme sua senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="motivoExcluir">Motivo da Exclusão:</label>
+                        <textarea id="motivoExcluir"  placeholder="Explique o motivo para excluir sua conta" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-excluir">Confirmar Exclusão</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>
+    
+</body>
+</html>
+
+<script>
+    var modal = document.getElementById("modalExcluirConta");
+    var btnExcluirConta = document.getElementById("btnExcluirConta");
+    var span = document.getElementsByClassName("close")[0];
+
+    btnExcluirConta.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+    function deletarConta() {
+        var emailVar = emailExcluir.value;
+        var senhaVar = senhaExcluir.value;
+        var confirmarSenhaVar = confirmarSenhaExcluir.value
+        if(senhaVar != confirmarSenhaVar) {
+            return false;
+            alert('senhas não são iguais')
+        }
+
+        if (emailVar == "" || senhaVar == "") {
+          
+            return false;
+        }
+        else {
+            console.log("FORM LOGIN: ", emailVar);
+            console.log("FORM SENHA: ", senhaVar);
+    
+            fetch("/usuarios/deletarConta", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                   
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO deletarConta()!")
+    
+                if (resposta.ok) {
+                    console.log(resposta);
+                    
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                      
+                        sessionStorage.ID_USUARIO = json.id;
+    
+                        
+                    });
+                    
+    
+                } else {
+    
+            
+    
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                     
+                    });
+                    alert(`Email ou senha incorretos!`)
+                }
+    
+            }).catch(function (erro) {
+                console.log(erro);
+                alert(`Ocorreu um erro ao tentar deletar conta.`)
+            })
+    
+            return false;
+        }
+    }
+
+function emailMudar() {
+        var emailVar = trocarEmail.value;
+        var senhaVar = senhaAtualEmail.value;
+        var emailNovo = novoEmail.value
+
+        if (emailVar == "" || senhaVar == "") {
+          
+            return false;
+        }
+        else {
+            console.log("FORM LOGIN: ", emailVar);
+            console.log("FORM SENHA: ", senhaVar);
+    
+            fetch("/usuarios/emailNovo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    emailNovoServer: emailNovo
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO emailMudar()!")
+    
+                if (resposta.ok) {
+                    console.log(resposta);
+                        
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                      
+                        sessionStorage.ID_USUARIO = json.id;
+                    alert(`Email alterado`)
+                    location.href='../login.html'
+    
+                    });
+                    
+    
+                } else {
+    
+            
+    
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                     
+                    });
+                    alert(`Email ou senha incorretos!`)
+                }
+    
+            }).catch(function (erro) {
+                console.log(erro);
+                alert(`Ocorreu um erro ao tentar mudar o e-mail.`)
+            })
+    
+            return false;
+        }
+    }
+
+    function mudarSenha(event){
+
+            event.preventDefault()
+  
+        var emailVar = emailAtualTrocar.value;
+        var senhaVar = senhaAtual.value;
+        var senhaNovaVar = novaSenha.value
+
+        if (emailVar == "" || senhaVar == "") {
+          
+            return false;
+        }
+        else {
+            console.log("FORM LOGIN: ", emailVar);
+            console.log("FORM SENHA: ", senhaVar);
+    
+            fetch("/usuarios/senhaNova", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    senhaNovaServer: senhaNovaVar
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO mudarSenha()!")
+    
+                if (resposta.ok) {
+                    console.log(resposta);
+                    
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                      
+                        sessionStorage.ID_USUARIO = json.id;
+    
+    
+                    });
+                    
+    
+                } else {
+    
+            
+    
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                     
+                    });
+                    alert(`Email ou senha incorretos!`)
+                }
+    
+            }).catch(function (erro) {
+                console.log(erro);
+                alert(`Ocorreu um erro ao tentar mudar o e-mail.`)
+            })
+    
+            return false;
+        }
+    }
+
+
+</script>

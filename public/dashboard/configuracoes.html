@@ -59,7 +59,7 @@
                         <img src="../assets/imgs/configuracoes/mais.png" alt="img-lupa-mais">
                     </div>
                 </div>
-                <div class="opcoes" id="editar-conta">
+                <div onclick="editarConta()" class="opcoes" id="editar-conta">
                     <p>Editar Conta</p>
                     <img src="../assets/imgs/configuracoes/editar.png" alt="img-lapis-editar">
                 </div>
@@ -90,6 +90,12 @@
     </div>
 
     <script>
+
+        function editarConta() {
+            window.location="editarConta.html"
+        }
+
+
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');

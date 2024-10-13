@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Conversa</title>
+  <style>
+    /* Estiliza o corpo da página */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Container geral da conversa */
+    .chat-container {
+      width: 90%;
+      max-width: 600px;
+      height: 80vh;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Área de mensagens */
+    .chat-box {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px; /* Espaço entre mensagens */
+    }
+
+    /* Estiliza cada mensagem */
+    .message {
+      max-width: 70%;  /* Limite de largura */
+      padding: 10px;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+
+    /* Estilos para perguntas do usuário (à direita) */
+    .sent {
+      background-color: #d1e7dd;
+      align-self: flex-end; /* Alinha à direita */
+    }
+
+    /* Estilos para respostas recebidas (à esquerda) */
+    .received {
+      background-color: #f8d7da;
+      align-self: flex-start; /* Alinha à esquerda */
+    }
+
+    /* Caixa de entrada para nova mensagem */
+    .input-box {
+      display: flex;
+      padding: 10px;
+      background-color: #e9ecef;
+    }
+
+    .input-box input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .input-box button {
+      padding: 10px 20px;
+      background-color: #0d6efd;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .input-box button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-box">
+      <div class="message sent">Oi lo!</div>
+      <div class="message received">Olá! Tudo bem?</div>
+      <div class="message sent">Estou bem, e você?</div>
+      <div class="message received">Também estou bem, valeu! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, itaque consectetur impedit deleniti assumenda minus sapiente, et suscipit cumque odit voluptate. Molestias similique non laborum veniam neque temporibus iusto suscipit. 😊</div>
+    </div>
+    <div class="input-box">
+      <input type="text" placeholder="Digite uma mensagem...">
+      <button>Enviar</button>
+    </div>
+  </div>
+
+</body>
+</html>

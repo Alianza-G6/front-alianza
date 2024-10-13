@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/pontualidadeAtrasos.css">
+    <link rel="stylesheet" href="../css/dashboard/performanceOperacional.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
@@ -32,10 +32,12 @@
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
             </ul>
             <div id="div-configuracao">
-                <a href="./configuracoes.html"><div id="caixa-config">
-                    <img src="../assets/imgs/image 9.png" alt="">
-                    <p><b>Configurações</b></p>
-                </div></a>
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- Aqui o menu acaba, copie até aqui -->
@@ -49,6 +51,89 @@
             <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
         </div>
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
+
+        <div class="procuraVoo">
+            <div class="pesquisa">
+                <input type="text" placeholder="            ID VOO" class="barraPesquisa">
+                <img src="../assets/imgs/lupaPesquisa.png" class="LupaPesquisa" alt="">
+            </div>
+            <div class="data">
+                <span>Data:</span>
+                <input class="inputDate" type="date">
+            </div>
+            <div class="Aeroporto">
+                <span>Aeroporto:</span>
+                <select id="escolhaVoo">
+                    <option value="1">GRU</option>
+                    <option value="2">RJ</option>
+                    <option value="3">POA</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="sessionKPI">
+            <div class="horarios">
+            
+                <div class="horarioSaida">
+                    <span class="titulo">Horário de saída</span>
+                    <div class="quadrados">
+                        <div class="HorarioPrevisto">
+                            <span>Previsto:</span>
+                            <div class="kpiHorario">3:33</div>
+                        </div>
+                        <div class="HorarioReal">
+                            <span>Real:</span>
+                            <div class="kpiHorario">3:45</div>
+                        </div>
+                    </div>
+                </div>
+            
+            
+                <div class="horarioChegada">
+                    <span class="titulo">Horário de chegada</span>
+                    <div class="quadrados">
+                        <div class="HorarioPrevisto">
+                            <span>Previsto:</span>
+                            <div class="kpiHorario">6:00</div>
+                        </div>
+                        <div class="HorarioReal">
+                            <span>Real:</span>
+                            <div class="kpiHorario">6:20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="statusAeroporto">
+                
+                <div class="quadradosAeroporto">
+                    <div class="aeroportoOrigem">
+                        <span class="tituloAeroporto">Aeroporto de origem:</span>
+                        <div class="kpiAeroporto">SP-GRU</div>
+                    </div>
+                    <div class="aeroportoDestino">
+                        <span class="tituloAeroporto">Aeroporto de destino:</span>
+                        <div class="kpiAeroporto">POA-RS</div>
+                    </div>
+                </div>
+                    
+                    <h1 class="statusVooTitulo">Status do voo:</h1>
+                    <img class="alertActually" src="../assets/imgs/imgAlertGreen.png" alt="">
+               
+
+                <div class="alertsVoo">
+                    <img src="../assets/imgs/imgAlertGreen.png" alt="">
+                    <h5>Realizado Pontualmente</h5>
+                    <img src="../assets/imgs/imgAlertYellow.png" alt="">
+                    <h5>Atrasado</h5>
+                    <img src="../assets/imgs/imgAlertRed.png" alt="">
+                    <h5>Cancelado</h5>
+                </div>
+            </div>
+        </div>
 
     </div>
 

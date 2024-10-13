@@ -36,6 +36,7 @@ body {
 
 #menu ul li {
     margin: 25px 0;
+    cursor: pointer;
 }
 
 #imgCloseButton img{
@@ -58,6 +59,7 @@ body {
 
 .imgMenu{
     height: 7vh;
+    cursor: pointer;
 }
 
 #imgLogo{
@@ -105,7 +107,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 1.5vw;
-
+    cursor: pointer;
 }
 
 #div-nav{
@@ -115,6 +117,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: 0px 30px 0px 25px;
+   
 }
 
 #caixa-nav{
@@ -128,179 +131,102 @@ body {
 #caixa-nav h1{
     font-size: 15pt;
 }
+
 /* ...Aqui, para pegar o menu e a "navzinha" */
-
-.procuraVoo {
+.div-select-ano {
+    height: 5vh;
     display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
-    justify-content: space-evenly;
-    height: 10vh;
-    margin-right: 9vh;
-   
+    gap: 1vw;
+    margin: 1vw 6.4vw 0vw 6.4vw;
 }
 
-.barraPesquisa {
-    width: 20vw;
-    border-radius: 13px;
-    height: 4vh;
-}
-
-.pesquisa {
+.select-wrapper {
     position: relative;
-    display: inline-block;
+    width: 5vw;
 }
 
-.barraPesquisa {
-    width: 22vw;
-    padding-right: 30px;
+.select-ano {
+    width: 100%;
+    height: 4vh;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    padding-right: 20px; /* Para dar espaço ao ícone */
 }
 
-.LupaPesquisa {
+/* Adicionando o ícone de seta no select */
+.select-wrapper::after {
+    content: '\1F87B'; /* Triângulo para o ícone */
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px; 
-    height: 20px;
-    pointer-events: none; 
+    pointer-events: none;
+    font-size: 12px;
+    color: #333;
 }
 
-.inputDate {
-    height: 3.5vh;
-}
 
-#escolhaVoo {
-    height: 3.5vh;
-}
-
-.data{
-    display: flex;
-    gap: 2.5vh;
-}
-
-.Aeroporto{
-    display: flex;
-    gap: 2.5vh;
-}
-
-.sessionKPI{
-    height: 77vh;
+#container{
+    height: 80vh;
     width: 100vw;
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.statusAeroporto{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-}
-
-.Horarios{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-}
-
-
-.textHorarios {
-    display: flex;
-    justify-content: center;
-}
-
-.horarioSaida{
-    display: flex;
-    gap: 15vh;
-
-}
-
-.kpiHorarios {
-    display: flex;
-    flex-direction: column;
-    gap: 3vh;
-}
-
-.horarios {
-    display: flex;
-    flex-direction: column;
-    gap:10vh; 
-}
-
-.horarioSaida, .horarioChegada {
-    display: flex;
-    flex-direction: column;
-    gap: 3vh; 
-}
-
-.quadrados, .quadradosAeroporto {
-    display: flex;
-    gap: 15vh;
-    
-}
-
-.quadradosAeroporto{
-    margin-top: 12vh;
-}
-
-.HorarioPrevisto, .HorarioReal {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-}
-
-.kpiHorario, .kpiAeroporto {
-    width: 15vw;
-    height: 15vh;
-    background-color: #D9D9D9;
-    border-radius: 5px;
-    display: flex;
-    color: black;
-    font-size: 1.5rem;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
 }
 
-.titulo{
+.coluna{
+    height: 35vh;
+    width: 100vw;
+    height: 45%;
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    font-size: 1.4rem;
+    align-items: center;
+    gap: 2.5vw;
 }
 
-.tituloAeroporto {
+.caixa{
+    height: 27vh;
+    width: 12.5vw;
+    border-radius: 20px;
+    background-color: #d9d9d9;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
-.statusVoo {
+
+.h1{
+    height: 7vh;
+}
+
+.h1 h1{
+    font-size: 1.5vw;
+    color: #06050d;
+    font-weight: bolder;
+}
+
+.caixa-img-relatorio{
+    height: 20vh;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
 }
 
-.statusVoo img{
-    width: 9vw;
-    margin-top: 2vh;
+.caixa-img-relatorio img{
+    height: 10vh;
 }
 
-.statusVoo h1 {
-    margin: 0;
-    margin-top: 1px;
-}
-
-.alertActually {
-    width: 8vw;
-    margin-bottom: 3vh;
-}
-
-.alertsVoo img {
-    width: 4vw;
-}
-
-.alertsVoo{
-    display: flex;
-    gap: 5vh;
-}
