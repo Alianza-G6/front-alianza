@@ -64,12 +64,12 @@
 
           <div class="select" >
             <p>Tipo usuário</p>
-            <select class="selectUser">
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
+            <select class="selectUser" id="tipoUsuario">
+              
+              <option value="1">Administrador</option>
+              <option value="2">Gerente</option>
+              <option value="3">Analista</option>
+           
             </select>
           </div></div>
 
@@ -98,6 +98,7 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = input_confirmar.value;
+    var tipoUser  = tipoUsuario.value
   
 
     // Verificando se há algum campo em branco
@@ -128,6 +129,7 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
+        tipoUserServer: tipoUser
        
       }),
     })
