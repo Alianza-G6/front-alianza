@@ -50,14 +50,38 @@
           </div>
           <div class="selects">
           <div class="select" >
-            <p>Companhia Aréa</p>
-            <select  class="selectCompania">
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
+            <p>Companhia Aérea</p>
+            <select  class="selectCompania" id="siglaCompanhia">
+              <option value="100">ABJ</option>
+              <option value="101">ABZ</option>
+              <option value="102">AMG</option>
+              <option value="103">AZU</option>
+              <option value="104">BCA</option>
+              <option value="105">BET</option>
+              <option value="106">BLC</option>
+              <option value="107">BRB</option>
+              <option value="108">ITI</option>
+              <option value="109">ITM</option>
+              <option value="110">ITB</option>
+              <option value="111">GLO</option>
+              <option value="112">PAM</option>
+              <option value="113">PEP</option>
+              <option value="114">PLY</option>
+              <option value="115">PTB</option>
+              <option value="116">PTN</option>
+              <option value="117">RIO</option>
+              <option value="118">RLE</option>
+              <option value="119">SBA</option>
+              <option value="120">SKC</option>
+              <option value="121">SLX</option>
+              <option value="122">SUL</option>
+              <option value="123">TAM</option>
+              <option value="124">TBA</option>
+              <option value="125">TSD</option>
+              <option value="126">TTL</option>
+              <option value="127">TUS</option>
+              <option value="128">TVJ</option>
+              
            
             </select>
           </div>
@@ -99,6 +123,7 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = input_confirmar.value;
     var tipoUser  = tipoUsuario.value
+    var companhia = siglaCompanhia.value
   
 
     // Verificando se há algum campo em branco
@@ -129,7 +154,8 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        tipoUserServer: tipoUser
+        tipoUserServer: tipoUser,
+        siglaCompanhiaServer:companhia
        
       }),
     })
