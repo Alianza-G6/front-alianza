@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/pontualidadeAtrasos.css">
+    <link rel="stylesheet" href="../css/dashboard/sugestoesGemini.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
@@ -25,17 +25,19 @@
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><b><a href="./sugestoesGemini.html">Sugestões Gemini</a></b></li>
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
             </ul>
             <div id="div-configuracao">
-                <a href="./configuracoes.html"><div id="caixa-config">
-                    <img src="../assets/imgs/image 9.png" alt="">
-                    <p><b>Configurações</b></p>
-                </div></a>
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- Aqui o menu acaba, copie até aqui -->
@@ -49,7 +51,29 @@
             <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
         </div>
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
+        <div id="container">
+            <div id="caixa-gemini">
+                <div class="conversa-gemini" id="pergunta-exemplo">
+                    <p>Qual voo mais atrasa?</p>
+                </div>
+                <div class="conversa-gemini" id="resposta-exemplo">
+                    <p>De acordo com os dados, o voo que mais atrasa é o voo com saída do Aeroporto de Guarulhos para o
+                        Aeroporto de Manaus. Foram registrados 10 atrasos durante o período de um mês.</p>
+                </div>
+            </div>
 
+            <div id="pergunta-gemini">
+                <input type="text" placeholder="Faça uma pergunta ou utilize um prompt" id="input-pergunta">
+                <img src="../assets/icon/seta-circulada.png" alt="Enviar" id="btn-sugestoes">
+
+                <!-- Caixa de Sugestões -->
+                <div id="caixa-sugestoes">
+                    <div class="sugestao">Quais aeroportos mais atrasam?</div>
+                    <div class="sugestao">Quais companhias têm mais atrasos?</div>
+                    <div class="sugestao">Qual o voo mais pontual?</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -70,6 +94,76 @@
                 menu.classList.remove('open');
             }
         });
+
+
+        // Elementos do DOM
+        const btnSugestoes = document.getElementById('btn-sugestoes');
+        const caixaSugestoes = document.getElementById('caixa-sugestoes');
+        const inputPergunta = document.getElementById('input-pergunta');
+        const sugestoes = document.querySelectorAll('.sugestao');
+
+        // Alterna a exibição da caixa de sugestões
+        btnSugestoes.addEventListener('click', () => {
+            caixaSugestoes.style.display =
+                caixaSugestoes.style.display === 'none' ? 'flex' : 'none';
+        });
+
+        // Adiciona o texto da sugestão ao input quando clicada
+        sugestoes.forEach(sugestao => {
+            sugestao.addEventListener('click', () => {
+                inputPergunta.value = sugestao.textContent;
+                caixaSugestoes.style.display = 'none';
+            });
+        });
+
+        // Função para enviar mensagens
+        function enviarMensagem() {
+            const inputField = document.getElementById('pergunta-gemini').querySelector('input');
+            const mensagemTexto = inputField.value.trim();
+
+            if (mensagemTexto) {
+                adicionarMensagem(mensagemTexto, 'pergunta');
+                inputField.value = ''; // Limpa o campo de entrada
+
+                // Simulação de resposta
+                setTimeout(() => {
+                    const respostaTexto = "Esta é uma resposta simulada."; // Aqui você pode integrar com uma IA ou lógica
+                    adicionarMensagem(respostaTexto, 'resposta');
+                }, 1000);
+            }
+        }
+
+        // Função para adicionar mensagens à caixa de conversas
+        function adicionarMensagem(textoMensagem, tipoMensagem) {
+            const caixaConversas = document.getElementById('caixa-gemini');
+
+            const novaMensagemElement = document.createElement('div');
+            novaMensagemElement.classList.add('conversa-gemini');
+
+            if (tipoMensagem === 'pergunta') {
+                novaMensagemElement.id = 'pergunta-exemplo';
+                novaMensagemElement.textContent = textoMensagem;
+                novaMensagemElement.classList.add('pergunta'); // Adiciona classe para diferenciação
+            } else {
+                novaMensagemElement.id = 'resposta-exemplo';
+                novaMensagemElement.textContent = textoMensagem;
+                novaMensagemElement.classList.add('resposta'); // Adiciona classe para diferenciação
+            }
+
+            caixaConversas.appendChild(novaMensagemElement);
+            caixaConversas.scrollTop = caixaConversas.scrollHeight; // Rola para a última mensagem
+        }
+
+        // Adiciona evento ao botão de enviar
+        document.getElementById('pergunta-gemini').querySelector('img').addEventListener('click', enviarMensagem);
+
+        // Adiciona evento ao pressionar a tecla Enter
+        document.getElementById('pergunta-gemini').querySelector('input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                enviarMensagem();
+            }
+        });
+
     </script>
 </body>
 

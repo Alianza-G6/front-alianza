@@ -1,4 +1,3 @@
-/* Copie daqui até... */
 body {
     margin: 0;
     padding: 0;
@@ -24,7 +23,7 @@ body {
     border-bottom-right-radius: 30px;
 }
 
-#menu a{
+#menu a {
     text-decoration: none;
     color: #ffffff;
 }
@@ -32,13 +31,13 @@ body {
 #menu ul {
     list-style: none;
     padding-left: 2.5vw;
-    }
+}
 
 #menu ul li {
     margin: 25px 0;
 }
 
-#imgCloseButton img{
+#imgCloseButton img {
     height: 10px;
 }
 
@@ -47,7 +46,7 @@ body {
     /* Move para dentro da tela */
 }
 
-#div-fechar-menu{
+#div-fechar-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -56,15 +55,15 @@ body {
     height: 12vh;
 }
 
-.imgMenu{
+.imgMenu {
     height: 7vh;
 }
 
-#imgLogo{
+#imgLogo {
     height: 4.5vh;
 }
 
-#div-usuario{
+#div-usuario {
     height: 15vh;
     display: flex;
     flex-direction: row;
@@ -76,28 +75,27 @@ body {
 #div-usuario p {
     font-weight: bolder;
 }
-   
-#img-usuario{
+
+#img-usuario {
     height: 50px;
     width: 50px;
     border-radius: 50px;
     background-color: blue;
 }
 
-#div-configuracao{
+#div-configuracao {
     padding-top: 5vh;
     height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
-#div-configuracao img{
+#div-configuracao img {
     height: 5vh;
 }
 
-#caixa-config{
+#caixa-config {
     height: fit-content;
     width: fit-content;
     display: flex;
@@ -105,10 +103,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 1.5vw;
-
 }
 
-#div-nav{
+#div-nav {
     height: 12vh;
     display: flex;
     flex-direction: row;
@@ -117,15 +114,164 @@ body {
     margin: 0px 30px 0px 25px;
 }
 
-#caixa-nav{
+#caixa-nav {
     display: flex;
     flex-direction: row;
-    height: 100%;   
+    height: 100%;
     align-items: center;
     gap: 8vw;
 }
 
-#caixa-nav h1{
+#caixa-nav h1 {
     font-size: 15pt;
 }
-/* ...Aqui, para pegar o menu e a "navzinha" */
+
+/* Container principal */
+#container {
+    height: 88vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+}
+
+/* Caixa das conversas */
+#caixa-gemini {
+    width: 60vw;
+    /* Ajustado para ser menor */
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #06050d;
+    border-radius: 20px;
+    padding: 2vh;
+    overflow-y: auto;
+    gap: 2vh;
+}
+
+/* Estilo das mensagens */
+.conversa-gemini {
+    max-width: 60%;
+    padding: 1.5vh;
+    border-radius: 1.5vh;
+    word-wrap: break-word;
+    color: white;
+    font-size: 2vh;
+}
+
+/* Alinhamento das perguntas (direita) */
+#pergunta-exemplo {
+    background-color: #1f1b2e;
+    align-self: flex-end;
+    border-bottom-right-radius: 50px;
+    /* Aumentado o arredondamento */
+}
+
+/* Alinhamento das respostas (esquerda) */
+#resposta-exemplo {
+    background-color: #312c42;
+    align-self: flex-start;
+    border-bottom-left-radius: 50px;
+    /* Aumentado o arredondamento */
+}
+
+/* Caixa de input e botão de enviar */
+#pergunta-gemini {
+    display: flex;
+    align-items: center;
+    height: 7vh;
+    width: 50vw;
+    /* Ajustado para ser menor */
+    gap: 2vw;
+    position: relative;
+    background-color: #06050d;
+    border-radius: 10px;
+    padding: 0vw 1vw 0vw 1vw;
+}
+
+#pergunta-gemini input {
+    flex: 1;
+    padding: 1.5vh;
+    border: none;
+    font-size: 2vh;
+    color: #ffffff;
+    font-weight: 100;
+    background-color: transparent;
+}
+
+#pergunta-gemini input:focus {
+    outline: none;
+}
+
+#pergunta-gemini img {
+    width: 5vh;
+    height: 5vh;
+    cursor: pointer;
+}
+
+/* Caixa de Sugestões */
+#caixa-sugestoes {
+    position: absolute;
+    bottom: 6vh;
+    right: 0;
+    width: 25vw;
+    /* Tamanho da caixa de sugestões */
+    background-color: #1f1b2e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: none;
+    flex-direction: column;
+    padding: 1vh;
+    gap: 1vh;
+}
+
+.sugestao {
+    padding: 1vh;
+    background-color: #312c42;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sugestao:hover {
+    background-color: #444054;
+}
+
+/* Caixa das conversas */
+#caixa-gemini {
+    width: 60vw; /* Ajustado para ser menor */
+    height: 65vh; /* Ajuste a altura conforme necessário */
+    display: flex;
+    flex-direction: column;
+    background-color: #06050d;
+    border-radius: 20px;
+    padding: 2vh;
+    overflow-y: scroll; /* Faz a barra de rolagem sempre aparecer */
+    gap: 2vh;
+
+    /* Para adicionar uma barra de rolagem estilizada */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #888 #06050d; /* Firefox */
+}
+
+/* Para navegadores Webkit (Chrome, Safari) */
+#caixa-gemini::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+#caixa-gemini::-webkit-scrollbar-track {
+    background: #06050d; /* Cor do fundo da barra de scroll */
+}
+
+#caixa-gemini::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor da barra de scroll */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+#caixa-gemini::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor da barra de scroll ao passar o mouse */
+}
+
