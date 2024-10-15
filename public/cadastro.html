@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Alinza | Cadastro</title>
-    <link rel="icon" href="./assets/icon/icon.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="./js/sessao.js"></script>
+  <title>Alinza | Cadastro</title>
+  <link rel="icon" href="./assets/icon/icon.png" />
 
-    <link rel="stylesheet" href="./css/cadastro.css" />
-    <link rel="icon" href="./assets/icon/favicon2.ico" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-  </head>
+  <script src="./js/sessao.js"></script>
 
-  <body>
-    <!-- <img class="solta" src="../public/assets/imgs/login/fundo.png" alt=""> -->
+  <link rel="stylesheet" href="./css/cadastro.css" />
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
 
-    <div class="fundo">
-      <img src="" alt="" class="quadrado" />
+<body>
+  <!-- <img class="solta" src="../public/assets/imgs/login/fundo.png" alt=""> -->
 
-      <div class="container">
-        <form class="formCadastro" onsubmit="return CriarConta()">
+  <div class="fundo">
+    <img src="" alt="" class="quadrado" />
+
+    <div class="container">
+      <form class="formCadastro" onsubmit="return CriarConta()">
         <h1>Criar conta na<br />ALIANZA</h1>
 
         <div class="align">
           <div class="credenciais">
-            
+
             <p>Nome</p>
-            <input type="name" id="nome_input" class="input"/ required>
+            <input type="name" id="nome_input" class="input" / required>
           </div>
-        
-         
+
+
           <div class="credenciais">
-            
+
             <p>Email</p>
-            <input type="email" id="email_input" class="input"/ required>
+            <input type="email" id="email_input" class="input" / required>
           </div>
 
           <div class="credenciais">
             <p>Senha</p>
-            <input type="password" id="senha_input" class="input"/ required>
+            <input type="password" id="senha_input" class="input" / required>
           </div>
 
           <div class="credenciais">
             <p>Confirmação de Senha</p>
-            <input type="password" id="input_confirmar" class="input"/ required>
+            <input type="password" id="input_confirmar" class="input" / required>
           </div>
           <div class="selects">
-          <div class="select" >
-            <p>Companhia Aréa</p>
-            <select  class="selectCompania">
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-           
-            </select>
-          </div>
 
-          <div class="select" >
-            <p>Tipo usuário</p>
-            <select class="selectUser" id="tipoUsuario">
-              
-              <option value="1">Administrador</option>
-              <option value="2">Gerente</option>
-              <option value="3">Analista</option>
-           
-            </select>
-          </div></div>
+            <div class="select">
+              <p>Tipo de Empresa</p>
+              <select class="selectTipoEmpresa">
+                <option value="1">Companhia Aérea</option>
+                <option value="2">Aeroporto</option>
+                <option value="3">Outros</option>
+              </select>
+            </div>
+
+            <div class="select">
+              <p class="tituloCompanhia">Companhia Aérea</p> <!-- Será alterado dinamicamente -->
+              <select class="selectCompanhia">
+                <!-- As opções serão alteradas dinamicamente -->
+              </select>
+            </div>
+
+            <div class="select">
+              <p>Tipo usuário</p>
+              <select class="selectUser" id="tipoUsuario">
+                <option value="1">Administrador</option>
+                <option value="2">Gerente</option>
+                <option value="3">Analista</option>
+              </select>
+            </div>
+          </div>
 
 
 
@@ -81,84 +85,135 @@
           <div class="botao">
             <button type="submit" class="buttonCriar">Criar Conta</button>
           </div>
-          <b
-            >Já possui uma conta na
-            <a href="login.html"><span class="alianza">ALIANZA?</span></a></b
-          >
+          <b>Já possui uma conta na
+            <a href="login.html"><span class="alianza">ALIANZA?</span></a></b>
         </div>
-      </div>
-    </div></form>
-  </body>
+    </div>
+  </div>
+  </form>
+</body>
+
 </html>
 
 <script>
+
+  // Referências aos elementos
+  const selectTipoEmpresa = document.querySelector('.selectTipoEmpresa');
+  const selectCompanhia = document.querySelector('.selectCompanhia');
+  const tituloCompanhia = document.querySelector('.tituloCompanhia');
+
+  // Opções para cada tipo de empresa
+  const opcoesCompanhia = [
+    { value: "GRU", text: "GRU" },
+    { value: "TAM", text: "TAM" },
+    { value: "GOL", text: "GOL" }
+  ];
+
+  const opcoesAeroporto = [
+    { value: "CGH", text: "Congonhas" },
+    { value: "BSB", text: "Brasília" },
+    { value: "SDU", text: "Santos Dumont" }
+  ];
+
+  // Função para atualizar as opções e o título
+  function atualizarOpcoes(tipo) {
+    selectCompanhia.innerHTML = ""; // Limpar opções existentes
+
+    let opcoes, novoTitulo;
+    if (tipo === "1") {
+      opcoes = opcoesCompanhia;
+      novoTitulo = "Companhia Aérea";
+    } else if (tipo === "2") {
+      opcoes = opcoesAeroporto;
+      novoTitulo = "Aeroporto";
+    } else {
+      opcoes = [{ value: "", text: "N/A" }];
+      novoTitulo = "Não Aplicável";
+    }
+
+    // Atualizar o título
+    tituloCompanhia.textContent = novoTitulo;
+
+    // Adicionar novas opções dinamicamente
+    opcoes.forEach(opcao => {
+      const optionElement = document.createElement('option');
+      optionElement.value = opcao.value;
+      optionElement.textContent = opcao.text;
+      selectCompanhia.appendChild(optionElement);
+    });
+  }
+
+  // Evento de mudança no selectTipoEmpresa
+  selectTipoEmpresa.addEventListener('change', (event) => {
+    atualizarOpcoes(event.target.value);
+  });
+
+  // Inicialização com opções padrão
+  atualizarOpcoes(selectTipoEmpresa.value);
+
+
   function CriarConta() {
- 
+
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = input_confirmar.value;
-    var tipoUser  = tipoUsuario.value
-  
+    var tipoUser = tipoUsuario.value
+
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" 
-    
+      confirmacaoSenhaVar == ""
+
     ) {
-  
 
-      return false;
+
     } else {
-    
-    }
 
-  
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
 
-    
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        tipoUserServer: tipoUser
-       
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          tipoUserServer: tipoUser
 
-        if (resposta.ok) {
-        
-
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-      
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
+        }),
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        
-      });
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+
+
+
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+
+
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+
+        });
+    }
 
     return false;
   }
 
-  // Listando empresas cadastradas
- 
 
-  
+
+
+
 </script>

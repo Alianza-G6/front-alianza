@@ -24,7 +24,7 @@
         border-bottom-right-radius: 30px;
     }
 
-    #menu a{
+    #menu a {
         text-decoration: none;
         color: #ffffff;
     }
@@ -32,13 +32,13 @@
     #menu ul {
         list-style: none;
         padding-left: 2.5vw;
-        }
+    }
 
     #menu ul li {
         margin: 25px 0;
     }
 
-    #imgCloseButton img{
+    #imgCloseButton img {
         height: 10px;
     }
 
@@ -47,7 +47,7 @@
         /* Move para dentro da tela */
     }
 
-    #div-fechar-menu{
+    #div-fechar-menu {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -56,15 +56,15 @@
         height: 12vh;
     }
 
-    .imgMenu{
+    .imgMenu {
         height: 7vh;
     }
 
-    #imgLogo{
+    #imgLogo {
         height: 4.5vh;
     }
 
-    #div-usuario{
+    #div-usuario {
         height: 15vh;
         display: flex;
         flex-direction: row;
@@ -76,15 +76,15 @@
     #div-usuario p {
         font-weight: bolder;
     }
-    
-    #img-usuario{
+
+    #img-usuario {
         height: 50px;
         width: 50px;
         border-radius: 50px;
         background-color: blue;
     }
 
-    #div-configuracao{
+    #div-configuracao {
         padding-top: 5vh;
         height: 15vh;
         display: flex;
@@ -93,11 +93,11 @@
 
     }
 
-    #div-configuracao img{
+    #div-configuracao img {
         height: 5vh;
     }
 
-    #caixa-config{
+    #caixa-config {
         height: fit-content;
         width: fit-content;
         display: flex;
@@ -108,7 +108,7 @@
 
     }
 
-    #div-nav{
+    #div-nav {
         height: 12vh;
         display: flex;
         flex-direction: row;
@@ -117,28 +117,30 @@
         margin: 0px 30px 0px 25px;
     }
 
-    #caixa-nav{
+    #caixa-nav {
         display: flex;
         flex-direction: row;
-        height: 100%;   
+        height: 100%;
         align-items: center;
         gap: 8vw;
     }
 
-    #caixa-nav h1{
+    #caixa-nav h1 {
         font-size: 15pt;
     }
+
     /* ...Aqui, para pegar o menu e a "navzinha" */
 
-    .box-cadastro{
+    .box-cadastro {
         width: 100vw;
         height: 85vh;
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 
-    .formCadastro{
-        width: 40%;
+    .formCadastro {
+        width: 50vw;
         height: 70vh;
         display: flex;
         flex-direction: column;
@@ -146,9 +148,11 @@
         justify-content: center;
         text-align: left;
     }
+
     .formCadastro span {
         font-size: 1.2rem;
     }
+
     /* .infoFunc {
         width: 50%;
         height: 65vh;
@@ -159,7 +163,7 @@
         flex-direction: column;
     } */
 
-    .formCadastro input{
+    .formCadastro input {
         background-color: #D9D9D9;
         width: 20vw;
         height: 7vh;
@@ -167,15 +171,14 @@
         font-size: 2.5vh;
     }
 
-    .inputForm{
+    .inputForm {
         display: flex;
         gap: 1.5vh;
         justify-content: center;
         flex-direction: column;
-    
     }
 
-    .cadastrarFunc{
+    .cadastrarFunc {
         width: 9vw;
         display: flex;
         align-items: center;
@@ -187,30 +190,36 @@
         justify-content: center;
         height: 6vh;
         border: none;
-
         cursor: pointer;
-        
     }
 
-    .container {
+    #select-acesso {
+        background-color: #D9D9D9;
+        width: 20.5vw;
+        height: 7vh;
+        border-radius: 10px;
+        font-size: 2.5vh;
+    }
+
+    /* .container {
         display: grid;
         grid-template-columns: repeat(6, 1fr); 
         gap: 10px; 
         padding: 20px;
        
-    }
-    
+    } */
+
     .funcionario {
-        background-color: #D9D9D9; 
+        background-color: #D9D9D9;
         color: black;
         border-radius: 5px;
-        text-align: center; 
+        text-align: center;
         padding: 3px;
         display: flex;
         align-items: center;
-            justify-content: center;   
+        justify-content: center;
     }
-    
+
 
     /* .dadosInformativos {
 
@@ -230,11 +239,11 @@
     } */
 
 
-    .container img {
+    /* .container img {
         width: 2.4vw;
         cursor: pointer;
-    }
-    
+    } */
+
 
 
     /* .testNome{
@@ -246,40 +255,59 @@
     /* TESTEEEEEEEEEEEEE */
     .funcionario_cadastrado {
         height: 88vh;
-        width: 40vw;
+        width: 50vw;
         display: flex;
         flex-direction: column;
-        background-color: #312c42;
         align-items: center;
     }
-    
+
     .funcionario_cadastrado h2 {
-        font-size: 25pt;    
+        font-size: 25pt;
         font-weight: 400;
-    
+
     }
-    
+
     .funcionario {
-        background-color: #eceacd;
-        border-radius:10px;
+        background-color: #312c42;
+        border-radius: 10px;
         height: 8vh;
-        width: 100%;
+        width: 28vw;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         flex-direction: row;
+        margin-top: 2vh;
     }
-    
-    #div_lista_funcionarios{
-        gap: 30px;
-        width: 70%;
-        height: 100%;
+
+    #div_lista_funcionarios {
+        /* gap: 2vh; */
+        width: 30vw;
+        height: 65vh;
         display: flex;
         flex-direction: column;
-        /* justify-content: center; */
-    
+        align-items: center;
+        background-color: #1f1b2e;
+        border-radius: 10px;
+        overflow-y: auto; /* Permitir rolagem vertical */
+        overflow-x: hidden; /* Evitar rolagem horizontal */
     }
-    
+
+    /* Barra de rolagem para Webkit */
+    #div_lista_funcionarios::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #div_lista_funcionarios::-webkit-scrollbar-track {
+        background: #06050d;
+    }
+
+    #div_lista_funcionarios::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+        border: 2px solid #06050d;
+    }
+
+
     #info_funcionario {
         padding-top: 10px;
         margin-left: 10px;
@@ -290,37 +318,34 @@
         align-items: flex-start;
         justify-content: center;
         text-align: center;
+        padding-right: 2vw;
     }
-    
-    #info_funcionario p{
+
+    #info_funcionario #nome-func {
         display: flex;
         font-weight: 400;
         font-size: 3vh;
-        margin: 0;
+        color: #ffffff;
     }
-    
-    #info_funcionario span{
+
+    #info_funcionario #cargo-func {
         font-weight: 400;
-        font-size:2.5vh ;
-        color: #1B1EE5F7;
-    
+        font-size: 2.5vh;
+        color: #8a8989;
     }
-    
-    
-    #img_editar {
+
+
+    /* #img_editar {
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         height: 100%;
         width: 20%;
-        background-color: bisque;
         display: flex;
         justify-content: center;
         align-items: center;
-    
-    }
-    
+    } */
+
     .funcionario img {
-        width: 4vw;
-        height: 8vh;
+        width: 3vw;
+        height: 6vh;
     }
-    
