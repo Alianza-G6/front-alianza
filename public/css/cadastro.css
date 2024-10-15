@@ -39,7 +39,7 @@
   width: 35%;
   height: 80vh;
   border: 1px solid #ffcb13;
-  background-color: #151515;
+  background-color: #0000007e;
   border-radius: 10px;
   padding: 1.5rem;
 
@@ -70,7 +70,7 @@
   height: 25px;
   border: 2px solid #ffcb13;
   margin-top: 8px;
-  background-color: #151515;
+  background-color: #0000007e;
   padding: 8px;
 }
 .input:focus {
@@ -85,8 +85,8 @@
 
 .selects{
   display: flex;
-    gap: 15rem;
-    margin-top: 3vh;
+  gap: 5vh;
+  margin-top: 3vh;
 }
 
 .selectUser{
@@ -98,7 +98,7 @@
   padding: 8px;
 }
 
-.selectCompania{
+.selectCompanhia{
   width: auto;
   height: auto;
   border: 2px solid #ffcb13;
@@ -108,6 +108,15 @@
   overflow: scroll;
 }
 
+.selectTipoEmpresa{
+  width: auto;
+  height: auto;
+  border: 2px solid #ffcb13;
+  margin-top: 8px;
+  background-color: #151515;
+  padding: 8px;
+  overflow: scroll;
+}
 
 h1 {
   height: 100px;
