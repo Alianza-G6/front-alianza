@@ -158,39 +158,40 @@
                     senhaServer: senhaVar,
                    
                 })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO deletarConta()!")
-    
-                if (resposta.ok) {
-                    console.log(resposta);
-                    
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-                        sessionStorage.EMAIL_USUARIO = json.email;
-                      
-                        sessionStorage.ID_USUARIO = json.id;
-    
-                        
-                    });
-                    
-    
-                } else {
-    
-            
-    
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                     
-                    });
-                    alert(`Email ou senha incorretos!`)
-                }
-    
-            }).catch(function (erro) {
-                console.log(erro);
-                alert(`Ocorreu um erro ao tentar deletar conta.`)
             })
-    
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO deletarConta()!");
+
+                    if (resposta.ok) {
+                        resposta.json().then(json => {
+                            console.log(json);
+
+                            
+                            if (json.error) {
+                                console.error(json.error);
+                                alert(`Erro: ${json.error}`);
+                            } else {
+                                
+                                console.log(JSON.stringify(json));
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.ID_USUARIO = json.id;
+                                alert(`Conta deletada com sucesso!!`);
+                                location.href = '../login.html';
+                            }
+                        });
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            alert(`Email ou senha incorretos!`);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    alert(`Ocorreu um erro ao tentar mudar o e-mail.`);
+                });
+
+
             return false;
         }
     }
