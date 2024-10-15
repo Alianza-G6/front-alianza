@@ -51,6 +51,8 @@
           </div>
           <div class="selects">
 
+
+
             <div class="select">
               <p>Tipo de Empresa</p>
               <select class="selectTipoEmpresa">
@@ -158,7 +160,8 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = input_confirmar.value;
-    var tipoUser = tipoUsuario.value
+
+
 
 
     // Verificando se há algum campo em branco
@@ -173,6 +176,7 @@
 
     } else {
 
+
       fetch("/usuarios/cadastrar", {
         method: "POST",
         headers: {
@@ -186,6 +190,7 @@
           tipoUserServer: tipoUser
 
         }),
+
       })
         .then(function (resposta) {
           console.log("resposta: ", resposta);

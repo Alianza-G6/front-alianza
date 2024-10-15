@@ -496,4 +496,4 @@ SELECT u.Nome AS Funcionario,
 FROM tbUsuario u
 JOIN tbEmpresa e ON u.fkEmpresa = e.idEmpresa
 JOIN tbTipoEmpresa te ON e.fkTipoEmpresa = te.idTipoEmpresa
-WHERE te.tipo = 'Aeroporto';  -- Ou 'Companhia Aérea', dependendo do caso.
+WHERE te.tipo = 'Aeroporto';  -- Ou 'Companhia Aérea', dependendo do caso. 

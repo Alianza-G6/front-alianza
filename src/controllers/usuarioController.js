@@ -17,34 +17,31 @@ function emailNovo(req, res) {
         usuarioModel.emailNovo(email, senha, novoEmail)
             .then(
                 function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+                    console.log(`\nResultado do UPDATE: ${JSON.stringify(resultadoAutenticar)}`);
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-                        
+                 
+                    if (resultadoAutenticar.affectedRows === 1) {
+                        console.log("Email atualizado com sucesso.");
                         res.json({
-                            id: resultadoAutenticar[0].id,
-                            email: resultadoAutenticar[0].email,
-                            senha: resultadoAutenticar[0].senha,
+                            id: resultadoAutenticar.insertId,
+                            email: novoEmail,
+                            senha: senha
                         });
-                    
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                        res.status(403).send("Email ou senha incorretos.");
                     }
                 }
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao realizar a atualização! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
     }
+} 
 
-}
+
 
 
 function senhaNova(req, res) {
@@ -60,33 +57,29 @@ function senhaNova(req, res) {
     else {
 
         usuarioModel.senhaNova(email, senha, novaSenha)
-            .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+        .then(
+            function (resultadoAutenticar) {
+                console.log(`\nResultado do UPDATE: ${JSON.stringify(resultadoAutenticar)}`);
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-                        
-                        res.json({
-                            id: resultadoAutenticar[0].id,
-                            email: resultadoAutenticar[0].email,
-                            senha: resultadoAutenticar[0].senha,
-                        });
-                    
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
+             
+                if (resultadoAutenticar.affectedRows === 1) {
+                    console.log("Senha atualizado com sucesso.");
+                    res.json({
+                        id: resultadoAutenticar.insertId,
+                        email: email,
+                        senha: novaSenha
+                    });
+                } else {
+                    res.status(403).send("Email ou senha incorretos.");
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar a atualização! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 
 }
@@ -194,6 +187,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var tipoUsuario = req.body.tipoUserServer;
+    var companhia = req.body.siglaCompanhiaServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -205,7 +199,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, tipoUsuario)
+        usuarioModel.cadastrar(nome, email, senha, tipoUsuario, companhia)
             .then(
                 function (resultado) {
                     res.json(resultado);

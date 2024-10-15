@@ -24,7 +24,7 @@
     <div class="container-gerenciar-conta"> 
         
         <h2>Gerenciar Conta</h2>
-     
+       <a href="configuracoes.html"><img class="arrowLeftImg" src="../assets/imgs/arrowLeft.png" alt=""></a> 
         <div class="alteracoes-conta">
      
         <div class="box-editar-email">
@@ -195,19 +195,19 @@
         }
     }
 
-function emailMudar() {
+    function emailMudar() {
         var emailVar = trocarEmail.value;
         var senhaVar = senhaAtualEmail.value;
         var emailNovo = novoEmail.value
 
         if (emailVar == "" || senhaVar == "") {
-          
+
             return false;
         }
         else {
             console.log("FORM LOGIN: ", emailVar);
             console.log("FORM SENHA: ", senhaVar);
-    
+
             fetch("/usuarios/emailNovo", {
                 method: "POST",
                 headers: {
@@ -218,43 +218,46 @@ function emailMudar() {
                     senhaServer: senhaVar,
                     emailNovoServer: emailNovo
                 })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO emailMudar()!")
-    
-                if (resposta.ok) {
-                    console.log(resposta);
-                        
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-                        sessionStorage.EMAIL_USUARIO = json.email;
-                      
-                        sessionStorage.ID_USUARIO = json.id;
-                    alert(`Email alterado`)
-                    location.href='../login.html'
-    
-                    });
-                    
-    
-                } else {
-    
-            
-    
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                     
-                    });
-                    alert(`Email ou senha incorretos!`)
-                }
-    
-            }).catch(function (erro) {
-                console.log(erro);
-                alert(`Ocorreu um erro ao tentar mudar o e-mail.`)
             })
-    
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO emailMudar!");
+
+                    // Trata a resposta apenas quando a resposta HTTP for ok
+                    if (resposta.ok) {
+                        resposta.json().then(json => {
+                            console.log(json);
+
+                            
+                            if (json.error) {
+                                console.error(json.error);
+                                alert(`Erro: ${json.error}`);
+                            } else {
+                                
+                                console.log(JSON.stringify(json));
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.ID_USUARIO = json.id;
+                                alert(`Email alterado com sucesso!`);
+                                location.href = '../login.html';
+                            }
+                        });
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            alert(`Email ou senha incorretos!`);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    alert(`Ocorreu um erro ao tentar mudar o e-mail.`);
+                });
+
+
             return false;
         }
     }
+
+
 
     function mudarSenha(event){
 
@@ -282,39 +285,41 @@ function emailMudar() {
                     senhaServer: senhaVar,
                     senhaNovaServer: senhaNovaVar
                 })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO mudarSenha()!")
-    
-                if (resposta.ok) {
-                    console.log(resposta);
-                    
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-                        sessionStorage.EMAIL_USUARIO = json.email;
-                      
-                        sessionStorage.ID_USUARIO = json.id;
-    
-    
-                    });
-                    
-    
-                } else {
-    
-            
-    
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                     
-                    });
-                    alert(`Email ou senha incorretos!`)
-                }
-    
-            }).catch(function (erro) {
-                console.log(erro);
-                alert(`Ocorreu um erro ao tentar mudar o e-mail.`)
             })
-    
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO mudarSenha!");
+
+                
+                    if (resposta.ok) {
+                        resposta.json().then(json => {
+                            console.log(json);
+
+                            
+                            if (json.error) {
+                                console.error(json.error);
+                                alert(`Erro: ${json.error}`);
+                            } else {
+                                
+                                console.log(JSON.stringify(json));
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.ID_USUARIO = json.id;
+                                alert(`Senha alterado com sucesso!`);
+                                location.href = '../login.html';
+                            }
+                        });
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            alert(`Email ou senha incorretos!`);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    alert(`Ocorreu um erro ao tentar mudar o e-mail.`);
+                });
+
+
             return false;
         }
     }
