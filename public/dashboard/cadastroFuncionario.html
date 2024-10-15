@@ -25,7 +25,7 @@
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
@@ -55,12 +55,18 @@
 
         <div class="box-cadastro">
 
+            <!-- Inicio - Inputs -->
             <div class="formCadastro">
                 <div class="inputForm">
                     <span>Nome:</span>
                     <input type="text">
-                    <span>Departamento:</span>
-                    <input type="text">
+                    <span>Nivel de acesso:</span>
+                    <select name="name-select-acesso" id="select-acesso">
+                        <option value="#" default>Selecione</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Gerente</option>
+                        <option value="3">Analista</option>
+                    </select>
                     <span>Email:</span>
                     <input type="text">
                     <span>Senha:</span>
@@ -69,63 +75,59 @@
                 <button class="cadastrarFunc">Cadastrar</button>
             </div>
 
-            <div class="infoFunc">
-                <div class="alinhamentoDivs">
-                    <div class="dadosInformativos">
-                        <h4 class="testNome">NOME</h4>
-                        <h4>DEPARTAMENTO</h4>
-                        <h4>CARGO</h4>
-                        <h4 class="testNome">ID</h4>
-                        <h4>STATUS</h4>
-                    </div>
+            <!-- Fim - Inputs -->
 
-                    <div class="informacoesFuncionarios">
-                        <div class="container">
-                            <div class="funcionario">Alice Silva</div>
-                            <div class="funcionario">TI</div>
-                            <div class="funcionario">Desenvolvedora</div>
-                            <div class="funcionario">12345</div>
-                            <div class="funcionario">Ativo</div>
-                            <img src="../assets/imgs/lapisStatus.png" alt="">
-
-                            <div class="funcionario">Bruno Santos</div>
-                            <div class="funcionario">RH</div>
-                            <div class="funcionario">Gerente de RH</div>
-                            <div class="funcionario">67890</div>
-                            <div class="funcionario">Ativo</div>
-                            <img src="../assets/imgs/lapisStatus.png" alt="">
-
-                            <div class="funcionario">Carla Oliveira</div>
-                            <div class="funcionario">Administração</div>
-                            <div class="funcionario">Assistente Administrativo</div>
-                            <div class="funcionario">54321</div>
-                            <div class="funcionario">Inativo</div>
-                            <img src="../assets/imgs/lapisStatus.png" alt="">
-
-                            <div class="funcionario">Daniel Costa</div>
-                            <div class="funcionario">TI</div>
-                            <div class="funcionario">Analista de Sistemas</div>
-                            <div class="funcionario">98765</div>
-                            <div class="funcionario">Ativo</div>
-                            <img src="../assets/imgs/lapisStatus.png" alt="">
-
-                            <div class="funcionario">Eduarda Lima</div>
-                            <div class="funcionario">RH</div>
-                            <div class="funcionario">Coordenadora de RH</div>
-                            <div class="funcionario">13579</div>
-                            <div class="funcionario">Inativo</div>
-                            <img src="../assets/imgs/lapisStatus.png" alt="">
-
-
-
+            <!-- Inicio - Lista Func -->
+            <div class="funcionario_cadastrado">
+                <h2>Funcionarios Cadastrados:</h2>
+                <div id="div_lista_funcionarios">
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Felipe</span>
+                            <span id="cargo-func">Gerente de Operações</span>
                         </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Ellen</span>
+                            <span id="cargo-func">Gerente de Operações</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Leonardo</span>
+                            <span id="cargo-func">Gerente de Operações</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Rafael</span>
+                            <span id="cargo-func">Gerente de Operações</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Moisés</span>
+                            <span id="cargo-func">Gerente de Operações</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">Nathan</span>
+                            <span id="cargo-func">Gerente de Operações</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
                     </div>
                 </div>
             </div>
-
-
-
+            <!-- Fim  - ListaFunc -->
         </div>
+    </div>
 
     </div>
 
