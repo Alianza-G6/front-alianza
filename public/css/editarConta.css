@@ -48,7 +48,7 @@
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+ 
     color: rgb(0, 0, 0);
 }
 
@@ -58,7 +58,7 @@ h3 {
 }
 
 hr {
-    margin: 30px 0;
+    margin: 15px 0;
 }
 
 
@@ -193,6 +193,13 @@ input[type="password"]:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+.arrowLeftImg{
+    width: 2vw;
+    margin: 7px;
+    cursor:pointer;
 }
 @media (max-width: 768px) {
     .container-gerenciar-conta {
