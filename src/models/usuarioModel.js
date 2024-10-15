@@ -44,21 +44,28 @@ function deletarConta(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function emailNovo(): ", email, senha);
 
     var instrucaoSql = `
-         delete from tbUsuario where email = '${email}' and senha ='${senha}';;
-    `;
-    
+    SELECT * FROM tbUsuario WHERE email = '${email}' AND senha = '${senha}';
+`;
+
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql, [email, senha])
+    return database.executar(instrucaoSql)
         .then(result => {
-            // Verifica se nenhuma linha foi afetada (ou seja, email ou senha incorretos)
-            if (result.affectedRows === 0) {
+            if (result.length === 1) {
+               
+                var instrucaoUpdate = `
+                delete from tbUsuario WHERE email = '${email}' AND senha = '${senha}';
+            `;
+                console.log("Executando a instrução de UPDATE: \n" + instrucaoUpdate);
+                return database.executar(instrucaoUpdate);
+            } else if (result.length === 0) {
                 return Promise.reject(new Error('Email ou senha incorretos.'));
+            } else {
+                return Promise.reject(new Error('Mais de um usuário com o mesmo login e senha.'));
             }
-            return 'Email atualizado com sucesso!';
         })
         .catch(err => {
-            console.error('Erro ao atualizar email:', err.message);
-            return Promise.reject(new Error('Erro ao atualizar o email.'));
+            console.error('Erro ao verificar o usuário:', err.message);
+            return Promise.reject(new Error('Erro ao verificar o usuário.'));
         });
 }
 
