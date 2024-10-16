@@ -89,7 +89,15 @@
 
         <!-- Aqui inicia o gráfico -->
         <div id="div-grafico">
-            <div id="grafico"></div>
+            <div id="grafico">
+
+                <div>
+                    <canvas id="myChart"></canvas>
+                  </div>
+
+
+
+            </div>
             <div id="info-grafico">
                 <div id="div-legenda-atrasos">
                     <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
@@ -103,8 +111,48 @@
         </div>
         <!-- Aqui termina o gráfico -->
     </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+ 
+  
 
+</script>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], 
+        datasets: [
+          {
+            label: 'Linha 1', 
+            data: [12, 19, 3, 5, 2, 3], 
+            borderColor: '#619bcc',
+            fill: false,
+            tension: 0.1 
+          },
+          {
+            label: 'Linha 2', 
+            data: [5, 10, 8, 15, 9, 7], 
+            borderColor: '#dd8d54', 
+            fill: false, 
+            tension: 0.1 
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true 
+          }
+        }
+      }
+    });
+  </script>
     <script>
+  
+
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');
