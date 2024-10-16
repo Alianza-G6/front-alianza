@@ -28,14 +28,12 @@
 
         <div class="align">
           <div class="credenciais">
-
             <p>Nome</p>
             <input type="name" id="nome_input" class="input" / required>
           </div>
 
 
           <div class="credenciais">
-
             <p>Email</p>
             <input type="email" id="email_input" class="input" / required>
           </div>
@@ -56,9 +54,9 @@
             <div class="select">
               <p>Tipo de Empresa</p>
               <select class="selectTipoEmpresa">
+                <option value="#" default>Selecione</option>
                 <option value="1">Companhia Aérea</option>
                 <option value="2">Aeroporto</option>
-                <option value="3">Outros</option>
               </select>
             </div>
 
@@ -72,6 +70,7 @@
             <div class="select">
               <p>Tipo usuário</p>
               <select class="selectUser" id="tipoUsuario">
+                <option value="#"default>Selecione</option>
                 <option value="1">Administrador</option>
                 <option value="2">Gerente</option>
                 <option value="3">Analista</option>
@@ -106,12 +105,14 @@
 
   // Opções para cada tipo de empresa
   const opcoesCompanhia = [
+    { value: "#", text: "Selecione" },
     { value: "GRU", text: "GRU" },
     { value: "TAM", text: "TAM" },
     { value: "GOL", text: "GOL" }
   ];
 
   const opcoesAeroporto = [
+    { value: "#", text: "Selecione"},
     { value: "CGH", text: "Congonhas" },
     { value: "BSB", text: "Brasília" },
     { value: "SDU", text: "Santos Dumont" }
@@ -129,8 +130,8 @@
       opcoes = opcoesAeroporto;
       novoTitulo = "Aeroporto";
     } else {
-      opcoes = [{ value: "", text: "N/A" }];
-      novoTitulo = "Não Aplicável";
+      opcoes = [{ value: "#", text: "Selecione" }];
+      novoTitulo = "Selecione o Tipo";
     }
 
     // Atualizar o título
