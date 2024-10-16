@@ -193,7 +193,7 @@
         cursor: pointer;
     }
 
-    #select-acesso {
+    .select-acesso {
         background-color: #D9D9D9;
         width: 20.5vw;
         height: 7vh;
