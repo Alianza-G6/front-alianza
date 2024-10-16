@@ -59,20 +59,20 @@
             <div class="formCadastro">
                 <div class="inputForm">
                     <span>Nome:</span>
-                    <input type="text">
+                    <input type="text" id="nome_input">
                     <span>Nivel de acesso:</span>
-                    <select name="name-select-acesso" id="select-acesso">
+                    <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                         <option value="#" default>Selecione</option>
                         <option value="1">Administrador</option>
                         <option value="2">Gerente</option>
                         <option value="3">Analista</option>
                     </select>
                     <span>Email:</span>
-                    <input type="text">
+                    <input type="text" id="input_email">
                     <span>Senha:</span>
-                    <input type="text">
+                    <input type="password" id="input_senha">
                 </div>
-                <button class="cadastrarFunc">Cadastrar</button>
+                <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
             </div>
 
             <!-- Fim - Inputs -->
@@ -130,26 +130,88 @@
     </div>
 
     </div>
-
-    <script>
-        const menuButton = document.getElementById('imgOpenMenu');
-        const menu = document.getElementById('menu');
-        const closeButton = document.getElementById('imgCloseMenu');
-
-        menuButton.addEventListener('click', () => {
-            menu.classList.toggle('open');
-        });
-
-        closeButton.addEventListener('click', () => {
-            menu.classList.remove('open');
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!menu.contains(event.target) && event.target !== menuButton) {
-                menu.classList.remove('open');
-            }
-        });
-    </script>
 </body>
+
+<script>
+    const menuButton = document.getElementById('imgOpenMenu');
+    const menu = document.getElementById('menu');
+    const closeButton = document.getElementById('imgCloseMenu');
+
+    menuButton.addEventListener('click', () => {
+        menu.classList.toggle('open');
+    });
+
+    closeButton.addEventListener('click', () => {
+        menu.classList.remove('open');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && event.target !== menuButton) {
+            menu.classList.remove('open');
+        }
+    });
+
+
+
+    function cadastrarFunc() {
+
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var tipoUser = select_tipoUsuario.value;
+
+
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == "" ||
+            tipoUser == "#"
+        ) {
+            alert("Preencha todos os campos!")
+
+        } else {
+
+            fetch("/usuarios/cadastrarFunc", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    tipoUserServer: tipoUser,
+                    fkEmpresaServer: sessionStorage.FK_EMPRESA,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+
+
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
+
+
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+        }
+
+        return false;
+    }
+
+</script>
 
 </html>
