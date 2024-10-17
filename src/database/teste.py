@@ -1,7 +1,7 @@
 import pandas as pd  # type: ignore
 
 # Carregar o arquivo CSV com ponto e vírgula como delimitador
-caminho_csv = "C:/Users/Ellen/Downloads/Base de Dados Bruta - Alianza G6.csv"
+caminho_csv = "C:\\Users\\admin\\Downloads\\vra_2024_07.csv"
 dados = pd.read_csv(caminho_csv, sep=';')  # Especificando o delimitador
 
 # Remover espaços em branco dos nomes das colunas
