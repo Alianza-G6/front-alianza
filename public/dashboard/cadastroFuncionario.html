@@ -11,7 +11,7 @@
     <title>Cadastro de Funcionários - Alianza</title>
 </head>
 
-<body>
+<body onload="listarFunc()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -72,7 +72,7 @@
                     <span>Senha:</span>
                     <input type="password" id="input_senha">
                 </div>
-                <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
+                <button onclick="listarFunc()" class="cadastrarFunc">Cadastrar</button>
             </div>
 
             <!-- Fim - Inputs -->
@@ -81,48 +81,9 @@
             <div class="funcionario_cadastrado">
                 <h2>Funcionarios Cadastrados:</h2>
                 <div id="div_lista_funcionarios">
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Felipe</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Ellen</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Leonardo</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Rafael</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Moisés</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Nathan</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
+                    
+                    <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
+
                 </div>
             </div>
             <!-- Fim  - ListaFunc -->
@@ -133,6 +94,9 @@
 </body>
 
 <script>
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA
+    var SessionUser = sessionStorage.NOME_USUARIO
+
     const menuButton = document.getElementById('imgOpenMenu');
     const menu = document.getElementById('menu');
     const closeButton = document.getElementById('imgCloseMenu');
@@ -155,21 +119,20 @@
 
     function cadastrarFunc() {
 
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        var tipoUser = select_tipoUsuario.value;
-
+        var nomeVar = document.getElementById('nome_input').value;
+        var emailVar = document.getElementById('input_email').value;
+        var senhaVar = document.getElementById('input_senha').value;
+        var tipoUserVar = document.getElementById('select_tipoUsuario').value;
 
         // Verificando se há algum campo em branco
         if (
             nomeVar == "" ||
             emailVar == "" ||
             senhaVar == "" ||
-            confirmacaoSenhaVar == "" ||
-            tipoUser == "#"
+            tipoUserVar == "#" ||
+            fkEmpresaVar == ""
         ) {
-            alert("Preencha todos os campos!")
+            alert("Preencha todos os campos! " + fkEmpresaVar)
 
         } else {
 
@@ -183,24 +146,17 @@
                     nomeServer: nomeVar,
                     emailServer: emailVar,
                     senhaServer: senhaVar,
-                    tipoUserServer: tipoUser,
-                    fkEmpresaServer: sessionStorage.FK_EMPRESA,
+                    tipoUserServer: tipoUserVar,
+                    fkEmpresaServer: fkEmpresaVar,
                 }),
             })
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-
-
-
-                        setTimeout(() => {
-                            window.location = "login.html";
-                        }, "2000");
-
-
+                        listarFunc()
                     } else {
-                        throw "Houve um erro ao tentar realizar o cadastro!";
+                        throw "Houve um erro ao tentar realizar o cadastroFunc!";
                     }
                 })
                 .catch(function (resposta) {
@@ -210,6 +166,38 @@
         }
 
         return false;
+    }
+
+
+
+    function listarFunc() {
+
+        // Enviando o valor da nova input
+        fetch(`/usuarios/listarFunc/${fkEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (resposta) {
+                resposta.json().then((funcionarios) => {
+                    console.log(funcionarios)
+                    funcionarios.forEach((funcionario) => {
+                        div_lista_funcionarios.innerHTML += `
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">${funcionario.Nome}</span>
+                            <span id="cargo-func">${funcionario.tipo}</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                    </div>`
+                            ;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
 </script>

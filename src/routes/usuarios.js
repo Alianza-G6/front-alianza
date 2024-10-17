@@ -14,7 +14,11 @@ router.post("/cadastrar", function (req, res) {
 });
 
 router.post("/cadastrarFunc", function (req, res) {
-    usuarioController.cadastrar(req, res);
+    usuarioController.cadastrarFunc(req, res);
+});
+
+router.get("/listarFunc/:fkEmpresaVar", function (req, res) {
+    usuarioController.listarFunc(req, res);
 });
 
 router.post("/autenticar", function (req, res) {
