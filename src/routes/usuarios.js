@@ -8,7 +8,6 @@ router.post("/emailNovo", function (req, res) {
     usuarioController.emailNovo(req, res);
 });
 
-
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 });

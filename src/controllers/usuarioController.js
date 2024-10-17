@@ -234,6 +234,7 @@ function cadastrarFunc(req, res) {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrarFunc(nome, email, senha, tipoUsuario, fkEmpresa)
+
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -276,6 +277,7 @@ function listarFunc(req, res) {
             );
     }
 }
+
 
 
 module.exports = {

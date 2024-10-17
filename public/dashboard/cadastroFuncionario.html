@@ -72,7 +72,7 @@
                     <span>Senha:</span>
                     <input type="password" id="input_senha">
                 </div>
-                <button onclick="listarFunc()" class="cadastrarFunc">Cadastrar</button>
+                <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
             </div>
 
             <!-- Fim - Inputs -->
@@ -118,11 +118,11 @@
 
 
     function cadastrarFunc() {
-
         var nomeVar = document.getElementById('nome_input').value;
         var emailVar = document.getElementById('input_email').value;
         var senhaVar = document.getElementById('input_senha').value;
         var tipoUserVar = document.getElementById('select_tipoUsuario').value;
+
 
         // Verificando se há algum campo em branco
         if (
@@ -133,6 +133,7 @@
             fkEmpresaVar == ""
         ) {
             alert("Preencha todos os campos! " + fkEmpresaVar)
+
 
         } else {
 
@@ -148,6 +149,7 @@
                     senhaServer: senhaVar,
                     tipoUserServer: tipoUserVar,
                     fkEmpresaServer: fkEmpresaVar,
+
                 }),
             })
                 .then(function (resposta) {
@@ -167,7 +169,6 @@
 
         return false;
     }
-
 
 
     function listarFunc() {
