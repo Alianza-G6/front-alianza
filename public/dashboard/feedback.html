@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="./../css/dashboard/feedback.css">
+
+</head>
+<body>
+    <div class="container-principal">
+        <div class="container-gerenciar-conta">
+            <h2>Feedback</h2>
+
+            <div class="welcome-container" id="welcome-container">
+                <h3>Bem-vindo ao nosso Feedback</h3><br><br>
+                <p>Agradecemos por reservar um momento para nos ajudar a melhorar!</p><br>
+                <button class="btn" onclick="iniciarFeedback()">Começar</button>
+            </div>
+
+            <div class="question-container" id="question-container">
+                <h3 id="pergunta"></h3>
+                <div class="form-group">
+                    <label for="resposta">Sua Resposta:</label>
+                    <br> <br>
+
+                    <input type="text" id="resposta" name="resposta" placeholder="Digite sua resposta" required>
+                </div>
+                
+                <div class="navegacao-container">
+                    <button class="btn-seta" id="btn-voltar" onclick="mudarPergunta(-1)" style="display: none;">&#9664; Voltar</button>
+                    <button class="btn-seta" onclick="mudarPergunta(1)">Próxima &#9654;</button>
+            </div>
+
+            <div class="resumo-respostas" id="resumo-respostas">
+                <h3>Resumo das Respostas:</h3>
+                <div id="respostasLista"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const perguntas = [
+            "Como podemos melhorar o atendimentoo/experiência dos usuários?",
+
+            "Os gráficos apresetados te ajudaram a solucionar seu problemas? Caso não tenha ajudado, como podemos aprimora-los?",
+
+            "Com que frequência utiliza este sistema?",
+
+            "Você recomendaria nosso atendimento a outras pessoas?",
+            
+            "Quais funcionalidades gostaria de ver melhoradas?"
+        ];
+
+        let perguntaAtual = 0;
+        const respostas = Array(perguntas.length).fill("");
+
+        function iniciarFeedback() {
+            document.getElementById('welcome-container').style.display = 'none';
+            document.getElementById('question-container').style.display = 'block';
+            carregarPergunta();
+        }
+
+        function carregarPergunta() {
+            document.getElementById('pergunta').textContent = perguntas[perguntaAtual];
+            document.getElementById('resposta').value = respostas[perguntaAtual] || "";
+            document.getElementById('btn-voltar').style.display = perguntaAtual > 0 ? 'inline-block' : 'none';
+        }
+
+        function registrarResposta(event) {
+            event.preventDefault();
+            respostas[perguntaAtual] = document.getElementById('resposta').value;
+
+            if (perguntaAtual === perguntas.length - 1) {
+                exibirRespostas();
+            }
+        }
+
+        function mudarPergunta(direcao) {
+            if (direcao === 1) {
+                registrarResposta(event);
+            }
+
+            perguntaAtual += direcao;
+            if (perguntaAtual < 0) perguntaAtual = 0;
+            if (perguntaAtual >= perguntas.length) perguntaAtual = perguntas.length - 1;
+
+            carregarPergunta();
+        }
+
+        function exibirRespostas() {
+            document.getElementById('question-container').style.display = 'none';
+            const respostasLista = document.getElementById('respostasLista');
+            respostasLista.innerHTML = "";
+
+            respostas.forEach((resposta, index) => {
+                const respostaItem = document.createElement('p');
+                respostaItem.textContent = `${perguntas[index]} - ${resposta}`;
+                respostasLista.appendChild(respostaItem);
+            });
+
+            document.getElementById('resumo-respostas').style.display = 'block';
+        }
+
+        window.onload = () => {
+            document.getElementById('welcome-container').style.display = 'block';
+        };
+    </script>
+</body>
+</html>
