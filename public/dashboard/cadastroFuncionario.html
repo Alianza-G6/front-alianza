@@ -12,8 +12,37 @@
 </head>
 
 <body onload="listarFunc()">
+
+    <!--Inicio -  Pop-up de edição de funcionário -->
+    <div class="sombra" id="sombraDiv" onclick="sairModal()"></div>
+    <div class="modal" id="modalDiv">
+        <div class="formCadastro">
+            <div class="img_voltar">
+                <img src="../assets/icon/seta-circulada.png" onclick="sairModal()">
+                <h1>Editar</h1>
+            </div>
+            <div class="inputForm">
+                <span>Nome:</span>
+                <input type="text" id="nome_input">
+                <span>Nivel de acesso:</span>
+                <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
+                    <option value="#" default>Selecione</option>
+                    <option value="2">Gerente</option>
+                    <option value="1">Administrador</option>
+                    <option value="3">Analista</option>
+                </select>
+                <span>Email:</span>
+                <input type="text" id="input_email">
+                <span>Senha:</span>
+                <input type="password" id="input_senha">
+            </div>
+            <button onclick="editarFunc()" class="cadastrarFunc">Confirmar</button>
+        </div>
+    </div>
+    <!--Fim -  Pop-up de edição de funcionário -->
+    
     <div>
-        <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
+    <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
             <div id="div-fechar-menu">
                 <img id="imgCloseMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
@@ -63,8 +92,8 @@
                     <span>Nivel de acesso:</span>
                     <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                         <option value="#" default>Selecione</option>
-                        <option value="1">Administrador</option>
                         <option value="2">Gerente</option>
+                        <option value="1">Administrador</option>
                         <option value="3">Analista</option>
                     </select>
                     <span>Email:</span>
@@ -81,7 +110,14 @@
             <div class="funcionario_cadastrado">
                 <h2>Funcionarios Cadastrados:</h2>
                 <div id="div_lista_funcionarios">
-                    
+
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">${funcionario.Nome}</span>
+                            <span id="cargo-func">${funcionario.tipo}</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirModal()">
+                    </div>
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
 
                 </div>
@@ -199,6 +235,16 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+    function abrirModal() {
+        sombraDiv.style.display = `unset`;
+        modalDiv.style = "display: unset";
+    }
+
+    function sairModal() {
+        sombraDiv.style.display = `none`;
+        modalDiv.style.display = `none`;
     }
 
 </script>
