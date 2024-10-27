@@ -138,6 +138,16 @@ function listarFunc(fkEmpresa){
     return database.executar(instrucaoSql);
 }
 
+function pegarDados(fkEmpresa, idUsuario){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresa, idUsuario)
+
+    var instrucaoSql = `
+        SELECT tbUsuario.* FROM tbUsuario JOIN tbTipoUsuario ON idTipoUsuario = fkTipoUsuario WHERE fkEmpresa = '${fkEmpresa}' AND idUsuario = '${idUsuario}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function cadastrarFunc(nome, email, senha, tipoUsuario, fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, tipoUsuario, fkEmpresa);
     
@@ -157,6 +167,6 @@ module.exports = {
     senhaNova,
     deletarConta,
     cadastrarFunc,
-    listarFunc
-
+    listarFunc,
+    pegarDados
 };

@@ -149,7 +149,7 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
                         
                         res.json({
-                            id: resultadoAutenticar[0].idUsuario,
+                            idUsuario: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             senha: resultadoAutenticar[0].senha,
@@ -279,6 +279,36 @@ function listarFunc(req, res) {
 }
 
 
+function pegarDados(req, res) {
+    let fkEmpresa = req.params.fkEmpresaVar;
+    let idUsuario = req.params.idUsuarioEspecifico;
+
+    if (fkEmpresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else if(idUsuario == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else {
+
+        usuarioModel.listarFunc(fkEmpresa, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro: pegarDados ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
+
 
 module.exports = {
     autenticar,
@@ -288,4 +318,5 @@ module.exports = {
     senhaNova,
     deletarConta,
     listarFunc,
+    pegarDados
 }
