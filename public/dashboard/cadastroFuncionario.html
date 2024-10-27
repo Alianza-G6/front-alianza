@@ -27,9 +27,8 @@
                 <span>Nivel de acesso:</span>
                 <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                     <option value="#" default>Selecione</option>
-                    <option value="2">Gerente</option>
-                    <option value="1">Administrador</option>
-                    <option value="3">Analista</option>
+                    <option value="1">Gerente</option>
+                    <option value="2">Analista</option>
                 </select>
                 <span>Email:</span>
                 <input type="text" id="input_email">
@@ -40,9 +39,9 @@
         </div>
     </div>
     <!--Fim -  Pop-up de edição de funcionário -->
-    
+
     <div>
-    <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
+        <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
             <div id="div-fechar-menu">
                 <img id="imgCloseMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
@@ -92,9 +91,8 @@
                     <span>Nivel de acesso:</span>
                     <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                         <option value="#" default>Selecione</option>
-                        <option value="2">Gerente</option>
-                        <option value="1">Administrador</option>
-                        <option value="3">Analista</option>
+                        <option value="1">Gerente</option>
+                        <option value="2">Analista</option>
                     </select>
                     <span>Email:</span>
                     <input type="text" id="input_email">
@@ -111,13 +109,6 @@
                 <h2>Funcionarios Cadastrados:</h2>
                 <div id="div_lista_funcionarios">
 
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">${funcionario.Nome}</span>
-                            <span id="cargo-func">${funcionario.tipo}</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirModal()">
-                    </div>
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
 
                 </div>
@@ -226,7 +217,7 @@
                             <span id="nome-func">${funcionario.Nome}</span>
                             <span id="cargo-func">${funcionario.tipo}</span>
                         </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${funcionario.idUsuario})">
                     </div>`
                             ;
                     });
@@ -237,9 +228,50 @@
             });
     }
 
+    function pegarDados(idUsuario) {
+        return fetch(`/usuarios/pegarDados/${fkEmpresaVar}/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resposta) => resposta.json())
+            .catch((erro) => {
+                console.error(`#ERRO: ${erro}`);
+                throw erro; // Propaga o erro
+            });
+    }
+
+
     function abrirModal() {
         sombraDiv.style.display = `unset`;
         modalDiv.style = "display: unset";
+    }
+
+    function abrirEPreencher(idUsuario) {
+        pegarDados(idUsuario)
+            .then((funcionario) => {
+                // Preenche os campos com os dados recebidos
+                var recebeNome = funcionario[0].Nome || "falhou";
+                var recebeTipo = funcionario[0].fkTipoUsuario || "falhou";
+                var recebeEmail = funcionario[0].Email || "falhou";
+                var recebeSenha = funcionario[0].Senha|| "falhou";
+                
+                document.getElementById('nome_input').value = recebeNome;
+            document.getElementById('input_email').value = recebeEmail;
+            document.getElementById('input_senha').value = recebeSenha;
+            document.getElementById('select_tipoUsuario').value = recebeTipo;
+
+                console.log(recebeNome)
+                console.log(recebeEmail)
+                console.log(recebeSenha)
+                console.log(recebeTipo)
+
+                abrirModal(); // Abre o modal após preencher os dados
+            })
+            .catch((erro) => {
+                console.error("Erro ao abrir o modal:", erro);
+            });
     }
 
     function sairModal() {
@@ -250,3 +282,4 @@
 </script>
 
 </html>
+

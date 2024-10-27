@@ -20,6 +20,10 @@ router.get("/listarFunc/:fkEmpresaVar", function (req, res) {
     usuarioController.listarFunc(req, res);
 });
 
+router.get("/pegarDados/:fkEmpresaVar/:idUsuarioEspecifico", function (req, res) {
+    usuarioController.listarFunc(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
