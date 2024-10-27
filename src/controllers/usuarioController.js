@@ -214,6 +214,7 @@ function cadastrar(req, res) {
 function cadastrarFunc(req, res) {
    
     var nome = req.body.nomeServer;
+    var cpf = req.body.cpfServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var tipoUsuario = req.body.tipoUserServer;
@@ -222,6 +223,8 @@ function cadastrarFunc(req, res) {
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
+    } else if(cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!")
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
@@ -233,7 +236,7 @@ function cadastrarFunc(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarFunc(nome, email, senha, tipoUsuario, fkEmpresa)
+        usuarioModel.cadastrarFunc(nome, cpf, email, senha, tipoUsuario, fkEmpresa)
 
             .then(
                 function (resultado) {
@@ -308,6 +311,88 @@ function pegarDados(req, res) {
 }
 
 
+function editarFunc(req, res) {
+    
+    var idUsuario = req.body.idUsuarioServer;
+    var nome = req.body.nomeServer;
+    var cpf = req.body.cpfServer;
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var tipoUsuario = req.body.tipoUserServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
+
+    // Faça as validações dos valores
+    if(idUsuario == undefined) {
+        res.status(400).send("Seu idUsuario está undefined!")
+    } else if(nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if(cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!")
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (tipoUsuario == undefined) {
+        res.status(400).send("Seu tipoUsuario está undefined!");
+    } else if (fkEmpresa == undefined) {
+        res.status(400).send("Sua fkEmpresa está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.editarFunc(idUsuario, nome, cpf, email, senha, tipoUsuario, fkEmpresa)
+
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function apagarFunc(req, res) {
+    
+    var idUsuario = req.body.idUsuarioServer;
+    var idEmpresa = req.body.idEmpresaServer;
+  
+
+    // Faça as validações dos valores
+    if(idUsuario == undefined) {
+        res.status(400).send("Seu idUsuario está undefined!")
+    }else if(idEmpresa == undefined) {
+        res.status(400).send("Seu idEmpresa está undefined")
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.apagarFunc(idUsuario, idEmpresa)
+
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o apagarFunc! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
+
 
 
 module.exports = {
@@ -318,5 +403,7 @@ module.exports = {
     senhaNova,
     deletarConta,
     listarFunc,
-    pegarDados
+    pegarDados,
+    editarFunc,
+    apagarFunc
 }
