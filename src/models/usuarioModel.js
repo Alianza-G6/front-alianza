@@ -148,13 +148,37 @@ function pegarDados(fkEmpresa, idUsuario){
     return database.executar(instrucaoSql);
 }
 
-function cadastrarFunc(nome, email, senha, tipoUsuario, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, tipoUsuario, fkEmpresa);
+function cadastrarFunc(nome, cpf, email, senha, tipoUsuario, fkEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, cpf, email, senha, tipoUsuario, fkEmpresa);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO tbUsuario (nome, email, senha, fkTipoUsuario, fkEmpresa) VALUES ('${nome}', '${email}', '${senha}', '${tipoUsuario}', '${fkEmpresa}');
+        INSERT INTO tbUsuario (nome, cpf, email, senha, fkTipoUsuario, fkEmpresa) VALUES ('${nome}', '${cpf}', '${email}', '${senha}', '${tipoUsuario}', '${fkEmpresa}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function editarFunc(idUsuario, nome, cpf, email, senha, tipoUsuario, fkEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",idUsuario, nome, cpf, email, senha, tipoUsuario, fkEmpresa);
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+        UPDATE tbUsuario SET nome = '${nome}', cpf = '${cpf}', email = '${email}', senha = '${senha}', fkTipoUsuario = '${tipoUsuario}', fkEmpresa = '${fkEmpresa}' WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function apagarFunc(idUsuario,idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",idUsuario, idEmpresa);
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+        DELETE FROM tbUsuario WHERE idUsuario = ${idUsuario} AND fkEmpresa = ${idEmpresa}
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -168,5 +192,7 @@ module.exports = {
     deletarConta,
     cadastrarFunc,
     listarFunc,
-    pegarDados
+    pegarDados,
+    editarFunc,
+    apagarFunc
 };

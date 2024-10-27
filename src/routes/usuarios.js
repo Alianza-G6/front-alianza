@@ -24,6 +24,14 @@ router.get("/pegarDados/:fkEmpresaVar/:idUsuarioEspecifico", function (req, res)
     usuarioController.listarFunc(req, res);
 });
 
+router.put("/editarFunc/", function (req, res) {
+    usuarioController.editarFunc(req, res)
+});
+
+router.delete("/apagarFunc/", function (req, res) {
+    usuarioController.apagarFunc(req, res)
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
