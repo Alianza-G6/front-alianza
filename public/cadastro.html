@@ -11,6 +11,13 @@
 
   <script src="./js/sessao.js"></script>
 
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+  <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+  
+
   <link rel="stylesheet" href="./css/cadastro.css" />
   <link rel="icon" href="./assets/icon/favicon2.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -100,19 +107,47 @@
       })
         .then(function (resposta) {
           console.log("resposta: ", resposta);
+
           if (resposta.ok) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Logado com sucesso!"
+            });
             setTimeout(() => {
               window.location = "login.html";
-            }, 2000);
+            }, 1000);
+
           } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
+
+            throw new Error("Houve um erro ao tentar realizar o cadastro!");
+
+            Swal.fire({
+            title: "Usuário já existe ou Código de Ativação errado! ",
+            icon: "error",
+            iconHtml: "",
+            confirmButtonText: "Ok",
+            // cancelButtonText: "لا",
+            // showCancelButton: true,
+            showCloseButton: false
+          });
           }
         })
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
         });
-    }
 
-    return false;
+      return false;
+    }
   }
 </script>

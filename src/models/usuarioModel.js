@@ -110,16 +110,19 @@ function cadastrar(nome, email, senha, codigo, cpf) {
     console.log("CPF recebido:", cpf); // Verifique se o CPF está correto
 
     // Verificar se o código existe na tabela tbEmpresa
-    var selectSql = `SELECT COUNT(*) AS codigoExists FROM tbEmpresa WHERE codigoAleatorio = '${codigo}'`;
+    var selectSql = `SELECT idEmpresa, COUNT(*) AS codigoExists FROM tbEmpresa WHERE codigoAtivacao = '${codigo}' GROUP BY idEmpresa;
+`;
     console.log("Executando a instrução SQL de verificação: \n" + selectSql);
 
     return database.executar(selectSql)
         .then(result => {
             // Verifica se o código existe
             if (result.length > 0 && result[0].codigoExists > 0) {
+
+                var idEmpresa = result[0].idEmpresa
                 // Código existe, prosseguir com a inserção do usuário
                 var instrucaoSql = `
-                    INSERT INTO tbUsuario (nome, email, senha, cpf) VALUES ('${nome}', '${email}', '${senha}', '${cpf}');
+                    INSERT INTO tbUsuario (nome, email, senha, cpf, fkTipoUsuario, fkEmpresa) VALUES ('${nome}', '${email}', '${senha}', '${cpf}', '1', '${idEmpresa}');
                 `;
                 console.log("Executando a instrução SQL para inserir o usuário: \n" + instrucaoSql);
                 return database.executar(instrucaoSql);
@@ -143,7 +146,7 @@ function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, cod
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAleatorio) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}');
+        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, status) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
