@@ -1,110 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
     <link rel="stylesheet" href="./../css/dashboard/feedback.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="icon" href="../assets/icon/icon.png" />
 
 </head>
-<body>
-    <div class="container-principal">
-        <div class="container-gerenciar-conta">
-            <h2>Feedback</h2>
 
+<body onload="listarFeedback()">
+    <!--Inicio -  Pop-up de edição de funcionário -->
+    <div class="sombra" id="sombraDiv" onclick="sairModal()"></div>
+    <div class="modal" id="modalDiv">
+        <div class="formCadastro">
+            <div class="img_voltar">
+                <img src="../assets/icon/seta-circulada.png" onclick="sairModal()">
+                <h1>Editar</h1>
+            </div>
+            <div class="inputForm">
+                <span>Assunto:</span>
+                <input type="text" id="assunto_input_modal">
+
+                <span>Descrição:</span>
+                <input type="text" id="feedback_input_modal">
+            </div>
+            <div class="div-botoes">
+                <button onclick="editarFeedback()" class="cadastrarFeedback">Confirmar</button>
+                <button onclick="apagarFeedback()" class="cadastrarFeedback"
+                    style="background-color: brown;">Deletar</button>
+            </div>
+        </div>
+    </div>
+    <!--Fim -  Pop-up de edição de funcionário -->
+
+    <div class="container-principal">
+        <div class="container-gerenciar-conta" id="container-feedback">
+            <div class="div-voltar">
+                <a href="configuracoes.html"><img class="arrowLeftImg" src="../assets/imgs/arrowLeft.png" alt=""></a>
+                <h2>Feedback</h2>
+            </div>
             <div class="welcome-container" id="welcome-container">
                 <h3>Bem-vindo ao nosso Feedback</h3><br><br>
                 <p>Agradecemos por reservar um momento para nos ajudar a melhorar!</p><br>
-                <button class="btn" onclick="iniciarFeedback()">Começar</button>
             </div>
 
             <div class="question-container" id="question-container">
                 <h3 id="pergunta"></h3>
                 <div class="form-group">
-                    <label for="resposta">Sua Resposta:</label>
+                    <label for="resposta">Como podemos melhorar?</label>
                     <br> <br>
 
-                    <input type="text" id="resposta" name="resposta" placeholder="Digite sua resposta" required>
-                </div>
-                
-                <div class="navegacao-container">
-                    <button class="btn-seta" id="btn-voltar" onclick="mudarPergunta(-1)" style="display: none;">&#9664; Voltar</button>
-                    <button class="btn-seta" onclick="mudarPergunta(1)">Próxima &#9654;</button>
-            </div>
+                    <input type="text" id="resumo_feedback" name="resposta" placeholder="Resuma em poucas palavras"
+                        required>
 
-            <div class="resumo-respostas" id="resumo-respostas">
-                <h3>Resumo das Respostas:</h3>
-                <div id="respostasLista"></div>
+                    <input type="text" id="resposta_feedback" name="resposta" placeholder="Descreva sua resposta"
+                        required>
+                </div>
+                <button class="btn" onclick="verFeedbacks()" style="background-color: blue;">Ver Meus Feedbacks</button>
+                <button class="btn" onclick="enviarFeedback()">Enviar</button>
             </div>
         </div>
+
+        <!--Inicio - Lista Feedbacks -->
+        <div class="feedback_cadastrado" id="container_feedbacks_cadastrados">
+            <h2>FEEDBACKS CADASTRADOS:</h2>
+            <div id="div_lista_feedbacks">
+
+                <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
+
+            </div>
+        </div>
+        <!--Fim - Lista Feedbacks -->
+
     </div>
 
-    <script>
-        const perguntas = [
-            "Como podemos melhorar o atendimentoo/experiência dos usuários?",
-
-            "Os gráficos apresetados te ajudaram a solucionar seu problemas? Caso não tenha ajudado, como podemos aprimora-los?",
-
-            "Com que frequência utiliza este sistema?",
-
-            "Você recomendaria nosso atendimento a outras pessoas?",
-            
-            "Quais funcionalidades gostaria de ver melhoradas?"
-        ];
-
-        let perguntaAtual = 0;
-        const respostas = Array(perguntas.length).fill("");
-
-        function iniciarFeedback() {
-            document.getElementById('welcome-container').style.display = 'none';
-            document.getElementById('question-container').style.display = 'block';
-            carregarPergunta();
-        }
-
-        function carregarPergunta() {
-            document.getElementById('pergunta').textContent = perguntas[perguntaAtual];
-            document.getElementById('resposta').value = respostas[perguntaAtual] || "";
-            document.getElementById('btn-voltar').style.display = perguntaAtual > 0 ? 'inline-block' : 'none';
-        }
-
-        function registrarResposta(event) {
-            event.preventDefault();
-            respostas[perguntaAtual] = document.getElementById('resposta').value;
-
-            if (perguntaAtual === perguntas.length - 1) {
-                exibirRespostas();
-            }
-        }
-
-        function mudarPergunta(direcao) {
-            if (direcao === 1) {
-                registrarResposta(event);
-            }
-
-            perguntaAtual += direcao;
-            if (perguntaAtual < 0) perguntaAtual = 0;
-            if (perguntaAtual >= perguntas.length) perguntaAtual = perguntas.length - 1;
-
-            carregarPergunta();
-        }
-
-        function exibirRespostas() {
-            document.getElementById('question-container').style.display = 'none';
-            const respostasLista = document.getElementById('respostasLista');
-            respostasLista.innerHTML = "";
-
-            respostas.forEach((resposta, index) => {
-                const respostaItem = document.createElement('p');
-                respostaItem.textContent = `${perguntas[index]} - ${resposta}`;
-                respostasLista.appendChild(respostaItem);
-            });
-
-            document.getElementById('resumo-respostas').style.display = 'block';
-        }
-
-        window.onload = () => {
-            document.getElementById('welcome-container').style.display = 'block';
-        };
-    </script>
 </body>
+<script>
+    var SessionUser = sessionStorage.NOME_USUARIO;
+    var idSessionUser = sessionStorage.ID_USUARIO;
+    var idFeedbackDaEdicao = "";
+
+    function formatarDataBrasileira(dataISO) {
+        const data = new Date(dataISO);
+
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
+        const ano = data.getFullYear();
+
+        const horas = String(data.getHours()).padStart(2, '0');
+        const minutos = String(data.getMinutes()).padStart(2, '0');
+        const segundos = String(data.getSeconds()).padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+    }
+
+    function verFeedbacks() {
+        document.getElementById('container-feedback').style.display = 'none';
+        document.getElementById('container_feedbacks_cadastrados').style.display = 'flex';
+    }
+
+    function enviarFeedback() {
+        var feedbackResumoVar = document.getElementById('resumo_feedback').value;
+        var feedbackVar = document.getElementById('resposta_feedback').value;
+
+
+        // Verificando se há algum campo em branco
+        if (
+            feedbackVar == "" ||
+            feedbackResumoVar == ""
+        ) {
+            alert("Preencha todos os campos! ")
+
+
+        } else {
+
+            fetch("/feedbacks/enviarFeedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    usuarioServer: idSessionUser,
+                    feedbackResumoServer: feedbackResumoVar,
+                    feedbackServer: feedbackVar
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        alert("Feedback enviado!")
+                        listarFeedback()
+                    } else {
+                        throw "Houve um erro ao tentar realizar o enviarFeedback()!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+        }
+
+        return false;
+
+    }
+
+
+    function listarFeedback() {
+        var idUsuario = idSessionUser
+        div_lista_feedbacks.innerHTML = ""
+
+        // Enviando o valor da nova input
+        fetch(`/feedbacks/listarFeedback/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (resposta) {
+                resposta.json().then((feedbacks) => {
+                    console.log("Esses são os feedbacks encontrados: ", feedbacks)
+                    feedbacks.forEach((feedback) => {
+                        div_lista_feedbacks.innerHTML += `
+            <div class="feedback">
+                <div id="info_feedback">
+                    <span id="descricao-feedback">${feedback.resumo}</span>
+                    <span id="date-feedback">${formatarDataBrasileira(feedback.dataCriacao)}</span>
+                </div>
+                <img style="cursor: pointer;" src="../assets/imgs/configuracoes/editar.png" alt="editar" onclick="abrirEPreencher(${feedback.idFeedback})">
+            </div>`
+                            ;
+                        console.log('listarFeed : ', feedback.idFeedback)
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+    function pegarDados(idFeedback) {
+        return fetch(`/feedbacks/pegarDados/${idFeedback}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resposta) => resposta.json())
+            .catch((erro) => {
+                console.error(`#ERRO: ${erro}`);
+                throw erro; // Propaga o erro
+            });
+    }
+
+
+    function abrirModal() {
+        sombraDiv.style.display = `unset`;
+        modalDiv.style = "display: unset";
+    }
+
+    function sairModal() {
+        sombraDiv.style.display = `none`;
+        modalDiv.style.display = `none`;
+    }
+
+    function abrirEPreencher(idFeedback) {
+        idFeedbackDaEdicao = idFeedback
+        pegarDados(idFeedback)
+            .then((feedback) => {
+                // Preenche os campos com os dados recebidos
+                var recebeResumo = feedback[0].resumo || "falhou";
+                var recebeFeedback = feedback[0].feedback || "falhou";
+
+                console.log("recebeResumo:", feedback[0].resumo)
+
+                document.getElementById('assunto_input_modal').value = recebeResumo;
+                document.getElementById('feedback_input_modal').value = recebeFeedback;
+
+                abrirModal(); // Abre o modal após preencher os dados
+            })
+            .catch((erro) => {
+                console.error("Erro ao abrir o modal:", erro);
+            });
+    }
+
+
+
+
+    function editarFeedback() {
+        var feedbackResumoVar = document.getElementById('assunto_input_modal').value;
+        var feedbackVar = document.getElementById('feedback_input_modal').value;
+
+
+        // Verificando se há algum campo em branco
+        if (
+            feedbackResumoVar == "" ||
+            feedbackVar == ""
+        ) {
+            alert("Preencha todos os campos!")
+
+
+        } else {
+
+            fetch("/feedbacks/editarFeedback", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    feedbackResumoServer: feedbackResumoVar,
+                    feedbackServer: feedbackVar,
+                    idFeedbackServer: idFeedbackDaEdicao,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        listarFeedback()
+                    } else {
+                        throw "Houve um erro ao tentar realizar o editarFeedback!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+        }
+
+        return false;
+    }
+
+    function apagarFeedback() {
+        var idFeedbackVar = idFeedbackDaEdicao
+
+        // Verificando se há algum campo em branco
+        if (idFeedbackVar == "") {
+            console.log("apagarFeedback(): idFeedbackVar = está vazio!")
+        } else {
+
+            fetch("/feedbacks/apagarFeedback", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    idFeedbackServer: idFeedbackVar,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        window.location.reload()
+                    } else {
+                        throw "Houve um erro ao tentar realizar o apagarFeedback!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+        }
+
+        return false;
+    }
+
+</script>
+
 </html>
