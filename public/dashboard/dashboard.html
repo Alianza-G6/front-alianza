@@ -11,7 +11,7 @@
     <title>Dashboard - Alianza</title>
 </head>
 
-<body>
+<body onload="verificarUsuario()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -120,6 +120,14 @@
     </script>
 
     <script>
+        let tipoUsuario = sessionStorage.FK_TIPOUSUARIO
+
+        function verificarUsuario() {
+            if (tipoUsuario == 2){
+                
+            }
+        }
+
         const ctx = document.getElementById('myChart').getContext('2d');
 
         new Chart(ctx, {
