@@ -128,11 +128,11 @@
 </body>
 
 <script>
+    div_lista_funcionarios.innerHTML = ""
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
     var SessionUser = sessionStorage.NOME_USUARIO
-    var idUsuarioDaEdicao = "";
-    div_lista_funcionarios.innerHTML = ""
     nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+    var idUsuarioDaEdicao = "";
 
 
     const menuButton = document.getElementById('imgOpenMenu');
@@ -213,7 +213,6 @@
 
 
     function listarFunc() {
-
         // Enviando o valor da nova input
         fetch(`/usuarios/listarFunc/${fkEmpresaVar}`, {
             method: "GET",
@@ -224,17 +223,19 @@
             .then(function (resposta) {
                 resposta.json().then((funcionarios) => {
                     console.log("Esses são os funcionario encontrados: ", funcionarios)
-                    funcionarios.forEach((funcionario) => {
+                   
+                    for (let i = 0; i < funcionarios.length; i++) {
+                        const element = funcionarios[i];
                         div_lista_funcionarios.innerHTML += `
                     <div class="funcionario">
                         <div id="info_funcionario">
-                            <span id="nome-func">${funcionario.Nome}</span>
-                            <span id="cargo-func">${funcionario.tipo}</span>
+                            <span id="nome-func">${funcionarios[i].Nome}</span>
+                            <span id="cargo-func">${funcionarios[i].tipo}</span>
                         </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${funcionario.idUsuario})">
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${funcionarios[i].idUsuario})">
                     </div>`
                             ;
-                    });
+                    }
                 });
             })
             .catch(function (resposta) {
@@ -262,17 +263,22 @@
         modalDiv.style = "display: unset";
     }
 
-    function abrirEPreencher(idUsuario) {
+    function pegarIdUsuario(idUsuario){
         idUsuarioDaEdicao = idUsuario;
+    }
 
-        pegarDados(idUsuario)
+    function abrirEPreencher(indexDoUsuario) {
+
+        pegarDados(indexDoUsuario)
             .then((funcionario) => {
                 // Preenche os campos com os dados recebidos
-                var recebeNome = funcionario[idUsuario - 1].Nome || "falhou";
-                var recebeCPF = funcionario[idUsuario - 1].CPF || "falhou";
-                var recebeTipo = funcionario[idUsuario - 1].fkTipoUsuario || "falhou";
-                var recebeEmail = funcionario[idUsuario - 1].Email || "falhou";
-                var recebeSenha = funcionario[idUsuario - 1].Senha || "falhou";
+                console.log('FUNCIONARIOS: ', funcionario)
+
+                var recebeNome = funcionario[indexDoUsuario].Nome || "falhou";
+                var recebeCPF = funcionario[indexDoUsuario].CPF || "falhou";
+                var recebeTipo = funcionario[indexDoUsuario].fkTipoUsuario || "falhou";
+                var recebeEmail = funcionario[indexDoUsuario].Email || "falhou";
+                var recebeSenha = funcionario[indexDoUsuario].Senha || "falhou";
 
                 console.log("recebeCPF:", recebeCPF)
 

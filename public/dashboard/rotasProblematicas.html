@@ -20,8 +20,8 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
@@ -356,6 +356,9 @@
     </div>
 
     <script>
+        var SessionUser = sessionStorage.NOME_USUARIO
+        nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');

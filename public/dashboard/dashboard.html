@@ -20,8 +20,8 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><b><a href="./dashboard.html">Dashboard</a></b></li>
@@ -32,10 +32,12 @@
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
             </ul>
             <div id="div-configuracao">
-                <a href="./configuracoes.html"><div id="caixa-config">
-                    <img src="../assets/imgs/image 9.png" alt="">
-                    <p><b>Configurações</b></p>
-                </div></a>
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- Aqui o menu acaba, copie até aqui -->
@@ -93,7 +95,7 @@
 
                 <div>
                     <canvas id="myChart"></canvas>
-                  </div>
+                </div>
 
 
 
@@ -111,47 +113,48 @@
         </div>
         <!-- Aqui termina o gráfico -->
     </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
- 
-  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
 
-</script>
 
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-  
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Out', 'Nov', 'Dez'], 
-        datasets: [
-          {
-            label: 'Pontualidaes', 
-            data: [12, 19, 3, 5, 2, 3, 4, 8, 2, 8, 2, 4], 
-            borderColor: '#619bcc',
-            fill: false,
-            tension: 0.1 
-          },
-          {
-            label: 'Atrasos', 
-            data: [5, 10, 8, 15, 9, 7, 8, 9, 2, 10, 6, 4], 
-            borderColor: '#dd8d54', 
-            fill: false, 
-            tension: 0.1 
-          }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true 
-          }
-        }
-      }
-    });
-  </script>
+
+    </script>
+
     <script>
-  
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Out', 'Nov', 'Dez'],
+                datasets: [
+                    {
+                        label: 'Pontualidaes',
+                        data: [12, 19, 3, 5, 2, 3, 4, 8, 2, 8, 2, 4],
+                        borderColor: '#619bcc',
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Atrasos',
+                        data: [5, 10, 8, 15, 9, 7, 8, 9, 2, 10, 6, 4],
+                        borderColor: '#dd8d54',
+                        fill: false,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        var SessionUser = sessionStorage.NOME_USUARIO
+        nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
 
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
