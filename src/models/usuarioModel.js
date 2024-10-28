@@ -166,7 +166,7 @@ function listarFunc(fkEmpresa){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresa)
 
     var instrucaoSql = `
-        SELECT tbUsuario.*, tbTipoUsuario.tipo FROM tbUsuario JOIN tbTipoUsuario ON idTipoUsuario = fkTipoUsuario WHERE fkEmpresa = '${fkEmpresa}';
+        SELECT tbUsuario.*, tbTipoUsuario.tipo FROM tbUsuario JOIN tbTipoUsuario ON idTipoUsuario = fkTipoUsuario WHERE fkEmpresa = '${fkEmpresa}' ORDER BY idUsuario;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
