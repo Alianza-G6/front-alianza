@@ -41,6 +41,9 @@ router.post("/senhaNova", function (req, res) {
 router.post("/deletarConta", function (req, res) {
     usuarioController.deletarConta(req, res);
 });
+router.post("/cadastrarEmpresa", function (req, res) {
+    usuarioController.cadastrarEmpresa(req, res);
+});
 
 
 module.exports = router;

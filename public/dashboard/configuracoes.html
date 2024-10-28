@@ -30,6 +30,7 @@
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html"><div id="caixa-config">
@@ -71,6 +72,10 @@
                     <p>Feedback</p>
                     <img src="../assets/imgs/configuracoes/feedback.png" alt="img-feedback">
                 </div>
+                <div onclick="cadastrarEmpresa()" class="opcoes" id="cadastroEmpresa">
+                    <p>Cadastro Empresa</p>
+                    <img src="../assets/imgs/configuracoes/cadastroEmpresa.webp" alt="img-empresa">
+                </div>
                 <div class="opcoes" id="sair">
                     <p>Sair</p>
                     <img src="../assets/imgs/configuracoes/sair.png" alt="">
@@ -95,7 +100,9 @@
             window.location="editarConta.html"
         }
 
-
+        function cadastrarEmpresa() {
+            window.location="cadastroEmpresa.html"
+        }
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');

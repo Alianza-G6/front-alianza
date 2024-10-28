@@ -17,8 +17,6 @@
 </head>
 
 <body>
-  <!-- <img class="solta" src="../public/assets/imgs/login/fundo.png" alt=""> -->
-
   <div class="fundo">
     <img src="" alt="" class="quadrado" />
 
@@ -28,58 +26,38 @@
 
         <div class="align">
           <div class="credenciais">
-            <p>Nome</p>
-            <input type="name" id="nome_input" class="input" / required>
-          </div>
-
-
-          <div class="credenciais">
-            <p>Email</p>
-            <input type="email" id="email_input" class="input" / required>
+            <label for="nome_input">Nome</label>
+            <input type="text" id="nome_input" class="input" required />
           </div>
 
           <div class="credenciais">
-            <p>Senha</p>
-            <input type="password" id="senha_input" class="input" / required>
+            <label for="cpf_input">CPF</label>
+            <input type="number" id="cpf_input" class="input" required />
+          </div>
+        </div>
+
+        <div class="align">
+          <div class="credenciais">
+            <label for="email_input">Email</label>
+            <input type="email" id="email_input" class="input" required />
           </div>
 
           <div class="credenciais">
-            <p>Confirmação de Senha</p>
-            <input type="password" id="input_confirmar" class="input" / required>
+            <label for="senha_input">Senha</label>
+            <input type="password" id="senha_input" class="input" required />
           </div>
-          <div class="selects">
+        </div>
 
-
-
-            <div class="select">
-              <p>Tipo de Empresa</p>
-              <select class="selectTipoEmpresa">
-                <option value="#" default>Selecione</option>
-                <option value="1">Companhia Aérea</option>
-                <option value="2">Aeroporto</option>
-              </select>
-            </div>
-
-            <div class="select">
-              <p class="tituloCompanhia">Companhia Aérea</p> <!-- Será alterado dinamicamente -->
-              <select class="selectCompanhia">
-                <!-- As opções serão alteradas dinamicamente -->
-              </select>
-            </div>
-
-            <div class="select">
-              <p>Tipo usuário</p>
-              <select class="selectUser" id="tipoUsuario">
-                <option value="#"default>Selecione</option>
-                <option value="1">Administrador</option>
-                <option value="2">Gerente</option>
-                <option value="3">Analista</option>
-              </select>
-            </div>
+        <div class="align">
+          <div class="credenciais">
+            <label for="input_confirmar">Confirmação de Senha</label>
+            <input type="password" id="input_confirmar" class="input" required />
           </div>
 
-
-
+          <div class="credenciais">
+            <label for="codigo_input">Código de Ativação</label>
+            <input type="number" id="codigo_input" class="input" required />
+          </div>
         </div>
 
         <div class="align start">
@@ -89,137 +67,52 @@
           <b>Já possui uma conta na
             <a href="login.html"><span class="alianza">ALIANZA?</span></a></b>
         </div>
+      </form>
     </div>
   </div>
-  </form>
 </body>
 
-</html>
-
 <script>
-
-  // Referências aos elementos
-  const selectTipoEmpresa = document.querySelector('.selectTipoEmpresa');
-  const selectCompanhia = document.querySelector('.selectCompanhia');
-  const tituloCompanhia = document.querySelector('.tituloCompanhia');
-
-  // Opções para cada tipo de empresa
-  const opcoesCompanhia = [
-    { value: "#", text: "Selecione" },
-    { value: "GRU", text: "GRU" },
-    { value: "TAM", text: "TAM" },
-    { value: "GOL", text: "GOL" }
-  ];
-
-  const opcoesAeroporto = [
-    { value: "#", text: "Selecione"},
-    { value: "CGH", text: "Congonhas" },
-    { value: "BSB", text: "Brasília" },
-    { value: "SDU", text: "Santos Dumont" }
-  ];
-
-  // Função para atualizar as opções e o título
-  function atualizarOpcoes(tipo) {
-    selectCompanhia.innerHTML = ""; // Limpar opções existentes
-
-    let opcoes, novoTitulo;
-    if (tipo === "1") {
-      opcoes = opcoesCompanhia;
-      novoTitulo = "Companhia Aérea";
-    } else if (tipo === "2") {
-      opcoes = opcoesAeroporto;
-      novoTitulo = "Aeroporto";
-    } else {
-      opcoes = [{ value: "#", text: "Selecione" }];
-      novoTitulo = "Selecione o Tipo";
-    }
-
-    // Atualizar o título
-    tituloCompanhia.textContent = novoTitulo;
-
-    // Adicionar novas opções dinamicamente
-    opcoes.forEach(opcao => {
-      const optionElement = document.createElement('option');
-      optionElement.value = opcao.value;
-      optionElement.textContent = opcao.text;
-      selectCompanhia.appendChild(optionElement);
-    });
-  }
-
-  // Evento de mudança no selectTipoEmpresa
-  selectTipoEmpresa.addEventListener('change', (event) => {
-    atualizarOpcoes(event.target.value);
-  });
-
-  // Inicialização com opções padrão
-  atualizarOpcoes(selectTipoEmpresa.value);
-
-
   function CriarConta() {
-
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = input_confirmar.value;
-
-
-
+    var cpfVar = cpf_input.value;
+    var codigo = codigo_input.value;
 
     // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-
-    ) {
-
-
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "" || codigo == '' || cpfVar == '') {
+      // Lógica para tratamento de erro pode ser adicionada aqui
     } else {
-
-
       fetch("/usuarios/cadastrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-
           nomeServer: nomeVar,
           emailServer: emailVar,
           senhaServer: senhaVar,
-          tipoUserServer: tipoUser
-
+          cpfServer: cpfVar,
+          codigoServer: codigo
         }),
-
       })
         .then(function (resposta) {
           console.log("resposta: ", resposta);
-
           if (resposta.ok) {
-
-
-
             setTimeout(() => {
               window.location = "login.html";
-            }, "2000");
-
-
+            }, 2000);
           } else {
             throw "Houve um erro ao tentar realizar o cadastro!";
           }
         })
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
-
         });
     }
 
     return false;
   }
-
-
-
-
-
 </script>
