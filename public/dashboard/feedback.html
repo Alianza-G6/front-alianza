@@ -9,6 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
+
 </head>
 
 <body onload="listarFeedback()">
@@ -132,10 +139,33 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        alert("Feedback enviado!")
                         listarFeedback()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Feedback enviado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o enviarFeedback()!";
+                        Swal.fire({
+                            title: "Houve um erro ao enviar o feedback",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
@@ -262,14 +292,39 @@
 
                     if (resposta.ok) {
                         listarFeedback()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Feedback editado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o editarFeedback!";
+                        Swal.fire({
+                            title: "Houve um erro ao editar o feedback!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
 
                 });
+            sairModal()
         }
 
         return false;
@@ -296,15 +351,41 @@
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
                     if (resposta.ok) {
-                        window.location.reload()
+                        // window.location.reload()
+                        listarFeedback()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Feedback apagado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o apagarFeedback!";
+                        Swal.fire({
+                            title: "Houve um erro ao apagar o Feedback",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
 
                 });
+            sairModal()
         }
 
         return false;

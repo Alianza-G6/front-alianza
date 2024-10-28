@@ -8,6 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
+
     <title>Cadastro de Funcionários - Alianza</title>
 </head>
 
@@ -198,8 +205,32 @@
 
                     if (resposta.ok) {
                         listarFunc()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Cadastrado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o cadastroFunc!";
+                        Swal.fire({
+                            title: "Usuário já existe!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
@@ -223,7 +254,7 @@
             .then(function (resposta) {
                 resposta.json().then((funcionarios) => {
                     console.log("Esses são os funcionario encontrados: ", funcionarios)
-                   
+
                     for (let i = 0; i < funcionarios.length; i++) {
                         const element = funcionarios[i];
                         div_lista_funcionarios.innerHTML += `
@@ -263,7 +294,7 @@
         modalDiv.style = "display: unset";
     }
 
-    function pegarIdUsuario(idUsuario){
+    function pegarIdUsuario(idUsuario) {
         idUsuarioDaEdicao = idUsuario;
     }
 
@@ -350,14 +381,39 @@
 
                     if (resposta.ok) {
                         listarFunc()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuario editado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o cadastroFunc!";
+                        Swal.fire({
+                            title: "Houve um erro na edição!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
 
                 });
+                sairModal()
         }
 
         return false;
@@ -391,14 +447,40 @@
 
                     if (resposta.ok) {
                         listarFunc()
+                        
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuario apagado com sucesso!"
+                        });
                     } else {
                         throw "Houve um erro ao tentar realizar o apagarFunc!";
+                        Swal.fire({
+                            title: "Houve um erro ao apagar o Usuário!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
                     }
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
 
                 });
+                sairModal()
         }
 
         return false;
