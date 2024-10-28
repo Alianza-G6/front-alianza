@@ -99,13 +99,13 @@
 
             </div>
             <div id="info-grafico">
-                <div id="div-legenda-atrasos">
-                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
-                    <p>Atrasos</p>
-                </div>
                 <div id="div-legenda-pontuais">
                     <div class="legenda-grafico" id="cor-legenda-pontuais"></div>
                     <p>Pontualidades</p>
+                </div>
+                <div id="div-legenda-atrasos">
+                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
+                    <p>Atrasos</p>
                 </div>
             </div>
         </div>
@@ -123,18 +123,18 @@
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], 
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Out', 'Nov', 'Dez'], 
         datasets: [
           {
-            label: 'Linha 1', 
-            data: [12, 19, 3, 5, 2, 3], 
+            label: 'Pontualidaes', 
+            data: [12, 19, 3, 5, 2, 3, 4, 8, 2, 8, 2, 4], 
             borderColor: '#619bcc',
             fill: false,
             tension: 0.1 
           },
           {
-            label: 'Linha 2', 
-            data: [5, 10, 8, 15, 9, 7], 
+            label: 'Atrasos', 
+            data: [5, 10, 8, 15, 9, 7, 8, 9, 2, 10, 6, 4], 
             borderColor: '#dd8d54', 
             fill: false, 
             tension: 0.1 
