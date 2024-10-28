@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
     background-image: url(../assets/imgs/login/fundo.png);
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
