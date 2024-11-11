@@ -281,13 +281,14 @@ nav img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 15vh;
 }
 
 .div_beneficios h1 {
   z-index: 2;
   font-size: 24pt;
   text-decoration: underline;
-  color: #000000;
+  color: #ffffff;
   text-decoration-color: #ffcb13;
 }
 
@@ -360,6 +361,7 @@ nav img {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
 }
 
 .imgAlianza {
@@ -370,6 +372,7 @@ nav img {
   display: flex;
   align-items: center;
   gap: 6vh;
+  border-radius: 15px;
 }
 
 .imgAlianza img {
@@ -590,6 +593,7 @@ nav img {
   }
 
   .div_beneficios h1 {
+    
     z-index: 2;
     font-size: 24pt;
     text-decoration: underline;
