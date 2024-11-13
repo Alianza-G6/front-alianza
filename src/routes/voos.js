@@ -23,4 +23,8 @@ router.get("/kpiRotasProblematicas/:fkEmpresaVar", function (req, res) {
     vooController.kpiRotasProblematicas(req, res);
 });
 
+router.get("/listarRotasProblematicas/:fkEmpresaVar", function (req, res) {
+    vooController.listarRotasProblematicas(req, res);
+});
+
 module.exports = router;

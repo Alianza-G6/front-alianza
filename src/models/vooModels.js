@@ -129,10 +129,50 @@ function kpiRotasProblematicas(fkEmpresaVar) {
     return database.executar(instrucaoSql);
 }
 
+function listarRotasProblematicas(fkEmpresaVar) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
+
+    var instrucaoSql = `
+        SELECT 
+            p.numeroVoo, 
+            p.fkCompanhia,
+            c.siglaICAO AS companhia, 
+            p.fkAeroportoOrigem,
+            o.siglaICAO AS aeroportoOrigem,
+            p.fkAeroportoDestino,
+            d.siglaICAO AS aeroportoDestino,
+            COUNT(*) AS quantidadeAtrasos,
+            ROUND(AVG(TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal)), 0) AS mediaAtrasoPartida,
+            ROUND(AVG(TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal)), 0) AS mediaAtrasoChegada
+        FROM 
+            voo p
+        JOIN 
+            tbCompanhia c ON p.fkCompanhia = c.idCompanhia
+        JOIN 
+            tbAeroporto o ON p.fkAeroportoOrigem = o.idAeroporto
+        JOIN 
+            tbAeroporto d ON p.fkAeroportoDestino = d.idAeroporto
+        WHERE 
+            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  -- Atraso na partida
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  -- Atraso na chegada
+            AND fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
+        GROUP BY 
+            p.numeroVoo, p.fkCompanhia, c.siglaICAO, p.fkAeroportoOrigem, o.siglaICAO, 
+            p.fkAeroportoDestino, d.siglaICAO
+        HAVING 
+            COUNT(*) > 1  -- Considera a rota como problemática se houver mais de um atraso
+        ORDER BY 
+            quantidadeAtrasos DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
     kpiMediaAtrasosSaida,
     kpiMediaAtrasosChegada,
-    kpiRotasProblematicas
+    kpiRotasProblematicas,
+    listarRotasProblematicas
 };

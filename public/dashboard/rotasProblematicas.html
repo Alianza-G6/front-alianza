@@ -11,7 +11,7 @@
     <title>Rotas Problemáticas - Alianza</title>
 </head>
 
-<body>
+<body onload="listarRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -53,268 +53,10 @@
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
 
         <div id="container">
-            <div id="lista-rotas-problematicas">
+            <div id="lista_rotas_problematicas">
 
-                <!--Inicio - Aqui as rotas problematicas são listadas -->
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
+                <!-- Aqui as rotas problemáticas são listadas -->
 
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
-
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
-
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
-
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
-
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="rota-problematica">
-                    <div id="codigo-voo">
-                        <span>904</span>
-                    </div>
-                    <div id="dados-voo">
-                        <div id="rota-voo">
-                            <div id="aeroporto-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
-                                    alt="img-aeroporto-saida">
-                                <span>SGRP</span>
-                            </div>
-
-                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
-
-                            <div id="aeroporto-destino" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
-                                    alt="img-aeroporto-chegada">
-                                <span>AGNP</span>
-                            </div>
-                        </div>
-                        <div id="companhia" class="div-flex">
-                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
-                            <span>LAM</span>
-                        </div>
-                        <div id="atrasos-voo">
-                            <div id="atraso-saida" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
-                                    alt="img-atraso-saida">
-                                <span>45min</span>
-                            </div>
-                            <div id="atraso-chegada" class="div-flex">
-                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
-                                    alt="img-atraso-chegada">
-                                <span>30min</span>
-                            </div>
-                        </div>
-                        <div id="ocorrencias">
-                            <span>4</span>
-                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fim - Aqui as rotas problemáticas são listadas -->
             </div>
 
             <!-- Inicio - Legenda das rotas problemáticas -->
@@ -357,6 +99,7 @@
 
     <script>
         var SessionUser = sessionStorage.NOME_USUARIO
+        var fkEmpresaVar = sessionStorage.FK_EMPRESA
         nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
 
         const menuButton = document.getElementById('imgOpenMenu');
@@ -376,6 +119,69 @@
                 menu.classList.remove('open');
             }
         });
+
+        function listarRotasProblematicas() {
+            // Enviando o valor da nova input
+            fetch(`/voos/listarRotasProblematicas/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((rotasProblematicas) => {
+                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", rotasProblematicas)
+                        rotasProblematicas.forEach(rotasProblematica => {
+                            lista_rotas_problematicas.innerHTML += `        
+                                <div class="rota-problematica">
+                                    <div id="codigo-voo">
+                                        <span>${rotasProblematica.numeroVoo}</span>
+                                    </div>
+                                    <div id="dados-voo">
+                                        <div id="rota-voo">
+                                            <div id="aeroporto-saida" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
+                                                    alt="img-aeroporto-saida">
+                                                <span>${rotasProblematica.aeroportoOrigem}</span>
+                                            </div>
+                
+                                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
+                
+                                            <div id="aeroporto-destino" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
+                                                    alt="img-aeroporto-chegada">
+                                            <span>${rotasProblematica.aeroportoDestino}</span>
+                                            </div>
+                                        </div>
+                                        <div id="companhia" class="div-flex">
+                                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
+                                            <span>${rotasProblematica.companhia}</span>
+                                        </div>
+                                        <div id="atrasos-voo">
+                                            <div id="atraso-saida" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
+                                                    alt="img-atraso-saida">
+                                                <span>${rotasProblematica.mediaAtrasoPartida}min</span>
+                                            </div>
+                                            <div id="atraso-chegada" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
+                                                    alt="img-atraso-chegada">
+                                                <span>${rotasProblematica.mediaAtrasoChegada}min</span>
+                                            </div>
+                                        </div>
+                                        <div id="ocorrencias">
+                                            <span>${rotasProblematica.quantidadeAtrasos}</span>
+                                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
+                                        </div>
+                                    </div>
+                                </div>`
+                        });
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
     </script>
 </body>
 
