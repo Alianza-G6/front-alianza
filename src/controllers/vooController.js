@@ -125,10 +125,36 @@ function kpiRotasProblematicas(req, res) {
     }
 }
 
+function listarRotasProblematicas(req, res) {
+    let fkEmpresaVar = req.params.fkEmpresaVar;
+
+    if (fkEmpresaVar == undefined) {
+        res.status(400).send("Seu fkEmpresaVar está undefined!");
+    } else {
+
+        vooModels.listarRotasProblematicas(fkEmpresaVar)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro: kpiRotasProblematicas ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
     kpiMediaAtrasosSaida,
     kpiMediaAtrasosChegada,
-    kpiRotasProblematicas
+    kpiRotasProblematicas,
+    listarRotasProblematicas
 }
