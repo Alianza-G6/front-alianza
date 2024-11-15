@@ -68,11 +68,11 @@
         </div>
 
         <div class="align start">
-          <div class="botao">
+          
             <button type="submit" class="buttonCriar">Criar Conta</button>
-          </div>
-          <b>Já possui uma conta na
-            <a href="login.html"><span class="alianza">ALIANZA?</span></a></b>
+          
+          <b>Já possui uma conta? 
+            <a href="login.html"><span class="alianza">Entrar</span></a></b>
         </div>
       </form>
     </div>
@@ -133,7 +133,7 @@
             throw new Error("Houve um erro ao tentar realizar o cadastro!");
 
             Swal.fire({
-            title: "Usuário já existe ou Código de Ativação errado! ",
+            title: "Usuário existente ou Código de Ativação inválido! ",
             icon: "error",
             iconHtml: "",
             confirmButtonText: "Ok",
