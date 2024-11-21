@@ -20,7 +20,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var feedbackRouter = require("./src/routes/feedbacks");
 var vooRouter = require("./src/routes/voos");
-var auth = require('./routes/auth');
+var auth = require('./src/routes/auth');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
