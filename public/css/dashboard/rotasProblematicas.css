@@ -24,7 +24,7 @@ body {
     border-bottom-right-radius: 30px;
 }
 
-#menu a{
+#menu a {
     text-decoration: none;
     color: #ffffff;
 }
@@ -32,13 +32,13 @@ body {
 #menu ul {
     list-style: none;
     padding-left: 2.5vw;
-    }
+}
 
 #menu ul li {
     margin: 25px 0;
 }
 
-#imgCloseButton img{
+#imgCloseButton img {
     height: 10px;
 }
 
@@ -47,7 +47,7 @@ body {
     /* Move para dentro da tela */
 }
 
-#div-fechar-menu{
+#div-fechar-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -56,15 +56,15 @@ body {
     height: 12vh;
 }
 
-.imgMenu{
+.imgMenu {
     height: 7vh;
 }
 
-#imgLogo{
+#imgLogo {
     height: 4.5vh;
 }
 
-#div-usuario{
+#div-usuario {
     height: 15vh;
     display: flex;
     flex-direction: row;
@@ -76,15 +76,15 @@ body {
 #div-usuario p {
     font-weight: bolder;
 }
-   
-#img-usuario{
+
+#img-usuario {
     height: 50px;
     width: 50px;
     border-radius: 50px;
     background-color: blue;
 }
 
-#div-configuracao{
+#div-configuracao {
     padding-top: 5vh;
     height: 15vh;
     display: flex;
@@ -93,11 +93,11 @@ body {
 
 }
 
-#div-configuracao img{
+#div-configuracao img {
     height: 5vh;
 }
 
-#caixa-config{
+#caixa-config {
     height: fit-content;
     width: fit-content;
     display: flex;
@@ -108,7 +108,7 @@ body {
 
 }
 
-#div-nav{
+#div-nav {
     height: 12vh;
     display: flex;
     flex-direction: row;
@@ -117,15 +117,169 @@ body {
     margin: 0px 30px 0px 25px;
 }
 
-#caixa-nav{
+#caixa-nav {
     display: flex;
     flex-direction: row;
-    height: 100%;   
+    height: 100%;
     align-items: center;
     gap: 8vw;
 }
 
-#caixa-nav h1{
+#caixa-nav h1 {
     font-size: 15pt;
 }
+
 /* ...Aqui, para pegar o menu e a "navzinha" */
+
+
+#container {
+    height: 88vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5vh
+}
+
+/* Inicio - Lista rotas problemáticas */
+
+#lista_rotas_problematicas {
+    height: 70vh;
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    overflow-y: auto;
+    /* Permitir rolagem vertical */
+    overflow-x: hidden;
+    /* Evitar rolagem horizontal */
+}
+
+/* Barra de rolagem para Webkit */
+#lista_rotas_problematicas::-webkit-scrollbar {
+    width: 8px;
+}
+
+#lista_rotas_problematicas::-webkit-scrollbar-track {
+    background: #06050d;
+}
+
+#lista_rotas_problematicas::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #06050d;
+}
+
+
+#dados-voo {
+    width: 63.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4vw
+}
+
+#dados-voo span {
+    font-size: 2.5vh;
+}
+
+.rota-problematica {
+    height: 12vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #2f2c37;
+    border-radius: 15px;
+}
+
+#codigo-voo {
+    height: 100%;
+    width: 6.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #64606b;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#codigo-voo span {
+    font-size: 4vh;
+}
+
+#rota-voo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+}
+
+#rota-voo span{
+    min-width: 4vw;
+}
+
+.div-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3vw;
+}
+
+#companhia {
+    /* nada por enquanto kkkk */
+}
+
+#atrasos-voo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+}
+
+#atrasos-voo span{
+    min-width: 5vw;
+}
+
+#ocorrencias {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+#ocorrencias span {
+    font-size: 8vh;
+}
+
+/* Fim - Lista rotas problemáticas */
+
+#div-legendas {
+    height: 8vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.legenda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vw;
+}
+
+#legenda-ocorrencias {
+    display: flex;
+    justify-items: end;
+}
+
+#legenda-ocorrencias-span {
+    font-size: 8vh;
+}

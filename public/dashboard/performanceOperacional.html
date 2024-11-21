@@ -20,12 +20,12 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><b><a href="./performanceOperacional.html">Performance Operacional</a></b></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
@@ -75,7 +75,7 @@
 
         <div class="sessionKPI">
             <div class="horarios">
-            
+
                 <div class="horarioSaida">
                     <span class="titulo">Horário de saída</span>
                     <div class="quadrados">
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                 </div>
-            
-            
+
+
                 <div class="horarioChegada">
                     <span class="titulo">Horário de chegada</span>
                     <div class="quadrados">
@@ -105,10 +105,10 @@
                     </div>
                 </div>
             </div>
-            
+
 
             <div class="statusAeroporto">
-                
+
                 <div class="quadradosAeroporto">
                     <div class="aeroportoOrigem">
                         <span class="tituloAeroporto">Aeroporto de origem:</span>
@@ -119,10 +119,10 @@
                         <div class="kpiAeroporto">POA-RS</div>
                     </div>
                 </div>
-                    
-                    <h1 class="statusVooTitulo">Status do voo:</h1>
-                    <img class="alertActually" src="../assets/imgs/imgAlertGreen.png" alt="">
-               
+
+                <h1 class="statusVooTitulo">Status do voo:</h1>
+                <img class="alertActually" src="../assets/imgs/imgAlertGreen.png" alt="">
+
 
                 <div class="alertsVoo">
                     <img src="../assets/imgs/imgAlertGreen.png" alt="">
@@ -138,6 +138,9 @@
     </div>
 
     <script>
+        var SessionUser = sessionStorage.NOME_USUARIO
+        nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');

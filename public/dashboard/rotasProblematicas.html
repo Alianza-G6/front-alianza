@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/pontualidadeAtrasos.css">
+    <link rel="stylesheet" href="../css/dashboard/rotasProblematicas.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
     <title>Rotas Problemáticas - Alianza</title>
 </head>
 
-<body>
+<body onload="listarRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -20,22 +20,24 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
                 <li><b><a href="./rotasProblematicas.html">Rotas Problemáticas</a></b></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
             </ul>
             <div id="div-configuracao">
-                <a href="./configuracoes.html"><div id="caixa-config">
-                    <img src="../assets/imgs/image 9.png" alt="">
-                    <p><b>Configurações</b></p>
-                </div></a>
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- Aqui o menu acaba, copie até aqui -->
@@ -50,9 +52,56 @@
         </div>
         <!-- Aqui termina a "navzinha", termine de copiar aqui -->
 
+        <div id="container">
+            <div id="lista_rotas_problematicas">
+
+                <!-- Aqui as rotas problemáticas são listadas -->
+
+            </div>
+
+            <!-- Inicio - Legenda das rotas problemáticas -->
+            <div id="div-legendas">
+                <div class="legenda">
+                    <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png" alt="img-aeroporto-saida">
+                    <span>Aeroporto Origem</span>
+                </div>
+
+                <div class="legenda">
+                    <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png" alt="img-aeroporto-chegada">
+                    <span>Aeroporto Destino</span>
+                </div>
+
+                <div class="legenda">
+                    <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
+                    <span>Companhia Aerea</span>
+                </div>
+
+                <div class="legenda">
+                    <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png" alt="img-atraso-saida">
+                    <span>Atraso Médio de Saída</span>
+                </div>
+
+                <div class="legenda">
+                    <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png" alt="img-atraso-chegada">
+                    <span>Atraso Médio de Chegada</span>
+                </div>
+
+                <div id="legenda-ocorrencias" class="legenda">
+                    <span id="legenda-ocorrencias-span">?</span>
+                    <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
+                    <span>Ocorrências</span>
+                </div>
+            </div>
+            <!-- Fim - Legenda das rotas problemáticas -->
+        </div>
+
     </div>
 
     <script>
+        var SessionUser = sessionStorage.NOME_USUARIO
+        var fkEmpresaVar = sessionStorage.FK_EMPRESA
+        nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
         const closeButton = document.getElementById('imgCloseMenu');
@@ -70,6 +119,69 @@
                 menu.classList.remove('open');
             }
         });
+
+        function listarRotasProblematicas() {
+            // Enviando o valor da nova input
+            fetch(`/voos/listarRotasProblematicas/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((rotasProblematicas) => {
+                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", rotasProblematicas)
+                        rotasProblematicas.forEach(rotasProblematica => {
+                            lista_rotas_problematicas.innerHTML += `        
+                                <div class="rota-problematica">
+                                    <div id="codigo-voo">
+                                        <span>${rotasProblematica.numeroVoo}</span>
+                                    </div>
+                                    <div id="dados-voo">
+                                        <div id="rota-voo">
+                                            <div id="aeroporto-saida" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-saida.png"
+                                                    alt="img-aeroporto-saida">
+                                                <span>${rotasProblematica.aeroportoOrigem}</span>
+                                            </div>
+                
+                                            <img src="../assets/imgs/rotas-problematicas/img-seta-voo.png" alt="img-seta-voo">
+                
+                                            <div id="aeroporto-destino" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-aeroporto-chegada.png"
+                                                    alt="img-aeroporto-chegada">
+                                            <span>${rotasProblematica.aeroportoDestino}</span>
+                                            </div>
+                                        </div>
+                                        <div id="companhia" class="div-flex">
+                                            <img src="../assets/imgs/rotas-problematicas/img-companhia.png" alt="img-companhia">
+                                            <span>${rotasProblematica.companhia}</span>
+                                        </div>
+                                        <div id="atrasos-voo">
+                                            <div id="atraso-saida" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-atraso-saida.png"
+                                                    alt="img-atraso-saida">
+                                                <span>${rotasProblematica.mediaAtrasoPartida}min</span>
+                                            </div>
+                                            <div id="atraso-chegada" class="div-flex">
+                                                <img src="../assets/imgs/rotas-problematicas/img-atraso-chegada.png"
+                                                    alt="img-atraso-chegada">
+                                                <span>${rotasProblematica.mediaAtrasoChegada}min</span>
+                                            </div>
+                                        </div>
+                                        <div id="ocorrencias">
+                                            <span>${rotasProblematica.quantidadeAtrasos}</span>
+                                            <img src="../assets/imgs/rotas-problematicas/img-ocorrencias.png    " alt="img-ocorrencias">
+                                        </div>
+                                    </div>
+                                </div>`
+                        });
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
     </script>
 </body>
 

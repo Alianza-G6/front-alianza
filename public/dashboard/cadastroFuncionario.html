@@ -8,10 +8,50 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
+
     <title>Cadastro de Funcionários - Alianza</title>
 </head>
 
-<body>
+<body onload="listarFunc()">
+
+    <!--Inicio -  Pop-up de edição de funcionário -->
+    <div class="sombra" id="sombraDiv" onclick="sairModal()"></div>
+    <div class="modal" id="modalDiv">
+        <div class="formCadastro">
+            <div class="img_voltar">
+                <img src="../assets/icon/seta-circulada.png" onclick="sairModal()">
+                <h1>Editar</h1>
+            </div>
+            <div class="inputForm">
+                <span>Nome:</span>
+                <input type="text" id="nome_input_modal">
+                <span>Nivel de acesso:</span>
+                <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario_modal">
+                    <option value="#" default>Selecione</option>
+                    <option value="1">Gerente</option>
+                    <option value="2">Analista</option>
+                </select>
+                <span>CPF:</span>
+                <input type="text" id="input_cpf_modal">
+                <span>Email:</span>
+                <input type="text" id="input_email_modal">
+                <span>Senha:</span>
+                <input type="password" id="input_senha_modal">
+            </div>
+            <div class="div-botoes">
+                <button onclick="editarFunc()" class="cadastrarFunc">Confirmar</button>
+                <button onclick="apagarFunc()" class="cadastrarFunc" style="background-color: brown;">Deletar</button>
+            </div>
+        </div>
+    </div>
+    <!--Fim -  Pop-up de edição de funcionário -->
+
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -20,8 +60,8 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
@@ -59,20 +99,21 @@
             <div class="formCadastro">
                 <div class="inputForm">
                     <span>Nome:</span>
-                    <input type="text">
+                    <input type="text" id="nome_input">
                     <span>Nivel de acesso:</span>
-                    <select name="name-select-acesso" id="select-acesso">
+                    <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                         <option value="#" default>Selecione</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Gerente</option>
-                        <option value="3">Analista</option>
+                        <option value="1">Gerente</option>
+                        <option value="2">Analista</option>
                     </select>
+                    <span>CPF:</span>
+                    <input type="text" id="input_cpf">
                     <span>Email:</span>
-                    <input type="text">
+                    <input type="text" id="input_email">
                     <span>Senha:</span>
-                    <input type="text">
+                    <input type="password" id="input_senha">
                 </div>
-                <button class="cadastrarFunc">Cadastrar</button>
+                <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
             </div>
 
             <!-- Fim - Inputs -->
@@ -81,48 +122,9 @@
             <div class="funcionario_cadastrado">
                 <h2>Funcionarios Cadastrados:</h2>
                 <div id="div_lista_funcionarios">
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Felipe</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Ellen</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Leonardo</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Rafael</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Moisés</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
-                    <div class="funcionario">
-                        <div id="info_funcionario">
-                            <span id="nome-func">Nathan</span>
-                            <span id="cargo-func">Gerente de Operações</span>
-                        </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar">
-                    </div>
+
+                    <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
+
                 </div>
             </div>
             <!-- Fim  - ListaFunc -->
@@ -130,26 +132,360 @@
     </div>
 
     </div>
-
-    <script>
-        const menuButton = document.getElementById('imgOpenMenu');
-        const menu = document.getElementById('menu');
-        const closeButton = document.getElementById('imgCloseMenu');
-
-        menuButton.addEventListener('click', () => {
-            menu.classList.toggle('open');
-        });
-
-        closeButton.addEventListener('click', () => {
-            menu.classList.remove('open');
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!menu.contains(event.target) && event.target !== menuButton) {
-                menu.classList.remove('open');
-            }
-        });
-    </script>
 </body>
+
+<script>
+    div_lista_funcionarios.innerHTML = ""
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA
+    var SessionUser = sessionStorage.NOME_USUARIO
+    nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+    var idUsuarioDaEdicao = "";
+
+
+    const menuButton = document.getElementById('imgOpenMenu');
+    const menu = document.getElementById('menu');
+    const closeButton = document.getElementById('imgCloseMenu');
+
+    menuButton.addEventListener('click', () => {
+        menu.classList.toggle('open');
+    });
+
+    closeButton.addEventListener('click', () => {
+        menu.classList.remove('open');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && event.target !== menuButton) {
+            menu.classList.remove('open');
+        }
+    });
+
+
+
+    function cadastrarFunc() {
+        var nomeVar = document.getElementById('nome_input').value;
+        var cpfVar = document.getElementById('input_cpf').value;
+        var emailVar = document.getElementById('input_email').value;
+        var senhaVar = document.getElementById('input_senha').value;
+        var tipoUserVar = document.getElementById('select_tipoUsuario').value;
+
+
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            cpfVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            tipoUserVar == "#" ||
+            fkEmpresaVar == ""
+        ) {
+            alert("Preencha todos os campos! " + fkEmpresaVar)
+
+
+        } else {
+
+            fetch("/usuarios/cadastrarFunc", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    nomeServer: nomeVar,
+                    cpfServer: cpfVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    tipoUserServer: tipoUserVar,
+                    fkEmpresaServer: fkEmpresaVar,
+
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        listarFunc()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Cadastrado com sucesso!"
+                        });
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastroFunc!";
+                        Swal.fire({
+                            title: "Usuário já existe!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+        }
+
+        return false;
+    }
+
+
+    function listarFunc() {
+        // Enviando o valor da nova input
+        fetch(`/usuarios/listarFunc/${fkEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (resposta) {
+                resposta.json().then((funcionarios) => {
+                    console.log("Esses são os funcionario encontrados: ", funcionarios)
+
+                    for (let i = 0; i < funcionarios.length; i++) {
+                        const element = funcionarios[i];
+                        div_lista_funcionarios.innerHTML += `
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">${funcionarios[i].Nome}</span>
+                            <span id="cargo-func">${funcionarios[i].tipo}</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${funcionarios[i].idUsuario})">
+                    </div>`
+                            ;
+                    }
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function pegarDados(idUsuario) {
+        return fetch(`/usuarios/pegarDados/${fkEmpresaVar}/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resposta) => resposta.json())
+            .catch((erro) => {
+                console.error(`#ERRO: ${erro}`);
+                throw erro; // Propaga o erro
+            });
+    }
+
+
+    function abrirModal() {
+        sombraDiv.style.display = `unset`;
+        modalDiv.style = "display: unset";
+    }
+
+    function pegarIdUsuario(idUsuario) {
+        idUsuarioDaEdicao = idUsuario;
+    }
+
+    function abrirEPreencher(indexDoUsuario) {
+
+        pegarDados(indexDoUsuario)
+            .then((funcionario) => {
+                // Preenche os campos com os dados recebidos
+                console.log('FUNCIONARIOS: ', funcionario)
+
+                var recebeNome = funcionario[indexDoUsuario].Nome || "falhou";
+                var recebeCPF = funcionario[indexDoUsuario].CPF || "falhou";
+                var recebeTipo = funcionario[indexDoUsuario].fkTipoUsuario || "falhou";
+                var recebeEmail = funcionario[indexDoUsuario].Email || "falhou";
+                var recebeSenha = funcionario[indexDoUsuario].Senha || "falhou";
+
+                console.log("recebeCPF:", recebeCPF)
+
+                document.getElementById('nome_input_modal').value = recebeNome;
+                document.getElementById('input_cpf_modal').value = recebeCPF;
+                document.getElementById('input_email_modal').value = recebeEmail;
+                document.getElementById('input_senha_modal').value = recebeSenha;
+                document.getElementById('select_tipoUsuario_modal').value = recebeTipo;
+
+                abrirModal(); // Abre o modal após preencher os dados
+            })
+            .catch((erro) => {
+                console.error("Erro ao abrir o modal:", erro);
+            });
+    }
+
+    function sairModal() {
+        sombraDiv.style.display = `none`;
+        modalDiv.style.display = `none`;
+    }
+
+
+    function editarFunc() {
+        var nomeVar = document.getElementById('nome_input_modal').value;
+        var cpfVar = document.getElementById('input_cpf_modal').value;
+        var emailVar = document.getElementById('input_email_modal').value;
+        var senhaVar = document.getElementById('input_senha_modal').value;
+        var tipoUserVar = document.getElementById('select_tipoUsuario_modal').value;
+
+        console.log(nomeVar)
+        console.log("CPFFF>", cpfVar)
+        console.log(emailVar)
+        console.log(senhaVar)
+        console.log(tipoUserVar)
+        console.log("Esse é o idDaEdição    ", idUsuarioDaEdicao)
+
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            cpfVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            tipoUserVar == "#" ||
+            fkEmpresaVar == ""
+        ) {
+            alert("Preencha todos os campos!")
+
+
+        } else {
+
+            fetch("/usuarios/editarFunc", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    idUsuarioServer: idUsuarioDaEdicao,
+                    nomeServer: nomeVar,
+                    cpfServer: cpfVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    tipoUserServer: tipoUserVar,
+                    fkEmpresaServer: fkEmpresaVar,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        listarFunc()
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuario editado com sucesso!"
+                        });
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastroFunc!";
+                        Swal.fire({
+                            title: "Houve um erro na edição!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+                sairModal()
+        }
+
+        return false;
+    }
+
+    function apagarFunc() {
+        var idUsuarioVar = idUsuarioDaEdicao
+        var idEmpresaVar = fkEmpresaVar
+
+        // Verificando se há algum campo em branco
+        if (
+            idUsuarioDaEdicao == "" ||
+            idEmpresaVar == ""
+        ) {
+            console.log("apagarFunc(): idUsuarioDaEdicao ou idEmpresaVar está vazio!")
+        } else {
+
+            fetch("/usuarios/apagarFunc", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    idUsuarioServer: idUsuarioVar,
+                    idEmpresaServer: idEmpresaVar
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        listarFunc()
+                        
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Usuario apagado com sucesso!"
+                        });
+                    } else {
+                        throw "Houve um erro ao tentar realizar o apagarFunc!";
+                        Swal.fire({
+                            title: "Houve um erro ao apagar o Usuário!",
+                            icon: "error",
+                            iconHtml: "",
+                            confirmButtonText: "Ok",
+                            // cancelButtonText: "لا",
+                            // showCancelButton: true,
+                            showCloseButton: false
+                        })
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+                sairModal()
+        }
+
+        return false;
+    }
+
+</script>
 
 </html>

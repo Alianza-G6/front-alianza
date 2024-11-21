@@ -20,8 +20,8 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
@@ -82,7 +82,7 @@
                         <h1>GLO - 01/2024</h1>
                     </div>
                     <div class="caixa-img-relatorio">
-                            <img src="../assets/imgs/imgRelatorio.png" alt="img-relatorio">
+                        <img src="../assets/imgs/imgRelatorio.png" alt="img-relatorio">
                     </div>
                 </div>
 
@@ -189,25 +189,28 @@
             </div>
         </div>
 
-        <script>
-            const menuButton = document.getElementById('imgOpenMenu');
-            const menu = document.getElementById('menu');
-            const closeButton = document.getElementById('imgCloseMenu');
-
-            menuButton.addEventListener('click', () => {
-                menu.classList.toggle('open');
-            });
-
-            closeButton.addEventListener('click', () => {
-                menu.classList.remove('open');
-            });
-
-            document.addEventListener('click', (event) => {
-                if (!menu.contains(event.target) && event.target !== menuButton) {
-                    menu.classList.remove('open');
-                }
-            });
-        </script>
 </body>
+<script>
+    var SessionUser = sessionStorage.NOME_USUARIO
+    nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
+
+    const menuButton = document.getElementById('imgOpenMenu');
+    const menu = document.getElementById('menu');
+    const closeButton = document.getElementById('imgCloseMenu');
+
+    menuButton.addEventListener('click', () => {
+        menu.classList.toggle('open');
+    });
+
+    closeButton.addEventListener('click', () => {
+        menu.classList.remove('open');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && event.target !== menuButton) {
+            menu.classList.remove('open');
+        }
+    });
+</script>
 
 </html>

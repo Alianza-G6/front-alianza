@@ -11,7 +11,7 @@
     <title>Dashboard - Alianza</title>
 </head>
 
-<body>
+<body onload="verificarUsuario(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -20,22 +20,24 @@
                 <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
             </div>
             <div id="div-usuario">
-                <div id="img-usuario"></div>
-                <p>Olá, Usuário</p>
+                <!-- <div id="img-usuario"></div> -->
+                <p id="nome_login_usuario"></p>
             </div>
             <ul>
                 <li><b><a href="./dashboard.html">Dashboard</a></b></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
                 <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
             </ul>
             <div id="div-configuracao">
-                <a href="./configuracoes.html"><div id="caixa-config">
-                    <img src="../assets/imgs/image 9.png" alt="">
-                    <p><b>Configurações</b></p>
-                </div></a>
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- Aqui o menu acaba, copie até aqui -->
@@ -57,7 +59,7 @@
                     <p>Percentual de Voos Pontuais (%)</p>
                 </div>
                 <div class="info-kpi">
-                    <span>18</span>
+                    <span id="kpi_percentual_voo_pontual"></span>
                 </div>
             </div>
             <div id="voos-atrasados" class="kpi">
@@ -65,15 +67,23 @@
                     <p>Percentual de Voos Atrasados (%)</p>
                 </div>
                 <div class="info-kpi">
-                    <span>50</span>
+                    <span id="kpi_percentual_voo_atrasado"></span>
                 </div>
             </div>
-            <div id="media-atraso" class="kpi">
+            <div id="media-atraso-saida" class="kpi">
                 <div class="titulo-kpi">
-                    <p>Média de atraso por Voo (minutos)</p>
+                    <p>Média de atraso de saida por Voo (minutos)</p>
                 </div>
                 <div class="info-kpi">
-                    <span>26,5</span>
+                    <span id="kpi_media_atrasos_saida"></span>
+                </div>
+            </div>
+            <div id="media-atraso-chegada" class="kpi">
+                <div class="titulo-kpi">
+                    <p>Média de atraso de chegada por Voo (minutos)</p>
+                </div>
+                <div class="info-kpi">
+                    <span id="kpi_media_atrasos_chegada"></span>
                 </div>
             </div>
             <div id="rotas-problematicas" class="kpi">
@@ -81,7 +91,7 @@
                     <p>Número de Rotas Problemáticas</p>
                 </div>
                 <div class="info-kpi">
-                    <span>18</span>
+                    <span id="kpi_rotas_problematicas"></span>
                 </div>
             </div>
         </div>
@@ -93,65 +103,75 @@
 
                 <div>
                     <canvas id="myChart"></canvas>
-                  </div>
+                </div>
 
 
 
             </div>
             <div id="info-grafico">
-                <div id="div-legenda-atrasos">
-                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
-                    <p>Atrasos</p>
-                </div>
                 <div id="div-legenda-pontuais">
                     <div class="legenda-grafico" id="cor-legenda-pontuais"></div>
                     <p>Pontualidades</p>
+                </div>
+                <div id="div-legenda-atrasos">
+                    <div class="legenda-grafico" id="cor-legenda-atrasos"></div>
+                    <p>Atrasos</p>
                 </div>
             </div>
         </div>
         <!-- Aqui termina o gráfico -->
     </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
- 
-  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
 
-</script>
 
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-  
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], 
-        datasets: [
-          {
-            label: 'Linha 1', 
-            data: [12, 19, 3, 5, 2, 3], 
-            borderColor: '#619bcc',
-            fill: false,
-            tension: 0.1 
-          },
-          {
-            label: 'Linha 2', 
-            data: [5, 10, 8, 15, 9, 7], 
-            borderColor: '#dd8d54', 
-            fill: false, 
-            tension: 0.1 
-          }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true 
-          }
-        }
-      }
-    });
-  </script>
+
+    </script>
+
     <script>
-  
+        let tipoUsuario = sessionStorage.FK_TIPOUSUARIO
+
+        function verificarUsuario() {
+            if (tipoUsuario == 2) {
+
+            }
+        }
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Out'],
+                datasets: [
+                    {
+                        label: 'Pontualidaes',
+                        data: [12, 19, 3, 5, 2, 3, 4, 8, 2, 8],
+                        borderColor: '#619bcc',
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Atrasos',
+                        data: [5, 10, 8, 15, 9, 7, 8, 9, 2, 10],
+                        borderColor: '#dd8d54',
+                        fill: false,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        var SessionUser = sessionStorage.NOME_USUARIO
+        var fkEmpresaVar = sessionStorage.FK_EMPRESA
+        nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
 
         const menuButton = document.getElementById('imgOpenMenu');
         const menu = document.getElementById('menu');
@@ -170,6 +190,105 @@
                 menu.classList.remove('open');
             }
         });
+
+        function kpiPercentualVooPontual() {
+            // Enviando o valor da nova input
+            fetch(`/voos/kpiPercentualVooPontual/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((percentual) => {
+                        console.log("Esses é o percentual de voo pontual encontrado: ", percentual[0].percentualPontuais)
+                        kpi_percentual_voo_pontual.innerHTML = (percentual[0].percentualPontuais);
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+
+
+        function kpiPercentualVooAtrasado() {
+            // Enviando o valor da nova input
+            fetch(`/voos/kpiPercentualVooAtrasado/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((percentual) => {
+                        console.log("Esses é o percentual de voo atrasado encontrado: ", percentual[0].percentualAtrasados)
+                        kpi_percentual_voo_atrasado.innerHTML = percentual[0].percentualAtrasados;
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+
+        function kpiMediaAtrasosSaida() {
+            // Enviando o valor da nova input
+            fetch(`/voos/kpiMediaAtrasosSaida/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((mediaSaida) => {
+                        console.log("Esses é o mediaSaida de voo atrasado encontrado: ", mediaSaida[0].mediaAtrasoSaida)
+                        kpi_media_atrasos_saida.innerHTML = mediaSaida[0].mediaAtrasoSaida;
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+
+        function kpiMediaAtrasosChegada() {
+            // Enviando o valor da nova input
+            fetch(`/voos/kpiMediaAtrasosChegada/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((mediaChegada) => {
+                        console.log("Esses é o mediaChegada de voo atrasado encontrado: ", mediaChegada[0].mediaAtrasoChegada)
+                        kpi_media_atrasos_chegada.innerHTML = mediaChegada[0].mediaAtrasoChegada;
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+
+        function kpiRotasProblematicas() {
+            // Enviando o valor da nova input
+            fetch(`/voos/kpiRotasProblematicas/${fkEmpresaVar}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(function (resposta) {
+                    resposta.json().then((qtdRotas) => {
+                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", qtdRotas[0].quantidadeAtrasos)
+                        kpi_rotas_problematicas.innerHTML = qtdRotas[0].quantidadeAtrasos;
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+
+
+
     </script>
 </body>
 
