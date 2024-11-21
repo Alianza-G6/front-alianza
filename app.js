@@ -14,6 +14,10 @@ var path = require("path");
 var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
+app.use('/auth', auth);
+
+var auth = require('./src/routes/auth');
+
 var app = express();
 
 var indexRouter = require("./src/routes/index");
