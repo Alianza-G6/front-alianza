@@ -12,6 +12,16 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 });
 
+router.post("/redefinirSenha", function (req, res) {
+    usuarioController.redefinirSenha(req, res);
+});
+
+
+router.post("/gerarCodigo", function (req, res) {
+    usuarioController.gerarCodigo(req, res);
+});
+
+
 router.post("/cadastrarFunc", function (req, res) {
     usuarioController.cadastrarFunc(req, res);
 });
