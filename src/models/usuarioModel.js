@@ -146,7 +146,7 @@ function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, cod
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, status) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
+        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, empresaStatus) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

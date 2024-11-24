@@ -117,6 +117,12 @@
                         sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
                         sessionStorage.FK_EMPRESA = json.fk_empresa;
 
+                        if(sessionStorage.FK_TIPOUSUARIO == 3){
+                            setTimeout(function () {
+                                window.location = "./dashboard/";
+                            }, 1000); // apenas para exibir o loading
+                        }
+
                         setTimeout(function () {
                             window.location = "./dashboard/dashboard.html";
                         }, 1000); // apenas para exibir o loading

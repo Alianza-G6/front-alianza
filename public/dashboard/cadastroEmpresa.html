@@ -11,7 +11,7 @@
 <body>
 
     <div class="containerPrincipal">
-        <div class="container-login" id="containerLogin">
+        <!-- <div class="container-login" id="containerLogin">
             <form id="loginCorreto" onsubmit="return loginCorreto()">
                 <div class="form-group">
                     <label for="usuarioCorreto">Usuário:</label>
@@ -23,9 +23,9 @@
                 </div>
                 <button type="submit" class="loginCorreto">Logar</button>
             </form>
-        </div>
+        </div> -->
 
-        <div class="container-cadastrar" id="containerCadastrar" style="display: none;">
+        <div class="container-cadastrar" id="containerCadastrar">
             <h1>Cadastrar Empresa</h1>
             <form id="cadastrarEmpresa" class="cadastrarEmpresaCSS" onsubmit="return cadastroCorreto()">
                 <div class="form-group">
@@ -101,12 +101,12 @@
     </div>
 
     <script>
-
         let codigoGerado;
         let razaoSocial;
         let cnpjCadastro;
         let tipoEmpresa;
         let siglaIcao;
+        
         function loginCorreto() {
             let user = document.getElementById("usuarioCorreto").value;
             let password = document.getElementById("senhaCorreta").value;

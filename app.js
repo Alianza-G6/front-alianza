@@ -1,6 +1,6 @@
 
-var ambiente_processo = 'producao';
-//var ambiente_processo = 'desenvolvimento';
+// var ambiente_processo = 'producao';
+var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
@@ -35,13 +35,13 @@ app.use("/voos", vooRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
-    ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
-    ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
-    ##   ##  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##        ##   
-    ## # ##  ####     #####    ######   ##  ##   ######     ##     ######   ######   ##  ##     ##       ##    
-    #######  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##      ##     
-    ### ###  ##       ##  ##            ## ##    ##  ##     ##     ##  ##             ####      ##     ##      
-    ##   ##  ######   #####             ####     ##  ##     ##     ##  ##              ##      ####    ######  
+            ###    ####      ######    ###    ##   ##  #######    ###
+           ## ##    ##         ##     ## ##   ###  ##  ##  ##    ## ##
+          ##   ##   ##         ##    ##   ##  #### ##     ##    ##   ##
+          ##   ##   ##         ##    ##   ##  #######    ##     ##   ##
+          #######   ##         ##    #######  ## ####   ##      #######
+          ##   ##   ##  ##     ##    ##   ##  ##  ###  ##   ##  ##   ##
+          ##   ##  #######   ######  ##   ##  ##   ##  #######  ##   ##
     \n\n\n                                                                                                 
     Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
     Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:. \n\n

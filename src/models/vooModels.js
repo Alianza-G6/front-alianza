@@ -117,8 +117,8 @@ function kpiRotasProblematicas(fkEmpresaVar) {
         FROM 
             voo p
         WHERE 
-            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 0  -- Atraso na partida
-            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 0
+            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  -- Atraso na partida
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30
             AND fkCompanhia = ${fkEmpresaVar} -- Atraso na chegada
         GROUP BY 
             p.fkCompanhia
@@ -168,11 +168,47 @@ function listarRotasProblematicas(fkEmpresaVar) {
     return database.executar(instrucaoSql);
 }
 
+function pesquisarVoo(idVoo, dataVoo) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", idVoo, dataVoo)
+
+    var instrucaoSql = `
+        SELECT 
+            p.numeroVoo,
+            p.fkCompanhia,
+            c.siglaICAO AS companhia, 
+            p.fkAeroportoOrigem,
+            o.siglaICAO AS aeroportoOrigem,
+            p.fkAeroportoDestino,
+            d.siglaICAO AS aeroportoDestino,
+            p.partidaPrevista AS partidaPrevista, 
+            p.partidaReal AS partidaReal, 
+            p.chegadaPrevista AS chegadaPrevista, 
+            p.chegadaReal AS chegadaReal,
+            p.statusVoo
+        FROM 
+            voo p
+        JOIN 
+            tbCompanhia c ON p.fkCompanhia = c.idCompanhia
+        JOIN 
+            tbAeroporto o ON p.fkAeroportoOrigem = o.idAeroporto
+        JOIN 
+            tbAeroporto d ON p.fkAeroportoDestino = d.idAeroporto
+        WHERE 
+            p.numeroVoo = '${idVoo}'  -- Substitua pelo número do voo desejado
+            AND DATE(p.partidaPrevista) = '${dataVoo}'  -- Substitua pela data desejada
+        ORDER BY 
+            p.partidaPrevista ASC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
     kpiMediaAtrasosSaida,
     kpiMediaAtrasosChegada,
     kpiRotasProblematicas,
-    listarRotasProblematicas
+    listarRotasProblematicas,
+    pesquisarVoo
 };
