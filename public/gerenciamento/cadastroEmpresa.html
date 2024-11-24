@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/cadastroFuncionario.css">
+    <link rel="stylesheet" href="../css/gerenciamento/cadastroEmpresa.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
@@ -15,10 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
 
 
-    <title>Cadastro de Funcionários - Alianza</title>
+    <title>Cadastro de Empresas - Alianza</title>
 </head>
 
-<body onload="listarFunc()">
+<body onload="listarEmpresa()">
 
     <!--Inicio -  Pop-up de edição de funcionário -->
     <div class="sombra" id="sombraDiv" onclick="sairModal()"></div>
@@ -87,7 +87,7 @@
         <div id="div-nav">
             <div id="caixa-nav">
                 <img id="imgOpenMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
-                <h1>CADASTRO DE FUNCIONÁRIOS</h1>
+                <h1>GERENCIAMENTO DE EMPRESAS</h1>
             </div>
             <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
         </div>
@@ -99,20 +99,21 @@
             <!-- Inicio - Inputs -->
             <div class="formCadastro">
                 <div class="inputForm">
-                    <span>Nome:</span>
+                    <span>Razão Social:</span>
                     <input type="text" id="nome_input">
-                    <span>Nivel de acesso:</span>
+                    <span>CNPJ:</span>
+                    <input type="text" id="input_cpf">
+                    <span>Tipo de Empresa:</span>
                     <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
                         <option value="#" default>Selecione</option>
                         <option value="1">Gerente</option>
                         <option value="2">Analista</option>
                     </select>
-                    <span>CPF:</span>
-                    <input type="text" id="input_cpf">
-                    <span>Email:</span>
-                    <input type="text" id="input_email">
-                    <span>Senha:</span>
-                    <input type="password" id="input_senha">
+                    <div class="codigoAtivacao">
+                    <span>Código Ativação:</span>
+                       
+                        <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
+                    </div>
                 </div>
                 <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
             </div>
@@ -121,8 +122,8 @@
 
             <!-- Inicio - Lista Func -->
             <div class="funcionario_cadastrado">
-                <h2>Funcionarios Cadastrados:</h2>
-                <div id="div_lista_funcionarios">
+                <h2>Empresas Cadastradas:</h2>
+                <div id="div_lista_empresas">
 
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
 
@@ -136,7 +137,7 @@
 </body>
 
 <script>
-    div_lista_funcionarios.innerHTML = ""
+    div_lista_empresas.innerHTML = ""
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
     var SessionUser = sessionStorage.NOME_USUARIO
     nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
@@ -221,7 +222,7 @@
                             icon: "success",
                             title: "Cadastrado com sucesso!"
                         });
-                        
+
                     } else {
                         throw "Houve um erro ao tentar realizar o cadastroFunc!";
                         Swal.fire({
@@ -245,28 +246,28 @@
     }
 
 
-    function listarFunc() {
-        div_lista_funcionarios.innerHTML = ""
+    function listarEmpresa() {
+        div_lista_empresas.innerHTML = ""
         // Enviando o valor da nova input
-        fetch(`/usuarios/listarFunc/${fkEmpresaVar}`, {
+        fetch(`/empresas/listarEmpresa/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         })
             .then(function (resposta) {
-                resposta.json().then((funcionarios) => {
-                    console.log("Esses são os funcionario encontrados: ", funcionarios)
+                resposta.json().then((empresas) => {
+                    console.log("Esses são os funcionario encontrados: ", empresas)
 
-                    for (let i = 0; i < funcionarios.length; i++) {
-                        const element = funcionarios[i];
-                        div_lista_funcionarios.innerHTML += `
+                    for (let i = 0; i < empresas.length; i++) {
+                        const element = empresas[i];
+                        div_lista_empresas.innerHTML += `
                     <div class="funcionario">
                         <div id="info_funcionario">
-                            <span id="nome-func">${funcionarios[i].nome}</span>
-                            <span id="cargo-func">${funcionarios[i].tipo}</span>
+                            <span id="nome-func">${empresas[i].nome}</span>
+                            <span id="cargo-func">${empresas[i].tipo}</span>
                         </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${funcionarios[i].idUsuario})">
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${empresas[i].idUsuario})">
                     </div>`
                             ;
                     }
@@ -278,7 +279,7 @@
     }
 
     function pegarDados(idUsuario) {
-        return fetch(`/usuarios/pegarDados/${fkEmpresaVar}/${idUsuario}`, {
+        return fetch(`/empresas/pegarDados/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -301,18 +302,18 @@
         idUsuarioDaEdicao = idUsuario;
     }
 
-    function abrirEPreencher(indexDoUsuario) {
+    function abrirEPreencher(indexDaEmpresa) {
 
-        pegarDados(indexDoUsuario)
-            .then((funcionario) => {
+        pegarDados(indexDaEmpresa)
+            .then((empresas) => {
                 // Preenche os campos com os dados recebidos
-                console.log('FUNCIONARIOS: ', funcionario)
+                console.log('EMPRESAS: ', empresas)
 
-                var recebeNome = funcionario[indexDoUsuario].nome || "falhou";
-                var recebeCPF = funcionario[indexDoUsuario].cpf || "falhou";
-                var recebeTipo = funcionario[indexDoUsuario].fkTipoUsuario || "falhou";
-                var recebeEmail = funcionario[indexDoUsuario].email || "falhou";
-                var recebeSenha = funcionario[indexDoUsuario].senha || "falhou";
+                var recebeNome = empresas[indexDaEmpresa].nome || "falhou";
+                var recebeCPF = empresas[indexDaEmpresa].cpf || "falhou";
+                var recebeTipo = empresas[indexDaEmpresa].fkTipoUsuario || "falhou";
+                var recebeEmail = empresas[indexDaEmpresa].email || "falhou";
+                var recebeSenha = empresas[indexDaEmpresa].senha || "falhou";
 
                 console.log("recebeCPF:", recebeCPF)
 
@@ -416,7 +417,7 @@
                     console.log(`#ERRO: ${resposta}`);
 
                 });
-                sairModal()
+            sairModal()
         }
 
         return false;
@@ -450,7 +451,7 @@
 
                     if (resposta.ok) {
                         listarFunc()
-                        
+
                         const Toast = Swal.mixin({
                             toast: true,
                             position: "top-end",
@@ -483,7 +484,7 @@
                     console.log(`#ERRO: ${resposta}`);
 
                 });
-                sairModal()
+            sairModal()
         }
 
         return false;

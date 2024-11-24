@@ -32,7 +32,10 @@ body {
 #menu ul {
     list-style: none;
     padding-left: 2.5vw;
+    height: 30vh;
+    margin-top: 13vh;
     }
+
 
 #menu ul li {
     margin: 25px 0;
