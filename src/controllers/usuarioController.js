@@ -2,6 +2,32 @@ var usuarioModel = require("../models/usuarioModel");
 
 
 
+    function redefinirSenha  (req, res)  {
+    const { email, codigo, novaSenha } = req.body;
+
+    if (!email || !codigo || !novaSenha) {
+        return res.status(400).json({ error: 'E-mail, código e nova senha são obrigatórios!' });
+    }
+
+    usuarioModel.redefinirSenha(email, codigo, novaSenha)
+        .then(resultado => {
+            if (resultado.affectedRows === 1) {
+                console.log("Senha atualizada com sucesso.");
+                return res.status(200).json({
+                    message: 'Senha atualizada com sucesso!',
+                    email: email
+                });
+            } else {
+                return res.status(403).send("Erro ao atualizar a senha.");
+            }
+        })
+        .catch(erro => {
+            console.error("\nHouve um erro ao redefinir a senha: ", erro.message);
+            return res.status(500).json({ error: erro.message });
+        });
+};
+
+
 
 function emailNovo(req, res) {
     var email = req.body.emailServer;
@@ -449,5 +475,6 @@ module.exports = {
     pegarDados,
     editarFunc,
     apagarFunc,
-    cadastrarEmpresa
+    cadastrarEmpresa,
+    redefinirSenha
 }

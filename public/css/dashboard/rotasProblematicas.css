@@ -32,6 +32,8 @@ body {
 #menu ul {
     list-style: none;
     padding-left: 2.5vw;
+    height: 30vh;
+    margin-top: 13vh;
 }
 
 #menu ul li {
@@ -144,7 +146,7 @@ body {
 
 /* Inicio - Lista rotas problemáticas */
 
-#lista-rotas-problematicas {
+#lista_rotas_problematicas {
     height: 70vh;
     width: 75vw;
     display: flex;
@@ -158,15 +160,15 @@ body {
 }
 
 /* Barra de rolagem para Webkit */
-#lista-rotas-problematicas::-webkit-scrollbar {
+#lista_rotas_problematicas::-webkit-scrollbar {
     width: 8px;
 }
 
-#lista-rotas-problematicas::-webkit-scrollbar-track {
+#lista_rotas_problematicas::-webkit-scrollbar-track {
     background: #06050d;
 }
 
-#lista-rotas-problematicas::-webkit-scrollbar-thumb {
+#lista_rotas_problematicas::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px;
     border: 2px solid #06050d;
@@ -218,6 +220,10 @@ body {
     gap: 1vw;
 }
 
+#rota-voo span{
+    min-width: 4vw;
+}
+
 .div-flex {
     display: flex;
     flex-direction: row;
@@ -236,6 +242,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1vw;
+}
+
+#atrasos-voo span{
+    min-width: 5vw;
 }
 
 #ocorrencias {

@@ -69,6 +69,42 @@ function deletarConta(email, senha) {
         });
 }
 
+function redefinirSenha(email, codigo, novaSenha) {
+    console.log("ACESSEI O USUARIO MODEL: ", email, codigo);
+
+    var instrucaoSql = `
+        SELECT * FROM tbUsuario AS u
+        INNER JOIN tbCodigoUsuario AS c
+        ON u.idUsuario = c.fkUsuario
+        WHERE u.email = '${email}' AND c.codigo = '${codigo}' AND c.dataExpiracao > NOW();
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql)
+        .then(result => {
+            if (result.length === 1) {
+             
+                var instrucaoUpdate = `
+                    UPDATE tbUsuario 
+                    SET senha = '${novaSenha}' 
+                    WHERE email = '${email}';
+                `;
+                console.log("Executando a instrução de UPDATE: \n" + instrucaoUpdate);
+
+                return database.executar(instrucaoUpdate);
+            } else if (result.length === 0) {
+                return Promise.reject(new Error('E-mail ou código inválidos ou expirados.'));
+            } else {
+                return Promise.reject(new Error('Mais de um usuário com o mesmo e-mail e código.'));
+            }
+        })
+        .catch(err => {
+            console.error('Erro ao verificar o usuário e o código:', err.message);
+            return Promise.reject(new Error('Erro ao verificar o usuário e o código.'));
+        });
+}
+
 
 
 function senhaNova(email, senha, novoSenha) {
@@ -138,7 +174,20 @@ function cadastrar(nome, email, senha, codigo, cpf) {
         });
 }
 
+function buscarUsuarioPorEmail(email) {
+    const query = `
+        SELECT * FROM tbUsuario WHERE email = '${email}';
+    `;
+    return database.executar(query);
+}
 
+function inserirCodigo(fkUsuario, resetCode) {
+    const query = `
+        INSERT INTO tbCodigoUsuario (fkUsuario, codigo)
+        VALUES (${fkUsuario}, '${resetCode}');
+    `;
+    return database.executar(query);
+}
 
 function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, codigoGerado) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
@@ -146,7 +195,7 @@ function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, cod
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, status) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
+        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, empresaStatus) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -232,5 +281,8 @@ module.exports = {
     pegarDados,
     editarFunc,
     apagarFunc,
-    cadastrarEmpresa
+    redefinirSenha, 
+    cadastrarEmpresa,
+    inserirCodigo,
+    buscarUsuarioPorEmail
 };

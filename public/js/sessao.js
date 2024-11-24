@@ -1,15 +1,17 @@
 // sessão
 function validarSessao() {
-    var email = sessionStorage.EMAIL_USUARIO;
-    var nome = sessionStorage.NOME_USUARIO;
+    let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
+    let usuario = sessionStorage.NOME_USUARIO
 
-    var b_usuario = document.getElementById("b_usuario");
-
-    if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
-    } else {
-        window.location = "../login.html";
+    if(fktipoUsuario == 1){
+        console.log(`${usuario} é Gerente`)
     }
+    else if(fkTipoUsuario == 2){
+        console.log(`${usuario} é Analista`)
+    }
+    else{
+        console.log(`${usuario} é Adimin`)
+    }    
 }
 
 function limparSessao() {

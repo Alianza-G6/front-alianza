@@ -65,10 +65,11 @@
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./relatorios.html">Relatórios Mensais</a></li>
+                <!-- <li><a href="./relatorios.html">Relatórios Mensais</a></li> -->
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
-                <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li>
+                <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
+
                 <li><b><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></b></li>
             </ul>
             <div id="div-configuracao">
@@ -260,7 +261,7 @@
                         div_lista_funcionarios.innerHTML += `
                     <div class="funcionario">
                         <div id="info_funcionario">
-                            <span id="nome-func">${funcionarios[i].Nome}</span>
+                            <span id="nome-func">${funcionarios[i].nome}</span>
                             <span id="cargo-func">${funcionarios[i].tipo}</span>
                         </div>
                         <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${funcionarios[i].idUsuario})">
@@ -305,11 +306,11 @@
                 // Preenche os campos com os dados recebidos
                 console.log('FUNCIONARIOS: ', funcionario)
 
-                var recebeNome = funcionario[indexDoUsuario].Nome || "falhou";
-                var recebeCPF = funcionario[indexDoUsuario].CPF || "falhou";
+                var recebeNome = funcionario[indexDoUsuario].nome || "falhou";
+                var recebeCPF = funcionario[indexDoUsuario].cpf || "falhou";
                 var recebeTipo = funcionario[indexDoUsuario].fkTipoUsuario || "falhou";
-                var recebeEmail = funcionario[indexDoUsuario].Email || "falhou";
-                var recebeSenha = funcionario[indexDoUsuario].Senha || "falhou";
+                var recebeEmail = funcionario[indexDoUsuario].email || "falhou";
+                var recebeSenha = funcionario[indexDoUsuario].senha || "falhou";
 
                 console.log("recebeCPF:", recebeCPF)
 
