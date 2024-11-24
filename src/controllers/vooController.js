@@ -150,11 +150,41 @@ function listarRotasProblematicas(req, res) {
     }
 }
 
+function pesquisarVoo(req, res) {
+    let idVoo = req.params.idVoo;
+    let dataVoo = req.params.dataVoo;
+
+    if (idVoo == undefined) {
+        res.status(400).send("Seu idVoo está undefined!");
+    }
+    else if (dataVoo == undefined){
+        res.status(400).send("Seu dataVoo está undefined")
+    } else {
+
+        vooModels.pesquisarVoo(idVoo, dataVoo)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro: pesquisarVoo ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
     kpiMediaAtrasosSaida,
     kpiMediaAtrasosChegada,
     kpiRotasProblematicas,
-    listarRotasProblematicas
+    listarRotasProblematicas,
+    pesquisarVoo
 }

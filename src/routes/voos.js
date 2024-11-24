@@ -27,4 +27,8 @@ router.get("/listarRotasProblematicas/:fkEmpresaVar", function (req, res) {
     vooController.listarRotasProblematicas(req, res);
 });
 
+router.get("/pesquisarVoo/:idVoo/:dataVoo", function (req, res) {
+    vooController.pesquisarVoo(req, res);
+});
+
 module.exports = router;
