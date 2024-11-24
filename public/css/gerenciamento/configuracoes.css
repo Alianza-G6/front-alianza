@@ -1,0 +1,222 @@
+/* Copie daqui até... */
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -19vw;
+    /* Começa fora da tela */
+    width: 19vw;
+    height: 100%;
+    background: #06050d;
+    color: white;
+    transition: left 0.3s ease;
+    /* Animação suave */
+    z-index: 1000;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+#menu a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#menu ul {
+    list-style: none;
+    padding-left: 2.5vw;
+    height: 30vh;
+    margin-top: 13vh;
+    }
+
+
+#menu ul li {
+    margin: 25px 0;
+    cursor: pointer;
+}
+
+#imgCloseButton img{
+    height: 10px;
+}
+
+#menu.open {
+    left: 0;
+    /* Move para dentro da tela */
+}
+
+#div-fechar-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5vw;
+    height: 12vh;
+}
+
+.imgMenu{
+    height: 7vh;
+    cursor: pointer;
+}
+
+#imgLogo{
+    height: 4.5vh;
+}
+
+#div-usuario{
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+}
+
+#div-usuario p {
+    font-weight: bolder;
+    cursor: default;
+}
+   
+#img-usuario{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+#div-configuracao{
+    padding-top: 5vh;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#div-configuracao img{
+    height: 5vh;
+}
+
+#caixa-config{
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vw;
+    cursor: pointer;
+}
+
+#div-nav{
+    height: 12vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 30px 0px 25px;
+}
+
+#caixa-nav{
+    display: flex;
+    flex-direction: row;
+    height: 100%;   
+    align-items: center;
+    gap: 8vw;
+}
+
+#caixa-nav h1{
+    font-size: 15pt;
+}
+/* ...Aqui, para pegar o menu e a "navzinha" */
+
+/* Aqui começa o css da pag de configurações */
+#configuracoes{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 88vh;
+    gap: 3vw;
+}
+
+#opcoes-config{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.opcoes {
+    background-color: #d9d9d9;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 10vh;
+    width: 20vw;
+    font-weight: bold;
+    padding: 0px 20px 0px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra na parte de baixo */
+    cursor: pointer;
+}
+
+
+.opcoes img{
+    height: 6vh;
+}
+
+#fonte {
+    cursor: default; /* Remove o cursor pointer de #fonte */
+}
+
+#fonte #img-fonte img {
+    cursor: pointer; /* Mantém o cursor pointer apenas nas imagens dentro de #img-fonte */
+}
+
+#img-fonte{
+    width: 7vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logo-config{
+    width: 45vw;
+    height: 58vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#logo-config img{
+    height: 18vh;
+}
+
+#div-img-logo-black{
+    width: 45vw;
+    height: 35vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#copyright{
+    height: 23vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #818181;
+}
+
+#copyright span{
+    font-size: 8pt;
+}

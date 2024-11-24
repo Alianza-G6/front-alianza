@@ -14,9 +14,6 @@ var path = require("path");
 var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
-app.use('/auth', auth);
-
-var auth = require('./src/routes/auth');
 
 var app = express();
 
@@ -31,15 +28,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-
-
-app.use('/auth', auth);
-
-
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/feedbacks", feedbackRouter);
 app.use("/voos", vooRouter);
+app.use('/auth', auth);
+
 
 
 app.listen(PORTA_APP, function () {

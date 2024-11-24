@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/dashboard/configuracoes.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="icon" href="../assets/icon/icon.png" />
+
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <title>Configurações - Alianza</title>
+
+
+</head>
+
+<body>
+    <div>
+        <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
+        <div id="menu" class="hidden">
+            <div id="div-fechar-menu">
+                <img id="imgCloseMenu" class="imgMenu" src="../assets/imgs/menu.png" alt="">
+                <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
+            </div>
+            <div id="div-usuario">
+                <!-- <div id="img-usuario"></div> -->
+                <p>Olá, Usuário</p>
+            </div>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
+                <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
+                <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
+
+                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+
+            </ul>
+            <div id="div-configuracao">
+                <a href="./configuracoes.html">
+                    <div id="caixa-config">
+                        <img src="../assets/imgs/image 9.png" alt="">
+                        <p><b>Configurações</b></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Aqui o menu acaba, copie até aqui -->
+
+        <!-- Aqui começa a "navzinha" digamos assim, copie a partir daqui também-->
+        <div id="div-nav">
+            <div id="caixa-nav">
+                <img id="imgOpenMenu" class="imgMenu" src="../assets/imgs/configuracoes/menu.png" alt="">
+                <h1>CONFIGURAÇÕES</h1>
+            </div>
+            <img id="imgLogo" src="../assets/imgs/alianza_logo.png" alt="">
+        </div>
+        <!-- Aqui termina a "navzinha", termine de copiar aqui -->
+
+        <div id="configuracoes">
+            <div id="opcoes-config">
+                <!-- <div class="opcoes" id="fonte">
+                    <p>Fonte</p>
+                    <div id="img-fonte">
+                        <img src="../assets/imgs/configuracoes/menos.png" alt="img-lupa-menos">
+                        <img src="../assets/imgs/configuracoes/mais.png" alt="img-lupa-mais">
+                    </div>
+                </div> -->
+                <div onclick="editarConta()" class="opcoes" id="editar-conta">
+                    <p>Editar Conta</p>
+                    <img src="../assets/imgs/configuracoes/editar.png" alt="img-lapis-editar">
+                </div>
+                <!-- <div class="opcoes" id="ajuda">
+                    <p>Ajuda</p>
+                    <img src="../assets/imgs/configuracoes/ajuda.png" alt="img-ajuda">
+                </div> -->
+                <div onclick="feedback()" class="opcoes" id="feedback">
+                    <p>Feedback</p>
+                    <img src="../assets/imgs/configuracoes/feedback.png" alt="img-feedback">
+                </div>
+                <!-- <div onclick="cadastrarEmpresa()" class="opcoes" id="cadastroEmpresa">
+                    <p>Cadastro Empresa</p>
+                    <img src="../assets/imgs/configuracoes/cadastroEmpresa.webp" alt="img-empresa">
+                </div> -->
+                <div onclick="sair()" class="opcoes" id="sair">
+                    <p>Sair</p>
+                    <img src="../assets/imgs/configuracoes/sair.png" alt="">
+                </div>
+            </div>
+            <div id="logo-config">
+                <div id="div-img-logo-black">
+                    <img src="../assets/imgs/configuracoes/logo-black.png" alt="img-logo-black">
+                </div>
+                <div id="copyright">
+                    <p>Alianza v1.10</p>
+                    <span>Copyright ©2024 Alianza. Todos os diretos reservados</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        function editarConta() {
+            window.location = "editarConta.html"
+        }
+
+        function cadastrarEmpresa() {
+            window.location = "cadastroEmpresa.html"
+        }
+        function feedback() {
+            window.location = "feedback.html"
+        }
+
+        function sair() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Voltando a tela Inicial"
+            });
+            setTimeout(() => {
+                window.location = "../index.html";
+            }, 1000)
+
+            sessionStorage.clear();
+
+        }
+
+
+        const menuButton = document.getElementById('imgOpenMenu');
+        const menu = document.getElementById('menu');
+        const closeButton = document.getElementById('imgCloseMenu');
+
+        menuButton.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+
+        closeButton.addEventListener('click', () => {
+            menu.classList.remove('open');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!menu.contains(event.target) && event.target !== menuButton) {
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

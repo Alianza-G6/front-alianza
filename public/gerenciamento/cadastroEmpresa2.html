@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Empresa</title>
+    <link rel="stylesheet" href="../css/gerenciamento/cadastroEmpresa.css">
+    <link rel="icon" href="../assets/icon/icon.png"/>
+</head>
+
+<body>
+
+    <div class="containerPrincipal">
+        <!-- <div class="container-login" id="containerLogin">
+            <form id="loginCorreto" onsubmit="return loginCorreto()">
+                <div class="form-group">
+                    <label for="usuarioCorreto">Usuário:</label>
+                    <input type="text" id="usuarioCorreto" placeholder="Digite seu usuário" required>
+                </div>
+                <div class="form-group">
+                    <label for="senhaCorreta">Senha:</label>
+                    <input type="password" id="senhaCorreta" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="loginCorreto">Logar</button>
+            </form>
+        </div> -->
+
+        <!-- <div class="container-cadastrar" id="containerCadastrar">
+            <h1>Cadastrar Empresa</h1>
+            <form id="cadastrarEmpresa" class="cadastrarEmpresaCSS" onsubmit="return cadastroCorreto()">
+                <div class="form-group">
+                    <label for="razaoSocial">Razão Social:</label>
+                    <input type="text" id="razaoSocial" placeholder="Digite a razão social" required
+                        oninput="validarFormulario()">
+                </div>
+                <div class="form-group">
+                    <label for="cnpjCadastro">CNPJ:</label>
+                    <input type="number" id="cnpjCadastro" placeholder="Digite seu CNPJ" required
+                        oninput="validarFormulario()">
+                </div>
+                <div class="selects">
+                    <div class="select">
+                        <p>Tipo de Empresa</p>
+                        <select class="selectTipoEmpresa" id="tipoEmpresa" required onchange="validarFormulario()">
+                            <option value="#" selected>Selecione</option>
+                            <option value="1">Companhia Aérea</option>
+                            <option value="2">Aeroporto</option>
+                        </select>
+                    </div>
+                    <div class="select">
+                        <p>Sigla ICAO</p>
+                        <select class="selectTipoEmpresa" id="siglaIcao" required onchange="validarFormulario()">
+                            <option value="#" selected>Selecione</option>
+                            <option value="1">ABJ</option>
+                            <option value="2">ABZ</option>
+                            <option value="3">AMG</option>
+                            <option value="4">AZU</option>
+                            <option value="5">BCA</option>
+                            <option value="6">BET</option>
+                            <option value="7">BLC</option>
+                            <option value="8">BRB</option>
+                            <option value="9">ITI</option>
+                            <option value="10">ITM</option>
+                            <option value="11">ITB</option>
+                            <option value="12">GLO</option>
+                            <option value="13">PAM</option>
+                            <option value="14">PEP</option>
+                            <option value="15">PLY</option>
+                            <option value="16">PTB</option>
+                            <option value="17">PTN</option>
+                            <option value="18">RIO</option>
+                            <option value="19">RLE</option>
+                            <option value="20">SBA</option>
+                            <option value="21">SKC</option>
+                            <option value="22">SLX</option>
+                            <option value="23">SUL</option>
+                            <option value="24">TAM</option>
+                            <option value="25">TBA</option>
+                            <option value="26">TSD</option>
+                            <option value="27">TTL</option>
+                            <option value="28">TUS</option>
+                            <option value="29">TVJ</option>
+                            <option value="30">VLO</option>
+                            <option value="31">VRG</option>
+                            <option value="32">VRN</option>
+                            <option value="33">VSP</option>
+                            <option value="34">WEB</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="codigoAtivacao">Código Ativação</label>
+                    <button type="button" id="gerarCodigoBtn" class="gerarCodigo" onclick="gerarCodigo()" disabled>Gerar
+                        código</button>
+                </div>
+
+                <button type="submit" id="cadastrarBtn" class="loginCorreto" disabled>Finalizar Cadastro</button>
+            </form>
+        </div>
+    </div> -->
+
+        <div class="fundo">
+            <img src="" alt="" class="quadrado" />
+
+            <div class="container">
+                <form class="formCadastro" onsubmit="return cadastroCorreto()">
+                    <h1>Cadastrar Empresa na<br />ALIANZA</h1>
+
+                    <div class="align">
+                        <div class="credenciais">
+                            <label for="razaoSocial">Razão Social:</label>
+                            <input type="text" id="razaoSocial" class="input" placeholder="Digite a razão social" required
+                                oninput="validarFormulario()">
+                        </div>
+
+                        <div class="credenciais">
+                            <label for="cnpjCadastro">CNPJ:</label>
+                            <input type="number" id="cnpjCadastro" class="input" placeholder="Digite seu CNPJ" required
+                                oninput="validarFormulario()">
+                        </div>
+                    </div>
+
+
+                    <div class="align">
+                        <div class="credenciais">
+                            <div class="select">
+                                <p>Tipo de Empresa</p>
+                                <select class="selectTipoEmpresa" id="tipoEmpresa" required
+                                    onchange="validarFormulario()">
+                                    <option value="#" selected>Selecione</option>
+                                    <option value="1">Companhia Aérea</option>
+                                    <option value="2">Aeroporto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="credenciais">
+                            <div class="select">
+                                <p id="p_siglaIcao">Sigla ICAO</p>
+                                <select class="selectTipoEmpresa" id="siglaIcao" required
+                                    onchange="validarFormulario()">
+                                    <option value="#" selected>Selecione</option>
+                                    <option value="1">ABJ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="credenciais_botao" >
+                                <label for="codigoAtivacao">Código Ativação</label>
+                                <button type="button" id="gerarCodigoBtn" class="gerarCodigo" onclick="gerarCodigo()" disabled>Gerar código</button>
+                        </div>
+                    </div>
+
+                    <div class="align start">
+                        <button type="submit" id="cadastrarBtn" class="loginCorreto" disabled>Finalizar Cadastro</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            let codigoGerado;
+            let razaoSocial;
+            let cnpjCadastro;
+            let tipoEmpresa;
+            let siglaIcao;
+
+            function loginCorreto() {
+                let user = document.getElementById("usuarioCorreto").value;
+                let password = document.getElementById("senhaCorreta").value;
+
+                if (user === 'rootAlianza' && password === 'alianza5879') {
+                    document.getElementById("containerLogin").style.display = "none";
+                    document.getElementById("containerCadastrar").style.display = "block";
+                    return false;
+                } else {
+                    alert("Dados errados");
+                    return false;
+                }
+            }
+
+            function validarFormulario() {
+
+                let razaoSocial = document.getElementById("razaoSocial").value.trim();
+                let cnpjCadastro = document.getElementById("cnpjCadastro").value.trim();
+                let tipoEmpresa = document.getElementById("tipoEmpresa").value;
+                let siglaIcao = document.getElementById("siglaIcao").value;
+
+                let gerarCodigoBtn = document.getElementById("gerarCodigoBtn");
+
+                if (razaoSocial === "" || cnpjCadastro === "" || tipoEmpresa === "#" || siglaIcao === "#") {
+                    gerarCodigoBtn.disabled = true;
+                } else {
+                    gerarCodigoBtn.disabled = false;
+                }
+            }
+
+            function gerarCodigo() {
+
+                codigoGerado = Math.floor(1000 + Math.random() * 9000);
+                alert("Código de Ativação Gerado: " + codigoGerado);
+
+
+                document.getElementById("cadastrarBtn").disabled = false;
+            }
+
+            function cadastroCorreto() {
+
+                let razaoSocial = document.getElementById("razaoSocial").value;
+                let cnpjCadastro = document.getElementById("cnpjCadastro").value;
+                let tipoEmpresa = document.getElementById("tipoEmpresa").value;
+                let siglaIcao = document.getElementById("siglaIcao").value;
+
+
+
+
+
+                if (codigoGerado == " " || razaoSocial == "" || cnpjCadastro == "" || tipoEmpresa == "" || siglaIcao == '') {
+
+                    return false;
+                }
+                else {
+
+
+                    fetch("/usuarios/cadastrarEmpresa", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            codigoGeradoServer: codigoGerado,
+                            razaoSocialServer: razaoSocial,
+                            cnpjCadastroServer: cnpjCadastro,
+                            tipoEmpresaServer: tipoEmpresa,
+                            siglaIcaoServer: siglaIcao
+
+                        })
+                    })
+                        .then(function (resposta) {
+                            console.log("ESTOU NO THEN DO cadastroEmpresa()!");
+
+                            if (resposta.ok) {
+                                resposta.json().then(json => {
+                                    console.log(json);
+                                    alert(`Empresa cadastrada!`)
+                                    window.location = 'configuracoes.html'
+
+                                    if (json.error) {
+                                        console.error(json.error);
+                                        alert(`Erro: ${json.error}`);
+                                    } else {
+
+                                        console.log(JSON.stringify(json));
+                                        sessionStorage.EMAIL_USUARIO = json.email;
+                                        sessionStorage.ID_USUARIO = json.id;
+
+                                    }
+                                });
+                            } else {
+                                resposta.text().then(texto => {
+                                    console.error(texto);
+
+                                });
+                            }
+                        })
+                        .catch(function (erro) {
+                            console.log(erro);
+
+                        });
+
+
+                    return false;
+                }
+
+            }
+        </script>
+</body>
+
+</html>
