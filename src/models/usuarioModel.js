@@ -146,7 +146,7 @@ function cadastrar(nome, email, senha, codigo, cpf) {
     console.log("CPF recebido:", cpf); // Verifique se o CPF está correto
 
     // Verificar se o código existe na tabela tbEmpresa
-    var selectSql = `SELECT idEmpresa, COUNT(*) AS codigoExists FROM tbEmpresa WHERE codigoAtivacao = '${codigo}' GROUP BY idEmpresa;
+    var selectSql = `SELECT fkEmpresa, COUNT(*) AS codigoExists FROM tbCodigoEmpresa WHERE codigo = '${codigo}' GROUP BY fkEmpresa;
 `;
     console.log("Executando a instrução SQL de verificação: \n" + selectSql);
 
@@ -155,7 +155,7 @@ function cadastrar(nome, email, senha, codigo, cpf) {
             // Verifica se o código existe
             if (result.length > 0 && result[0].codigoExists > 0) {
 
-                var idEmpresa = result[0].idEmpresa
+                var idEmpresa = result[0].fkEmpresa
                 // Código existe, prosseguir com a inserção do usuário
                 var instrucaoSql = `
                     INSERT INTO tbUsuario (nome, email, senha, cpf, fkTipoUsuario, fkEmpresa) VALUES ('${nome}', '${email}', '${senha}', '${cpf}', '1', '${idEmpresa}');
@@ -187,18 +187,6 @@ function inserirCodigo(fkUsuario, resetCode) {
         VALUES (${fkUsuario}, '${resetCode}');
     `;
     return database.executar(query);
-}
-
-function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, codigoGerado) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", );
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        INSERT INTO tbEmpresa (razaoSocial, cnpj, siglaICAO, fkTipoEmpresa, codigoAtivacao, empresaStatus) VALUES ('${razaoSocial}', '${cnpjCadastro}', '${siglaIcao}', '${tipoEmpresa}', '${codigoGerado}', 'Ativa');
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
 }
 
 function cadastrarFunc(nome, email, senha, tipoUsuario, fkEmpresa) {
@@ -282,7 +270,6 @@ module.exports = {
     editarFunc,
     apagarFunc,
     redefinirSenha, 
-    cadastrarEmpresa,
     inserirCodigo,
     buscarUsuarioPorEmail
 };

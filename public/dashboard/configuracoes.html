@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body onload="validarSessao()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -32,12 +32,14 @@
             </div>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
+                <!-- <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li> -->
                 <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li id="PermissaoCadastrarFuncionario"><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a>
+
+
 
             </ul>
             <div id="div-configuracao">
@@ -105,6 +107,16 @@
     </div>
 
     <script>
+        function validarSessao() {
+            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
+            let usuario = sessionStorage.NOME_USUARIO
+            const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
+
+
+            if (fktipoUsuario != 1) {
+                permissaoCadastrarFuncionario.style.display = "none";
+            }
+        }
 
         function editarConta() {
             window.location = "editarConta.html"

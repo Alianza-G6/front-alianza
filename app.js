@@ -21,6 +21,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var feedbackRouter = require("./src/routes/feedbacks");
 var vooRouter = require("./src/routes/voos");
+var empresaRouter = require('./src/routes/empresas');
 var auth = require('./src/routes/auth');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/feedbacks", feedbackRouter);
 app.use("/voos", vooRouter);
+app.use("/empresas", empresaRouter);
 app.use('/auth', auth);
 
 

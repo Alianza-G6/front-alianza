@@ -2,21 +2,17 @@
 function validarSessao() {
     let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
     let usuario = sessionStorage.NOME_USUARIO
+    const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
 
-    if(fktipoUsuario == 1){
-        console.log(`${usuario} é Gerente`)
+
+    if (fktipoUsuario != 1) {
+        permissaoCadastrarFuncionario.style.display = "none";
     }
-    else if(fkTipoUsuario == 2){
-        console.log(`${usuario} é Analista`)
-    }
-    else{
-        console.log(`${usuario} é Adimin`)
-    }    
 }
 
-function limparSessao() {
-    sessionStorage.clear();
-    window.location = "../login.html";
-}
+    function limparSessao() {
+        sessionStorage.clear();
+        window.location = "../login.html";
+    }
 
 
