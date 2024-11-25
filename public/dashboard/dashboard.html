@@ -8,10 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <script src="/public/js/sessao.js"></script>
+
+
     <title>Dashboard - Alianza</title>
 </head>
 
-<body onload="verificarUsuario(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
+<body onload="validarSessao(), verificarUsuario(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -30,7 +33,8 @@
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li id="PermissaoCadastrarFuncionario"><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a>
+                </li>
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html">
@@ -129,6 +133,17 @@
     </script>
 
     <script>
+
+        function validarSessao() {
+            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
+            let usuario = sessionStorage.NOME_USUARIO
+            const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
+
+
+            if (fktipoUsuario != 1) {
+                permissaoCadastrarFuncionario.style.display = "none";
+            }
+        }
         let tipoUsuario = sessionStorage.FK_TIPOUSUARIO
 
         function verificarUsuario() {
@@ -279,8 +294,8 @@
             })
                 .then(function (resposta) {
                     resposta.json().then((qtdRotas) => {
-                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", qtdRotas[0].quantidadeAtrasos)
-                        kpi_rotas_problematicas.innerHTML = qtdRotas[0].quantidadeAtrasos;
+                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", qtdRotas.length)
+                        kpi_rotas_problematicas.innerHTML = qtdRotas.length;
                     });
                 })
                 .catch(function (resposta) {

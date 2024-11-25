@@ -124,6 +124,14 @@
                 <h2>Funcionarios Cadastrados:</h2>
                 <div id="div_lista_funcionarios">
 
+                    <div class="funcionario">
+                        <div id="info_funcionario">
+                            <span id="nome-func">${empresas[i].nome}</span>
+                            <span id="cargo-func">${empresas[i].tipo}</span>
+                        </div>
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(), pegarIdUsuario()">
+                    </div>
+
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
 
                 </div>
@@ -191,7 +199,7 @@
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-
+                    
                     nomeServer: nomeVar,
                     cpfServer: cpfVar,
                     emailServer: emailVar,
@@ -278,6 +286,7 @@
     }
 
     function pegarDados(idUsuario) {
+        
         return fetch(`/usuarios/pegarDados/${fkEmpresaVar}/${idUsuario}`, {
             method: "GET",
             headers: {

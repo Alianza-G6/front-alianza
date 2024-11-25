@@ -68,6 +68,7 @@
     // });
 
     function entrar() {
+        var tipoUsuario = '';
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
@@ -116,18 +117,18 @@
                         sessionStorage.ID_USUARIO = json.idUsuario;
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.EMAIL_USUARIO = json.email;
-                        sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
+                        tipoUsuario = sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
                         sessionStorage.FK_EMPRESA = json.fk_empresa;
 
-                        if(sessionStorage.FK_TIPOUSUARIO == 3){
+                        if (tipoUsuario == 3) {
                             setTimeout(function () {
-                                window.location = "./dashboard/";
+                                window.location = "./gerenciamento/cadastroEmpresa.html";
+                            }, 1000); // apenas para exibir o loading
+                        } else {
+                            setTimeout(function () {
+                                window.location = "./dashboard/dashboard.html";
                             }, 1000); // apenas para exibir o loading
                         }
-
-                        setTimeout(function () {
-                            window.location = "./dashboard/dashboard.html";
-                        }, 1000); // apenas para exibir o loading
 
                     });
 
