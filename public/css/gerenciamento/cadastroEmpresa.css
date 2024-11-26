@@ -311,7 +311,6 @@
 
     .funcionario {
         z-index: 0;
-        position: fixed;
         background-color: #312c42;
         border-radius: 10px;
         height: 12vh;
@@ -381,7 +380,7 @@
         color: #c1bebe;
     }
 
-    #info_funcionario #tipo-empresa {
+    #info_funcionario #tipo-empresa {   
         font-weight: 400;
         font-size: 2vh;
         color: #8a8989;

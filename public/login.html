@@ -117,9 +117,11 @@
                         sessionStorage.ID_USUARIO = json.idUsuario;
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.EMAIL_USUARIO = json.email;
-                        tipoUsuario = sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
+                        sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
+                        tipoUsuario = json.fk_tipoUsuario;
                         sessionStorage.FK_EMPRESA = json.fk_empresa;
 
+                        console.log(tipoUsuario)
                         if (tipoUsuario == 3) {
                             setTimeout(function () {
                                 window.location = "./gerenciamento/cadastroEmpresa.html";
