@@ -132,16 +132,16 @@ function editarEmpresa(req, res) {
 
 function apagarEmpresa(req, res) {
 
-    var idFeedback = req.body.idFeedbackServer;
+    var idEmpresa = req.body.idEmpresaServer;
 
 
     // Faça as validações dos valores
-    if (idFeedback == undefined) {
-        res.status(400).send("Seu idUsuario está undefined!")
+    if (idEmpresa == undefined) {
+        res.status(400).send("Seu idEmpresa está undefined!")
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        empresaModel.apagarEmpresa(idFeedback)
+        empresaModel.apagarEmpresa(idEmpresa)
 
             .then(
                 function (resultado) {

@@ -37,14 +37,14 @@ function cadastrarEmpresa(razaoSocial, cnpjCadastro, tipoEmpresa, siglaIcao, cod
             console.log("Executando a instrução SQL para inserir o código: \n" + instrucaoSql3);
             return database.executar(instrucaoSql3);
         })
-        // .then(() => {
-        //     console.log("Empresa e código cadastrados com sucesso!");
+    // .then(() => {
+    //     console.log("Empresa e código cadastrados com sucesso!");
 
-        // })
-        // .catch(error => {
-        //     console.error("Erro ao cadastrar empresa:", error.message || error);
-        //     throw error; // Re-lançar o erro para tratamento em nível superior
-        // });
+    // })
+    // .catch(error => {
+    //     console.error("Erro ao cadastrar empresa:", error.message || error);
+    //     throw error; // Re-lançar o erro para tratamento em nível superior
+    // });
 }
 
 
@@ -62,9 +62,9 @@ function listarEmpresas(tipoEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", tipoEmpresa)
 
     var instrucaoSql = `
-        SELECT * from tbEmpresa WHERE fkTipoEmpresa = '${tipoEmpresa}';
+        SELECT tbEmpresa.*, tbTipoEmpresa.tipo as tipoEmpresa from tbEmpresa JOIN tbTipoEmpresa on fkTipoEmpresa = idTipoEmpresa WHERE fkTipoEmpresa = '${tipoEmpresa}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql); 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -81,15 +81,31 @@ function editarEmpresa(razaoSocial, cnpj, empresaStatus, idEmpresa) {
 }
 
 function apagarEmpresa(idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idEmpresa);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function apagarEmpresa():", idEmpresa);
 
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        DELETE FROM tbEmpresa WHERE idEmpresa = ${idEmpresa}
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    // Queries SQL
+    var instrucaoSql1 = `DELETE FROM tbCodigoEmpresa WHERE fkEmpresa = ${idEmpresa};`;
+    var instrucaoSql2 = `DELETE FROM tbUsuario WHERE fkEmpresa = ${idEmpresa};`;
+    var instrucaoSql3 = `DELETE FROM tbEmpresa WHERE idEmpresa = ${idEmpresa};`;
+
+    // Executar as instruções em sequência
+    return database.executar(instrucaoSql1)
+        .then(() => {
+            console.log("Instrucao 1 executada com sucesso.");
+            return database.executar(instrucaoSql2);
+        })
+        .then(() => {
+            console.log("Instrucao 2 executada com sucesso.");
+            return database.executar(instrucaoSql3);
+        })
+        .then(() => {
+            console.log("Instrucao 3 executada com sucesso.");
+            console.log("Todas as instruções foram executadas com sucesso.");
+        })
+        .catch((erro) => {
+            console.error("Erro ao executar instruções:", erro);
+            throw erro; // Rejeitar a promise para tratamento de erro
+        });
 }
 
 module.exports = {

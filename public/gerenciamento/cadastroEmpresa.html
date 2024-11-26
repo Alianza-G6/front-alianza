@@ -104,8 +104,8 @@
                     <span>Tipo de Empresa:</span>
                     <select name="name-select-acesso" class="select-acesso" id="tipoEmpresa">
                         <option value="#" default>Selecione</option>
-                        <option value="1">Aeroporto</option>
-                        <option value="2">Companhia Aerea</option>
+                        <option value="1">Companhia Aerea</option>
+                        <option value="2">Aeroporto</option>
                     </select>
                     <span>Sigla ICAO:</span>
                     <select name="name-select-acesso" class="select-acesso" id="siglaIcao">
@@ -227,8 +227,8 @@
         siglaIcao.innerHTML = ""; // Limpar opções
         let opcoes;
 
-        if (tipo === "1") opcoes = opcoesAeroporto;
-        else if (tipo === "2") opcoes = opcoesCompanhia;
+        if (tipo === "2") opcoes = opcoesAeroporto;
+        else if (tipo === "1") opcoes = opcoesCompanhia;
         else return;
 
         opcoes.forEach(sigla => {
@@ -299,6 +299,7 @@
                     console.log("ESTOU NO THEN DO cadastroEmpresa()!");
 
                     if (resposta.ok) {
+                        listarEmpresas()
                         resposta.json().then(json => {
                             console.log(json);
                             alert(`Empresa cadastrada!`)
@@ -379,13 +380,29 @@
                 resposta.json().then((empresas) => {
                     console.log("Esses são as empresas encontrados: ", empresas)
 
-                    for (let i = 0; i < empresas.length; i++) {
+                    
+
+                    for (let i = 0; i < empresas.length; i++) { 
+
+                        console.log(`
+                            <div class="funcionario">
+                                <div id="info_funcionario">
+                                    <span id="nome-func">${empresas[i].razaoSocial}</span>
+                                    <span id="cargo-func">${empresas[i].empresaStatus}</span>
+                                    <span id="tipo-empresa">${empresas[i].tipoEmpresa}</span>
+                                </div>
+                                <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}, ${empresas[i].idEmpresa})">
+                            </div>
+                        `);
+
+
                         const element = empresas[i];
                         div_lista_empresas.innerHTML += `
                     <div class="funcionario">
                         <div id="info_funcionario">
                             <span id="nome-func">${empresas[i].razaoSocial}</span>
                             <span id="cargo-func">${empresas[i].empresaStatus}</span>
+                            <span id="tipo-empresa">${empresas[i].tipoEmpresa}</span>
                         </div>
                         <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}, ${empresas[i].idEmpresa})">
                     </div>`
@@ -439,9 +456,9 @@
             .then((empresas) => {
                 console.log('EMPRESAS: ', empresas);
 
-                var recebeRazaoSocial = empresas[indexEdicao].razaoSocial || "falhou";
-                var recebeCNPJ = empresas[indexEdicao].cnpj || "falhou";
-                var recebeStatus = empresas[indexEdicao].empresaStatus || "falhou";
+                var recebeRazaoSocial = empresas[0].razaoSocial || "falhou";
+                var recebeCNPJ = empresas[0].cnpj || "falhou";
+                var recebeStatus = empresas[0].empresaStatus || "falhou";
 
                 document.getElementById('razaoSocial_input_modal').value = recebeRazaoSocial;
                 document.getElementById('input_cnpj_modal').value = recebeCNPJ;
@@ -539,12 +556,10 @@
     }
 
     function apagarEmpresa() {
-        var idUsuarioVar = idEmpresaDaEdicao
-        var idEmpresaVar = fkEmpresaVar
+        var idEmpresaVar = idEmpresaDaEdicao
 
         // Verificando se há algum campo em branco
         if (
-            idEmpresaDaEdicao == "" ||
             idEmpresaVar == ""
         ) {
             console.log("apagarEmpresa(): idEmpresaDaEdicao ou idEmpresaVar está vazio!")
@@ -557,8 +572,7 @@
                 },
                 body: JSON.stringify({
 
-                    idUsuarioServer: idUsuarioVar,
-                    idEmpresaServer: idEmpresaVar
+                    idEmpresaServer: idEmpresaVar,
                 }),
             })
                 .then(function (resposta) {
@@ -583,7 +597,7 @@
                             title: "Usuario apagado com sucesso!"
                         });
                     } else {
-                        throw "Houve um erro ao tentar realizar o apagarFunc!";
+                        throw "Houve um erro ao tentar realizar o apagarEmpresa!";
                         Swal.fire({
                             title: "Houve um erro ao apagar o Usuário!",
                             icon: "error",
