@@ -88,7 +88,7 @@
                     <p>Média de atraso de chegada por Voo (minutos)</p>
                 </div>
                 <div class="info-kpi">
-                    <span id="kpi_media_atrasos_chegada"></span>
+                    <span id="kpi_media_atrasos_chegada" ></span>
                 </div>
             </div>
             <div id="rotas-problematicas" class="kpi">
@@ -224,6 +224,8 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
+                
+            
         }
 
 
@@ -238,6 +240,7 @@
                 .then(function (resposta) {
                     resposta.json().then((percentual) => {
                         console.log("Esses é o percentual de voo atrasado encontrado: ", percentual[0].percentualAtrasados)
+                        kpiPercentualAtrasados = Number(percentual[0].percentualAtrasados);
                         kpi_percentual_voo_atrasado.innerHTML = percentual[0].percentualAtrasados;
                     });
                 })
