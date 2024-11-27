@@ -9,7 +9,6 @@
     <link rel="icon" href="../assets/icon/icon.png" />
 
     <!-- SweetAlert -->
-    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
     <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
@@ -108,15 +107,16 @@
 
     <script>
         function validarSessao() {
-            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
-            let usuario = sessionStorage.NOME_USUARIO
+            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO; // Recupera como string
+            let usuario = sessionStorage.NOME_USUARIO;
             const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
 
-
-            if (fktipoUsuario != 1) {
+            // Converte para número ou compara com a string '1'
+            if (fktipoUsuario !== "1") { // Comparando como string
                 permissaoCadastrarFuncionario.style.display = "none";
             }
         }
+
 
         function editarConta() {
             window.location = "editarConta.html"
