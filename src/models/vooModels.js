@@ -5,22 +5,45 @@ function kpiPercentualVooPontual(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
-        SELECT 
-            c.nome,
-            round((COUNT(CASE 
-                    WHEN TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) = 0 THEN 1
-                    ELSE NULL
-                END) / COUNT(p.idVoo)) * 100, 2) AS percentualPontuais
-        FROM 
-            voo p
-        JOIN 
-            tbCompanhia c ON p.fkCompanhia = c.idCompanhia
-        WHERE 
-            p.fkCompanhia = ${fkEmpresaVar}  -- Aqui você coloca o id da companhia que você deseja
-            AND p.partidaReal IS NOT NULL
-            AND p.partidaPrevista IS NOT NULL
-        GROUP BY 
-            c.nome;
+-- Percentual de voos pontuais considerando novas regras
+SELECT 
+    c.nome,
+    ROUND(
+        (
+            COUNT(
+                CASE 
+                    WHEN (
+                        -- Condição 1: Saída e chegada antes do horário previsto
+                        TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) <= 0
+                        AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) <= 0
+                    ) OR (
+                        -- Condição 2: Saída e chegada até 30 minutos depois do horário previsto
+                        TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) <= 30
+                        AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) <= 30
+                    ) OR (
+                        -- Condição 3: Saída atrasada, mas chegada até 30 minutos depois ou antes do horário previsto
+                        TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 0
+                        AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) <= 30
+                    ) 
+                    THEN 1 
+                    ELSE NULL 
+                END
+            ) / COUNT(p.idVoo)
+        ) * 100, 2
+    ) AS percentualPontuais
+FROM 
+    voo p
+JOIN 
+    tbCompanhia c ON p.fkCompanhia = c.idCompanhia
+WHERE 
+    p.fkCompanhia = ${fkEmpresaVar}  -- Aqui você coloca o ID da companhia que você deseja
+    AND p.partidaReal IS NOT NULL
+    AND p.partidaPrevista IS NOT NULL
+    AND p.chegadaReal IS NOT NULL
+    AND p.chegadaPrevista IS NOT NULL
+GROUP BY 
+    c.nome;
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -30,22 +53,42 @@ function kpiPercentualVooAtrasado(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
-        SELECT 
-            c.nome,
-            round((COUNT(CASE 
-                    WHEN TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 0 THEN 1
-                    ELSE NULL
-                END) / COUNT(p.idVoo)) * 100, 2) AS percentualAtrasados
-        FROM 
-            voo p
-        JOIN 
-            tbCompanhia c ON p.fkCompanhia = c.idCompanhia
-        WHERE 
-            p.fkCompanhia = ${fkEmpresaVar} -- Aqui você coloca o id da companhia que você deseja
-            AND p.partidaReal IS NOT NULL
-            AND p.partidaPrevista IS NOT NULL
-        GROUP BY 
-            c.nome;
+-- Percentual de voos atrasados
+SELECT 
+    c.nome,
+    ROUND(
+        (
+            COUNT(
+                CASE
+                    WHEN (
+                        -- Saída e chegada com mais de 30 minutos de atraso
+                        TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30
+                        AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30
+                    ) OR (
+                        -- Saída pontual e chegada com mais de 30 minutos de atraso
+                        TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) <= 0
+                        AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30
+                    )
+                    THEN 1 
+                    ELSE NULL 
+                END
+            ) / COUNT(p.idVoo)
+        ) * 100, 2
+    ) AS percentualAtrasados
+FROM 
+    voo p
+JOIN 
+    tbCompanhia c ON p.fkCompanhia = c.idCompanhia
+WHERE 
+    p.fkCompanhia = ${fkEmpresaVar}  -- Substitua pelo ID da companhia desejada
+    AND p.partidaReal IS NOT NULL
+    AND p.partidaPrevista IS NOT NULL
+    AND p.chegadaReal IS NOT NULL
+    AND p.chegadaPrevista IS NOT NULL
+    AND p.statusVoo != 'cancelado' -- Exclui voos cancelados
+GROUP BY 
+    c.nome;
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -55,13 +98,15 @@ function kpiMediaAtrasosSaida(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
-       SELECT 
+        -- Média de atrasos na saída
+        SELECT 
             c.nome AS nomeCompanhia,
             ROUND(AVG(
                 CASE 
+                    -- Considere apenas atrasos na saída (tempo positivo)
                     WHEN TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 0 
-                        THEN TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) 
-                    ELSE 0 
+                        THEN TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal)
+                    ELSE NULL -- Ignora casos sem atraso
                 END
             ), 2) AS mediaAtrasoSaida
         FROM 
@@ -72,6 +117,7 @@ function kpiMediaAtrasosSaida(fkEmpresaVar) {
             p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia desejada
             AND p.partidaReal IS NOT NULL
             AND p.partidaPrevista IS NOT NULL
+            AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
         GROUP BY 
             c.nome;
     `;
@@ -83,13 +129,15 @@ function kpiMediaAtrasosChegada(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
+        -- Média de atrasos na chegada
         SELECT 
             c.nome AS nomeCompanhia,
             ROUND(AVG(
                 CASE 
+                    -- Considere apenas atrasos na chegada (tempo positivo)
                     WHEN TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 0 
-                        THEN TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) 
-                    ELSE 0 
+                        THEN TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal)
+                    ELSE NULL -- Ignora casos sem atraso
                 END
             ), 2) AS mediaAtrasoChegada
         FROM 
@@ -100,6 +148,7 @@ function kpiMediaAtrasosChegada(fkEmpresaVar) {
             p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia desejada
             AND p.chegadaReal IS NOT NULL
             AND p.chegadaPrevista IS NOT NULL
+            AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
         GROUP BY 
             c.nome;
 
@@ -112,8 +161,8 @@ function kpiRotasProblematicas(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
+        -- Rotas problemáticas com mais de um atraso
         SELECT 
-            p.numeroVoo, 
             p.fkCompanhia,
             c.siglaICAO AS companhia, 
             p.fkAeroportoOrigem,
@@ -132,14 +181,24 @@ function kpiRotasProblematicas(fkEmpresaVar) {
         JOIN 
             tbAeroporto d ON p.fkAeroportoDestino = d.idAeroporto
         WHERE 
-            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  -- Atraso na partida
-            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  -- Atraso na chegada
-            AND fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
+            -- Regra de atraso na partida e chegada (mais de 30 minutos de atraso)
+            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  
+            AND p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
+            AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
+            AND p.partidaReal IS NOT NULL 
+            AND p.partidaPrevista IS NOT NULL
+            AND p.chegadaReal IS NOT NULL
+            AND p.chegadaPrevista IS NOT NULL
         GROUP BY 
-            p.numeroVoo, p.fkCompanhia, c.siglaICAO, p.fkAeroportoOrigem, o.siglaICAO, 
-            p.fkAeroportoDestino, d.siglaICAO
+            p.fkCompanhia, 
+            c.siglaICAO, 
+            p.fkAeroportoOrigem, 
+            o.siglaICAO, 
+            p.fkAeroportoDestino, 
+            d.siglaICAO
         HAVING 
-            COUNT(*) > 1  -- Considera a rota como problemática se houver mais de um atraso
+            COUNT(*) > 1  -- A rota deve apresentar mais de um atraso para ser considerada problemática
         ORDER BY 
             quantidadeAtrasos DESC;
     `;
@@ -151,8 +210,8 @@ function listarRotasProblematicas(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
 
     var instrucaoSql = `
+        -- Rotas problemáticas com mais de um atraso
         SELECT 
-            p.numeroVoo, 
             p.fkCompanhia,
             c.siglaICAO AS companhia, 
             p.fkAeroportoOrigem,
@@ -171,16 +230,27 @@ function listarRotasProblematicas(fkEmpresaVar) {
         JOIN 
             tbAeroporto d ON p.fkAeroportoDestino = d.idAeroporto
         WHERE 
-            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  -- Atraso na partida
-            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  -- Atraso na chegada
-            AND fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
+            -- Regra de atraso na partida e chegada (mais de 30 minutos de atraso)
+            TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  
+            AND p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
+            AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
+            AND p.partidaReal IS NOT NULL 
+            AND p.partidaPrevista IS NOT NULL
+            AND p.chegadaReal IS NOT NULL
+            AND p.chegadaPrevista IS NOT NULL
         GROUP BY 
-            p.numeroVoo, p.fkCompanhia, c.siglaICAO, p.fkAeroportoOrigem, o.siglaICAO, 
-            p.fkAeroportoDestino, d.siglaICAO
+            p.fkCompanhia, 
+            c.siglaICAO, 
+            p.fkAeroportoOrigem, 
+            o.siglaICAO, 
+            p.fkAeroportoDestino, 
+            d.siglaICAO
         HAVING 
-            COUNT(*) > 1  -- Considera a rota como problemática se houver mais de um atraso
+            COUNT(*) > 1  -- A rota deve apresentar mais de um atraso para ser considerada problemática
         ORDER BY 
             quantidadeAtrasos DESC;
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

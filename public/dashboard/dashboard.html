@@ -11,10 +11,14 @@
     <script src="/public/js/sessao.js"></script>
 
 
+
+
+
     <title>Dashboard - Alianza</title>
 </head>
 
-<body onload="validarSessao(), verificarUsuario(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
+<body
+    onload="validarSessao(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -88,7 +92,7 @@
                     <p>Média de atraso de chegada por Voo (minutos)</p>
                 </div>
                 <div class="info-kpi">
-                    <span id="kpi_media_atrasos_chegada" ></span>
+                    <span id="kpi_media_atrasos_chegada"></span>
                 </div>
             </div>
             <div id="rotas-problematicas" class="kpi">
@@ -135,22 +139,16 @@
     <script>
 
         function validarSessao() {
-            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO;
-            let usuario = sessionStorage.NOME_USUARIO
+            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO; // Recupera como string
+            let usuario = sessionStorage.NOME_USUARIO;
             const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
 
-
-            if (fktipoUsuario != 1) {
+            // Converte para número ou compara com a string '1'
+            if (fktipoUsuario !== "1") { // Comparando como string
                 permissaoCadastrarFuncionario.style.display = "none";
             }
         }
-        let tipoUsuario = sessionStorage.FK_TIPOUSUARIO
 
-        function verificarUsuario() {
-            if (tipoUsuario == 2) {
-
-            }
-        }
 
         const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -224,8 +222,8 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
-                
-            
+
+
         }
 
 

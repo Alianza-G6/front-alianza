@@ -9,7 +9,6 @@
     <link rel="icon" href="../assets/icon/icon.png" />
 
     <!-- SweetAlert -->
-    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
     <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
@@ -250,7 +249,7 @@
             toast: true,
             position: "top-end",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.onmouseenter = Swal.stopTimer;
@@ -259,7 +258,7 @@
         });
         Toast.fire({
             icon: "success",
-            title: "Codigo de Ativação Gerado!"
+            title: "Codigo de Ativação Gerado! Codigo Ativação: " + codigoGerado
         });
 
 
@@ -302,8 +301,6 @@
                         listarEmpresas()
                         resposta.json().then(json => {
                             console.log(json);
-                            alert(`Empresa cadastrada!`)
-
                             // idEmpresa = json.insertId;
                             // cadastarCodigoAtivacao(gerarCodigo, idEmpresa)
                             const Toast = Swal.mixin({
@@ -594,12 +591,12 @@
                         });
                         Toast.fire({
                             icon: "success",
-                            title: "Usuario apagado com sucesso!"
+                            title: "Empresa apagada com sucesso!"
                         });
                     } else {
                         throw "Houve um erro ao tentar realizar o apagarEmpresa!";
                         Swal.fire({
-                            title: "Houve um erro ao apagar o Usuário!",
+                            title: "Houve um erro ao apagar a Empresa!",
                             icon: "error",
                             iconHtml: "",
                             confirmButtonText: "Ok",
