@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="./css/login.css">
     <link rel="icon" href="./assets/icon/icon.png">
     <!-- SweetAlert -->
-    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
-    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    <!-- <script src="sweetalert2/dist/sweetalert2.min.js"></script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css"> -->
@@ -68,6 +67,7 @@
     // });
 
     function entrar() {
+        var tipoUsuario = '';
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
@@ -117,17 +117,19 @@
                         sessionStorage.NOME_USUARIO = json.nome;
                         sessionStorage.EMAIL_USUARIO = json.email;
                         sessionStorage.FK_TIPOUSUARIO = json.fk_tipoUsuario;
+                        tipoUsuario = json.fk_tipoUsuario;
                         sessionStorage.FK_EMPRESA = json.fk_empresa;
 
-                        if(sessionStorage.FK_TIPOUSUARIO == 3){
+                        console.log(tipoUsuario)
+                        if (tipoUsuario == 3) {
                             setTimeout(function () {
-                                window.location = "./dashboard/";
+                                window.location = "./gerenciamento/cadastroEmpresa.html";
+                            }, 1000); // apenas para exibir o loading
+                        } else {
+                            setTimeout(function () {
+                                window.location = "./dashboard/dashboard.html";
                             }, 1000); // apenas para exibir o loading
                         }
-
-                        setTimeout(function () {
-                            window.location = "./dashboard/dashboard.html";
-                        }, 1000); // apenas para exibir o loading
 
                     });
 

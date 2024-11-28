@@ -9,7 +9,6 @@
     <link rel="icon" href="../assets/icon/icon.png" />
 
     <!-- SweetAlert -->
-    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
     <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
@@ -18,7 +17,7 @@
     <title>Cadastro de Empresas - Alianza</title>
 </head>
 
-<body onload="listarEmpresa()">
+<body onload="listarEmpresas()">
 
     <!--Inicio -  Pop-up de edição de funcionário -->
     <div class="sombra" id="sombraDiv" onclick="sairModal()"></div>
@@ -29,24 +28,22 @@
                 <h1>Editar</h1>
             </div>
             <div class="inputForm">
-                <span>Nome:</span>
-                <input type="text" id="nome_input_modal">
-                <span>Nivel de acesso:</span>
-                <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario_modal">
+                <span>Razão Social:</span>
+                <input type="text" id="razaoSocial_input_modal">
+                <span>CNPJ:</span>
+                <input type="text" id="input_cnpj_modal">
+                <span>Status:</span>
+                <select name="name-select-acesso" class="select-acesso" id="select_tipoEmpresa_modal">
                     <option value="#" default>Selecione</option>
-                    <option value="1">Gerente</option>
-                    <option value="2">Analista</option>
+                    <option value="Ativa">Ativa</option>
+                    <option value="Desativada">Desativada</option>
                 </select>
-                <span>CPF:</span>
-                <input type="text" id="input_cpf_modal">
-                <span>Email:</span>
-                <input type="text" id="input_email_modal">
-                <span>Senha:</span>
-                <input type="password" id="input_senha_modal">
+
             </div>
             <div class="div-botoes">
-                <button onclick="editarFunc()" class="cadastrarFunc">Confirmar</button>
-                <button onclick="apagarFunc()" class="cadastrarFunc" style="background-color: brown;">Deletar</button>
+                <button onclick="editarEmpresa()" class="cadastrarFunc">Confirmar</button>
+                <button onclick="apagarEmpresa()" class="cadastrarFunc"
+                    style="background-color: brown;">Deletar</button>
             </div>
         </div>
     </div>
@@ -64,13 +61,13 @@
                 <p id="nome_login_usuario"></p>
             </div>
             <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
+                <!-- <li><a href="./dashboard.html">Dashboard</a></li> -->
                 <!-- <li><a href="./relatorios.html">Relatórios Mensais</a></li> -->
-                <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
-                <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
+                <!-- <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li> -->
+                <!-- <li><a href="./performanceOperacional.html">Performance Operacional</a></li> -->
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><b><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></b></li>
+                <li><b><a href="./cadastroEmpresa.html">Cadastro de Funcionários</a></b></li>
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html">
@@ -100,32 +97,48 @@
             <div class="formCadastro">
                 <div class="inputForm">
                     <span>Razão Social:</span>
-                    <input type="text" id="nome_input">
+                    <input type="text" id="razaoSocial">
                     <span>CNPJ:</span>
-                    <input type="text" id="input_cpf">
+                    <input type="text" id="cnpjCadastro">
                     <span>Tipo de Empresa:</span>
-                    <select name="name-select-acesso" class="select-acesso" id="select_tipoUsuario">
+                    <select name="name-select-acesso" class="select-acesso" id="tipoEmpresa">
                         <option value="#" default>Selecione</option>
-                        <option value="1">Gerente</option>
-                        <option value="2">Analista</option>
+                        <option value="1">Companhia Aerea</option>
+                        <option value="2">Aeroporto</option>
+                    </select>
+                    <span>Sigla ICAO:</span>
+                    <select name="name-select-acesso" class="select-acesso" id="siglaIcao">
+                        <option value="#" default>Selecione</option>
+                        <option value="CGH">CGH</option>
+                        <option value="BDB">BSB</option>
                     </select>
                     <div class="codigoAtivacao">
-                    <span>Código Ativação:</span>
-                       
-                        <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
+                        <span>Código Ativação:</span>
+
+                        <button onclick="gerarCodigo()" class="cadastrarFunc">Gerar</button>
                     </div>
                 </div>
-                <button onclick="cadastrarFunc()" class="cadastrarFunc">Cadastrar</button>
+                <button onclick="cadastrarEmpresa()" id="btnCadastrar" class="cadastrarFunc" disabled>Cadastrar</button>
             </div>
 
             <!-- Fim - Inputs -->
 
             <!-- Inicio - Lista Func -->
             <div class="funcionario_cadastrado">
-                <h2>Empresas Cadastradas:</h2>
+                <div id="div_select_tipoEmpresa">
+                    <h2>Empresas Cadastradas:</h2>
+                    <select onchange="listarEmpresas()" name="select_tipoEmpresa" class="select-acesso"
+                        id="select_tipoEmpresa">
+                        <option value="1">Companhia Aérea</option>
+                        <option value="2">Aeroporto</option>
+                    </select>
+                </div>
                 <div id="div_lista_empresas">
 
+
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
+
+
 
                 </div>
             </div>
@@ -137,11 +150,17 @@
 </body>
 
 <script>
+    let codigoGerado;
+    let razaoSocial;
+    let cnpjCadastro;
+    // let tipoEmpresa;
+    // let siglaIcao;
+    let idEmpresa;
     div_lista_empresas.innerHTML = ""
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
     var SessionUser = sessionStorage.NOME_USUARIO
     nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
-    var idUsuarioDaEdicao = "";
+    var idEmpresaDaEdicao = "";
 
 
     const menuButton = document.getElementById('imgOpenMenu');
@@ -163,93 +182,192 @@
     });
 
 
+    // Referências aos elementos
+    const tipoEmpresa = document.getElementById('tipoEmpresa');
+    const siglaIcao = document.getElementById('siglaIcao');
+    const tituloSigla = document.getElementById('tituloSigla');
 
-    function cadastrarFunc() {
-        var nomeVar = document.getElementById('nome_input').value;
-        var cpfVar = document.getElementById('input_cpf').value;
-        var emailVar = document.getElementById('input_email').value;
-        var senhaVar = document.getElementById('input_senha').value;
-        var tipoUserVar = document.getElementById('select_tipoUsuario').value;
+    // Opções para aeroportos
+    const opcoesAeroporto = [
+        "SBGL", "KMIA", "SBGR", "KJFK", "KDFW", "KTPA", "SBBR", "EBBR", "GOBD", "SCEL", "TBPB", "OMDW", "DGAA",
+        "VHHH", "EBLG", "SBKP", "SBSV", "SNCL", "SIRI", "SAEZ", "CYYZ", "CYUL", "SBRJ", "SBME", "SBSP", "SBJR",
+        "SBFZ", "SBAC", "SBJE", "SBPB", "SSRS", "SBSL", "SBCP", "SBBE", "SBMD", "SNVS", "SBTU", "SNEB", "SBCY",
+        "SBBW", "SWHP", "SBRF", "SNAB", "SNGN", "SSCP", "SSOG", "SBCT", "SSGY", "SBPA", "SSLT", "SNEE", "SSZR",
+        "SSVL", "SSAP", "SBJD", "SBEG", "SBPV", "SBRB", "SWKO", "SNTS", "SBBG", "SBSN", "SBIH", "SNRJ", "SNMA",
+        "SNTI", "SBTB", "SNOX", "SNYA", "SNMZ", "SWMW", "SWBC", "SSOU", "SWJN", "SSUM", "SSCN", "SSSC", "SSER",
+        "SSFB", "SSUV", "SSCT", "SSKM", "SBPL", "SBPJ", "SWLB", "SBJI", "SBSR", "SNSM", "SNRU", "SWBE", "SNHS",
+        "SNIG", "SNOB", "SNWS", "SBCF", "SBZM", "SBMS", "SBSG", "SBTE", "SBHT", "SBMQ", "LEMD", "LFPG", "GMMN",
+        "MMMX", "SABE", "SASA", "SAZS", "SACO", "SAWC", "SBFL", "SKBO", "KORD", "OMAA", "GVAC", "SBGO", "SBVT",
+        "SBFI", "SBMO", "SBJA", "SBTG", "SBPG", "SBAR", "SBUL", "SBMG", "SBAU", "SBJV", "SBRP", "SBTT", "SBTD",
+        "SBCR", "SBDB", "SBMK", "SBCG", "SBPO", "SBNF", "SSGG", "SBJU", "SNCP", "SBJP", "SBPS", "SBDN", "SBNM",
+        "SBUG", "SBIL", "SBCJ", "SBLO", "SBCX", "SBGV", "SBIZ", "SBIP", "SBCH", "SBML", "SBUR", "SBCA", "SBPK",
+        "SBFN", "SBSO", "SBMA", "SBVC", "SNGI", "SBAE", "SWLC", "SBBV", "SBRD", "SBSI", "SWPI", "SBKG", "SBSM",
+        "SBUA", "SSKW", "SBVH", "SBPF", "SBPP", "SNBR", "KFLL", "KMCO", "SUMU", "LPPT", "SBAT", "SBCN", "SBCB",
+        "SBTF", "SULS", "SBBH", "SBTC", "SDCO", "EGLL", "SLCB", "SLVR", "KCVG", "CYVR", "KLCK", "SEQM", "MPTO",
+        "ELLX", "SOCA", "GCTS", "EHAM", "KAUH", "EGNX", "KATL", "EDDM", "EDDF", "FNLU", "HKJK", "SMJP", "HAAB",
+        "DNMM", "DXXX", "KMEM", "TJBQ", "TJSJ", "SBCZ", "SGAS", "SAME", "MDPC", "MMUN", "UCFM", "ZSPD", "LATI",
+        "SBSJ", "SAAR", "SPJC", "DBBB", "KMSY", "LIRF", "PANC", "RKSI", "KLAX", "SKRG", "KHSV", "SGES", "SDSC",
+        "FAOR", "EDFH", "SBOI", "SWGN", "SWCA", "SBUY", "SBQV", "SNTF", "SBLE", "SBTV", "SBUF", "OTHH", "EBOS",
+        "LEZG", "LIMC", "EHBK", "LIMF", "SEGU", "KAEX", "KIWA", "SYCJ", "KHRL", "LSZH", "SWSI", "LEBL", "KTUP",
+        "KBOS", "KBRO", "LPPR", "LTFM", "LTBA", "LMML", "OMSJ", "OMDB", "KIAH", "KEWR"
+    ];
 
+    // Opções para companhias aéreas
+    const opcoesCompanhia = [
+        "AAL", "ABB", "ABD", "ABJ", "ACA", "ACN", "AEA", "AFR", "AMX", "ARG", "AVA", "AXY", "AZG", "AZU", "BAW",
+        "BOL", "BOV", "CJT", "CKS", "CLX", "CMP", "DAL", "DLH", "DTA", "EDR", "ETH", "FBZ", "FDX", "GEC", "GLO",
+        "GTI", "IBE", "ICE", "ITY", "KAL", "KLM", "LAE", "LAN", "LAP", "LCO", "LPE", "LTG", "MAA", "MPH", "MWM",
+        "NCR", "OMI", "PAM", "PTB", "QCL", "QTR", "RER", "SID", "SKU", "SWQ", "SWR", "TAM", "TAP", "THY", "TPA",
+        "TTL", "TVR", "UAE", "UAL", "UPS", "VVC"
+    ];
 
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            cpfVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            tipoUserVar == "#" ||
-            fkEmpresaVar == ""
-        ) {
-            alert("Preencha todos os campos! " + fkEmpresaVar)
+    // Função para atualizar opções
+    function atualizarOpcoes(tipo) {
+        siglaIcao.innerHTML = ""; // Limpar opções
+        let opcoes;
 
+        if (tipo === "2") opcoes = opcoesAeroporto;
+        else if (tipo === "1") opcoes = opcoesCompanhia;
+        else return;
 
-        } else {
-
-            fetch("/usuarios/cadastrarFunc", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-
-                    nomeServer: nomeVar,
-                    cpfServer: cpfVar,
-                    emailServer: emailVar,
-                    senhaServer: senhaVar,
-                    tipoUserServer: tipoUserVar,
-                    fkEmpresaServer: fkEmpresaVar,
-
-                }),
-            })
-                .then(function (resposta) {
-                    console.log("resposta: ", resposta);
-
-                    if (resposta.ok) {
-                        listarFunc()
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.onmouseenter = Swal.stopTimer;
-                                toast.onmouseleave = Swal.resumeTimer;
-                            }
-                        });
-                        Toast.fire({
-                            icon: "success",
-                            title: "Cadastrado com sucesso!"
-                        });
-
-                    } else {
-                        throw "Houve um erro ao tentar realizar o cadastroFunc!";
-                        Swal.fire({
-                            title: "Usuário já existe!",
-                            icon: "error",
-                            iconHtml: "",
-                            confirmButtonText: "Ok",
-                            // cancelButtonText: "لا",
-                            // showCancelButton: true,
-                            showCloseButton: false
-                        })
-                    }
-                })
-                .catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
-
-                });
-        }
-
-        return false;
+        opcoes.forEach(sigla => {
+            const option = document.createElement('option');
+            option.value = sigla;
+            option.textContent = sigla;
+            siglaIcao.appendChild(option);
+        });
     }
 
+    tipoEmpresa.addEventListener('change', () => atualizarOpcoes(tipoEmpresa.value));
 
-    function listarEmpresa() {
+
+    function gerarCodigo() {
+
+        codigoGerado = Math.floor(1000 + Math.random() * 9000);
+        // alert("Código de Ativação Gerado: " + codigoGerado);
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Codigo de Ativação Gerado! Codigo Ativação: " + codigoGerado
+        });
+
+
+        const botaoCadastrar = document.getElementById("btnCadastrar");
+        botaoCadastrar.disabled = false; // Habilita o botão
+    }
+
+    function cadastrarEmpresa() {
+
+        let razaoSocial = document.getElementById("razaoSocial").value;
+        let cnpjCadastro = document.getElementById("cnpjCadastro").value;
+        let tipoEmpresa = document.getElementById("tipoEmpresa").value;
+        let siglaIcao = document.getElementById("siglaIcao").value;
+
+        if (codigoGerado == " " || razaoSocial == "" || cnpjCadastro == "" || tipoEmpresa == "" || siglaIcao == '') {
+            return false;
+            alert("ta vazio fia")
+        }
+        else {
+
+
+            fetch("/empresas/cadastrarEmpresa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    codigoGeradoServer: codigoGerado,
+                    razaoSocialServer: razaoSocial,
+                    cnpjCadastroServer: cnpjCadastro,
+                    tipoEmpresaServer: tipoEmpresa,
+                    siglaIcaoServer: siglaIcao
+
+                })
+            })
+                .then(function (resposta) {
+                    console.log("ESTOU NO THEN DO cadastroEmpresa()!");
+
+                    if (resposta.ok) {
+                        listarEmpresas()
+                        resposta.json().then(json => {
+                            console.log(json);
+                            // idEmpresa = json.insertId;
+                            // cadastarCodigoAtivacao(gerarCodigo, idEmpresa)
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.onmouseenter = Swal.stopTimer;
+                                    toast.onmouseleave = Swal.resumeTimer;
+                                }
+                            });
+                            Toast.fire({
+                                icon: "success",
+                                title: "Empresa cadastrada!"
+                            });
+
+                            if (json.error) {
+                                console.error(json.error);
+                                alert(`Erro: ${json.error}`);
+                            } else {
+
+                                console.log(JSON.stringify(json));
+                                sessionStorage.EMAIL_USUARIO = json.email;
+                                sessionStorage.ID_USUARIO = json.id;
+
+                            }
+                        });
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.onmouseenter = Swal.stopTimer;
+                                    toast.onmouseleave = Swal.resumeTimer;
+                                }
+                            });
+                            Toast.fire({
+                                icon: "error",
+                                title: "Houve um erro ao cadastrar a empresa!"
+                            });
+
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+
+                });
+
+
+            return false;
+        }
+
+    }
+
+    function listarEmpresas() {
         div_lista_empresas.innerHTML = ""
+        let tipoEmpresa = select_tipoEmpresa.value;
         // Enviando o valor da nova input
-        fetch(`/empresas/listarEmpresa/`, {
+        fetch(`/empresas/listarEmpresas/${tipoEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -257,17 +375,33 @@
         })
             .then(function (resposta) {
                 resposta.json().then((empresas) => {
-                    console.log("Esses são os funcionario encontrados: ", empresas)
+                    console.log("Esses são as empresas encontrados: ", empresas)
 
-                    for (let i = 0; i < empresas.length; i++) {
+                    
+
+                    for (let i = 0; i < empresas.length; i++) { 
+
+                        console.log(`
+                            <div class="funcionario">
+                                <div id="info_funcionario">
+                                    <span id="nome-func">${empresas[i].razaoSocial}</span>
+                                    <span id="cargo-func">${empresas[i].empresaStatus}</span>
+                                    <span id="tipo-empresa">${empresas[i].tipoEmpresa}</span>
+                                </div>
+                                <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}, ${empresas[i].idEmpresa})">
+                            </div>
+                        `);
+
+
                         const element = empresas[i];
                         div_lista_empresas.innerHTML += `
-                    <div class="funcionario">
+                    <div class="funcionario" id="Empresa${i}">
                         <div id="info_funcionario">
-                            <span id="nome-func">${empresas[i].nome}</span>
-                            <span id="cargo-func">${empresas[i].tipo}</span>
+                            <span id="nome-func">${empresas[i].razaoSocial}</span>
+                            <span id="cargo-func">${empresas[i].empresaStatus}</span>
+                            <span id="tipo-empresa">${empresas[i].tipoEmpresa}</span>
                         </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}), pegarIdUsuario(${empresas[i].idUsuario})">
+                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(${i}, ${empresas[i].idEmpresa})">
                     </div>`
                             ;
                     }
@@ -278,19 +412,25 @@
             });
     }
 
-    function pegarDados(idUsuario) {
-        return fetch(`/empresas/pegarDados/`, {
+    function pegarDados(idEmpresa) {
+        return fetch(`/empresas/pegarDados/${idEmpresa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         })
-            .then((resposta) => resposta.json())
+            .then((resposta) => {
+                if (!resposta.ok) {
+                    throw new Error(`HTTP status ${resposta.status}: ${resposta.statusText}`);
+                }
+                return resposta.json();
+            })
             .catch((erro) => {
                 console.error(`#ERRO: ${erro}`);
-                throw erro; // Propaga o erro
+                throw erro;
             });
     }
+
 
 
     function abrirModal() {
@@ -298,37 +438,36 @@
         modalDiv.style = "display: unset";
     }
 
-    function pegarIdUsuario(idUsuario) {
-        idUsuarioDaEdicao = idUsuario;
-    }
+    // function pegarIdEmpresa(idEmpresa) {
+    //     return new Promise((resolve) => {
+    //         idEmpresaDaEdicao = idEmpresa;
+    //         console.log("idEmpresaDaEdicao: " + idEmpresaDaEdicao)
+    //         resolve();
+    //     });
+    // }
 
-    function abrirEPreencher(indexDaEmpresa) {
-
-        pegarDados(indexDaEmpresa)
+    function abrirEPreencher(indexEdicao, idEmpresa) {
+        // pegarIdEmpresa(idEmpresaDaEdicao)
+        idEmpresaDaEdicao = idEmpresa;
+        pegarDados(idEmpresaDaEdicao)
             .then((empresas) => {
-                // Preenche os campos com os dados recebidos
-                console.log('EMPRESAS: ', empresas)
+                console.log('EMPRESAS: ', empresas);
 
-                var recebeNome = empresas[indexDaEmpresa].nome || "falhou";
-                var recebeCPF = empresas[indexDaEmpresa].cpf || "falhou";
-                var recebeTipo = empresas[indexDaEmpresa].fkTipoUsuario || "falhou";
-                var recebeEmail = empresas[indexDaEmpresa].email || "falhou";
-                var recebeSenha = empresas[indexDaEmpresa].senha || "falhou";
+                var recebeRazaoSocial = empresas[0].razaoSocial || "falhou";
+                var recebeCNPJ = empresas[0].cnpj || "falhou";
+                var recebeStatus = empresas[0].empresaStatus || "falhou";
 
-                console.log("recebeCPF:", recebeCPF)
+                document.getElementById('razaoSocial_input_modal').value = recebeRazaoSocial;
+                document.getElementById('input_cnpj_modal').value = recebeCNPJ;
+                document.getElementById('select_tipoEmpresa_modal').value = recebeStatus;
 
-                document.getElementById('nome_input_modal').value = recebeNome;
-                document.getElementById('input_cpf_modal').value = recebeCPF;
-                document.getElementById('input_email_modal').value = recebeEmail;
-                document.getElementById('input_senha_modal').value = recebeSenha;
-                document.getElementById('select_tipoUsuario_modal').value = recebeTipo;
-
-                abrirModal(); // Abre o modal após preencher os dados
+                abrirModal();
             })
             .catch((erro) => {
                 console.error("Erro ao abrir o modal:", erro);
             });
     }
+
 
     function sairModal() {
         sombraDiv.style.display = `none`;
@@ -336,55 +475,45 @@
     }
 
 
-    function editarFunc() {
-        var nomeVar = document.getElementById('nome_input_modal').value;
-        var cpfVar = document.getElementById('input_cpf_modal').value;
-        var emailVar = document.getElementById('input_email_modal').value;
-        var senhaVar = document.getElementById('input_senha_modal').value;
-        var tipoUserVar = document.getElementById('select_tipoUsuario_modal').value;
+    function editarEmpresa() {
+        var razaoSocialVar = document.getElementById('razaoSocial_input_modal').value;
+        var cnpjVar = document.getElementById('input_cnpj_modal').value;
+        var empresaStatus = document.getElementById('select_tipoEmpresa_modal').value;
 
-        console.log(nomeVar)
-        console.log("CPFFF>", cpfVar)
-        console.log(emailVar)
-        console.log(senhaVar)
-        console.log(tipoUserVar)
-        console.log("Esse é o idDaEdição    ", idUsuarioDaEdicao)
+        console.log(razaoSocialVar)
+        console.log("CNPJJJ>", cnpjVar)
+        console.log(empresaStatus)
+        console.log("Esse é o idDaEdição    ", idEmpresaDaEdicao)   
 
         // Verificando se há algum campo em branco
         if (
-            nomeVar == "" ||
-            cpfVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            tipoUserVar == "#" ||
-            fkEmpresaVar == ""
+            razaoSocialVar == "" ||
+            cnpjVar == "" ||
+            empresaStatus == "#" 
         ) {
             alert("Preencha todos os campos!")
 
 
         } else {
 
-            fetch("/usuarios/editarFunc", {
+            fetch("/empresas/editarEmpresa", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
 
-                    idUsuarioServer: idUsuarioDaEdicao,
-                    nomeServer: nomeVar,
-                    cpfServer: cpfVar,
-                    emailServer: emailVar,
-                    senhaServer: senhaVar,
-                    tipoUserServer: tipoUserVar,
-                    fkEmpresaServer: fkEmpresaVar,
+                    razaoSocialServer: razaoSocialVar,
+                    cnpjServer: cnpjVar,
+                    empresaStatusServer: empresaStatus,
+                    idEmpresaServer: idEmpresaDaEdicao,
                 }),
             })
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        listarFunc()
+                        listarEmpresas()
                         const Toast = Swal.mixin({
                             toast: true,
                             position: "top-end",
@@ -398,10 +527,10 @@
                         });
                         Toast.fire({
                             icon: "success",
-                            title: "Usuario editado com sucesso!"
+                            title: "Empresa editada com sucesso!"
                         });
                     } else {
-                        throw "Houve um erro ao tentar realizar o cadastroFunc!";
+                        throw "Houve um erro ao tentar realizar o editarEmpresa!";
                         Swal.fire({
                             title: "Houve um erro na edição!",
                             icon: "error",
@@ -423,34 +552,31 @@
         return false;
     }
 
-    function apagarFunc() {
-        var idUsuarioVar = idUsuarioDaEdicao
-        var idEmpresaVar = fkEmpresaVar
+    function apagarEmpresa() {
+        var idEmpresaVar = idEmpresaDaEdicao
 
         // Verificando se há algum campo em branco
         if (
-            idUsuarioDaEdicao == "" ||
             idEmpresaVar == ""
         ) {
-            console.log("apagarFunc(): idUsuarioDaEdicao ou idEmpresaVar está vazio!")
+            console.log("apagarEmpresa(): idEmpresaDaEdicao ou idEmpresaVar está vazio!")
         } else {
 
-            fetch("/usuarios/apagarFunc", {
+            fetch("/empresas/apagarEmpresa", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
 
-                    idUsuarioServer: idUsuarioVar,
-                    idEmpresaServer: idEmpresaVar
+                    idEmpresaServer: idEmpresaVar,
                 }),
             })
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        listarFunc()
+                        listarEmpresas()
 
                         const Toast = Swal.mixin({
                             toast: true,
@@ -465,12 +591,12 @@
                         });
                         Toast.fire({
                             icon: "success",
-                            title: "Usuario apagado com sucesso!"
+                            title: "Empresa apagada com sucesso!"
                         });
                     } else {
-                        throw "Houve um erro ao tentar realizar o apagarFunc!";
+                        throw "Houve um erro ao tentar realizar o apagarEmpresa!";
                         Swal.fire({
-                            title: "Houve um erro ao apagar o Usuário!",
+                            title: "Houve um erro ao apagar a Empresa!",
                             icon: "error",
                             iconHtml: "",
                             confirmButtonText: "Ok",

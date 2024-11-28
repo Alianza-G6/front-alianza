@@ -9,7 +9,6 @@
     <link rel="icon" href="../assets/icon/icon.png" />
 
     <!-- SweetAlert -->
-    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
     <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
@@ -31,13 +30,15 @@
                 <p>Olá, Usuário</p>
             </div>
             <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li>
-                <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li>
-                <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
+                <!-- <li><a href="./dashboard.html">Dashboard</a></li> -->
+                <!-- <li><a href="./pontualidadeAtrasos.html">Pontualidade e Atrasos</a></li> -->
+                <!-- <li><a href="./rotasProblematicas.html">Rotas Problemáticas</a></li> -->
+                <!-- <li><a href="./performanceOperacional.html">Performance Operacional</a></li> -->
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li id="PermissaoCadastrarFuncionario"><a href="./cadastroEmpresa.html">Gerenciamento de Empresas</a>
+
+
 
             </ul>
             <div id="div-configuracao">
@@ -78,10 +79,10 @@
                     <p>Ajuda</p>
                     <img src="../assets/imgs/configuracoes/ajuda.png" alt="img-ajuda">
                 </div> -->
-                <div onclick="feedback()" class="opcoes" id="feedback">
+                <!-- <div onclick="feedback()" class="opcoes" id="feedback">
                     <p>Feedback</p>
                     <img src="../assets/imgs/configuracoes/feedback.png" alt="img-feedback">
-                </div>
+                </div> -->
                 <!-- <div onclick="cadastrarEmpresa()" class="opcoes" id="cadastroEmpresa">
                     <p>Cadastro Empresa</p>
                     <img src="../assets/imgs/configuracoes/cadastroEmpresa.webp" alt="img-empresa">

@@ -11,7 +11,7 @@
     <title>Performance Operacional - Alianza</title>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -30,7 +30,9 @@
                 <li><b><a href="./performanceOperacional.html">Performance Operacional</a></b></li>
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li id="PermissaoCadastrarFuncionario"><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a>
+
+
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html">
@@ -143,6 +145,18 @@
 </body>
 
 <script>
+
+    function validarSessao() {
+        let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO; // Recupera como string
+        let usuario = sessionStorage.NOME_USUARIO;
+        const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
+
+        // Converte para número ou compara com a string '1'
+        if (fktipoUsuario !== "1") { // Comparando como string
+            permissaoCadastrarFuncionario.style.display = "none";
+        }
+    }
+
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
     var SessionUser = sessionStorage.NOME_USUARIO
     nome_login_usuario.innerHTML = `Olá, ${SessionUser}`
@@ -166,139 +180,139 @@
     });
 
     function pesquisarVoo() {
-    let idVoo = idVooVar.value;
-    let dataVoo = dataVooVar.value;
+        let idVoo = idVooVar.value;
+        let dataVoo = dataVooVar.value;
 
-    alert(dataVoo);
+        alert(dataVoo);
 
-    // Enviando o valor da nova input
-    fetch(`/voos/pesquisarVoo/${idVoo}/${dataVoo}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then(function (resposta) {
-            resposta.json().then((voo) => {
-                if (voo.length > 0) {
-                    console.log("Esse é o voo encontrado: ", voo);
-
-                    // Dados brutos retornados
-                    let dadosVoo = voo[0];
-                    let statusVooPrimario = dadosVoo.statusVoo;
-
-                    // Cálculo do status do voo
-                    let statusVoo = calcularStatusVoo(dadosVoo, statusVooPrimario);
-
-                    alterarImagemStatus(statusVoo);
-
-                    // Atualizando os valores no front
-                    horario_previsto_saida.innerHTML = formatarDataHora(dadosVoo.partidaPrevista);
-                    horario_real_saida.innerHTML = dadosVoo.partidaReal ? formatarDataHora(dadosVoo.partidaReal) : "N/A";
-                    horario_previsto_chegada.innerHTML = formatarDataHora(dadosVoo.chegadaPrevista);
-                    horario_real_chegada.innerHTML = dadosVoo.chegadaReal ? formatarDataHora(dadosVoo.chegadaReal) : "N/A";
-                    aeroporto_origem.innerHTML = dadosVoo.aeroportoOrigem;
-                    aeroporto_destino.innerHTML = dadosVoo.aeroportoDestino;
-                } else {
-                    alert("Nenhum voo encontrado para o número e data fornecidos.");
-                }
-            });
+        // Enviando o valor da nova input
+        fetch(`/voos/pesquisarVoo/${idVoo}/${dataVoo}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
-        .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-}
+            .then(function (resposta) {
+                resposta.json().then((voo) => {
+                    if (voo.length > 0) {
+                        console.log("Esse é o voo encontrado: ", voo);
 
-function calcularStatusVoo(voo, statusVooPrimario) {
-    const partidaPrevista = new Date(voo.partidaPrevista);
-    console.log("Essa é a partida prevista:" + partidaPrevista)
+                        // Dados brutos retornados
+                        let dadosVoo = voo[0];
+                        let statusVooPrimario = dadosVoo.statusVoo;
 
-    const partidaReal = voo.partidaReal ? new Date(voo.partidaReal) : null;
-    console.log("Essa é a partida real:" + partidaReal)
+                        // Cálculo do status do voo
+                        let statusVoo = calcularStatusVoo(dadosVoo, statusVooPrimario);
 
-    const chegadaPrevista = new Date(voo.chegadaPrevista);
-    console.log("Essa é a chegada prevista:" + chegadaPrevista)
+                        alterarImagemStatus(statusVoo);
 
-    const chegadaReal = voo.chegadaReal ? new Date(voo.chegadaReal) : null;
-    console.log("Essa é a chegada real:" + chegadaReal)
-
-
-    // Caso o statusVoo já seja "Cancelado", não é necessário validar mais nada
-    if (statusVooPrimario === "Cancelado") {
-        return "Cancelado";
+                        // Atualizando os valores no front
+                        horario_previsto_saida.innerHTML = formatarDataHora(dadosVoo.partidaPrevista);
+                        horario_real_saida.innerHTML = dadosVoo.partidaReal ? formatarDataHora(dadosVoo.partidaReal) : "N/A";
+                        horario_previsto_chegada.innerHTML = formatarDataHora(dadosVoo.chegadaPrevista);
+                        horario_real_chegada.innerHTML = dadosVoo.chegadaReal ? formatarDataHora(dadosVoo.chegadaReal) : "N/A";
+                        aeroporto_origem.innerHTML = dadosVoo.aeroportoOrigem;
+                        aeroporto_destino.innerHTML = dadosVoo.aeroportoDestino;
+                    } else {
+                        alert("Nenhum voo encontrado para o número e data fornecidos.");
+                    }
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
-    // Status inicial como Pontual
-    let statusVoo = "Pontual";
+    function calcularStatusVoo(voo, statusVooPrimario) {
+        const partidaPrevista = new Date(voo.partidaPrevista);
+        console.log("Essa é a partida prevista:" + partidaPrevista)
 
-    // Verifica o atraso na partida
-    if (partidaReal) {
-        const diferencaPartida = (partidaReal - partidaPrevista) / (1000 * 60); // Diferença em minutos
+        const partidaReal = voo.partidaReal ? new Date(voo.partidaReal) : null;
+        console.log("Essa é a partida real:" + partidaReal)
 
-        if (diferencaPartida > 30) {
-            statusVoo = "Atrasado"; // Se a partida real for mais de 30 min depois da prevista
-        } else if (diferencaPartida < 0) {
-            // Saída antecipada ainda é Pontual
-            statusVoo = "Pontual"; 
+        const chegadaPrevista = new Date(voo.chegadaPrevista);
+        console.log("Essa é a chegada prevista:" + chegadaPrevista)
+
+        const chegadaReal = voo.chegadaReal ? new Date(voo.chegadaReal) : null;
+        console.log("Essa é a chegada real:" + chegadaReal)
+
+
+        // Caso o statusVoo já seja "Cancelado", não é necessário validar mais nada
+        if (statusVooPrimario === "Cancelado") {
+            return "Cancelado";
         }
-    }
 
-    // Verifica o atraso na chegada
-    if (chegadaReal) {
-        const diferencaChegada = (chegadaReal - chegadaPrevista) / (1000 * 60); // Diferença em minutos
+        // Status inicial como Pontual
+        let statusVoo = "Pontual";
 
-        if (diferencaChegada > 30) {
-            statusVoo = "Atrasado"; // Se a chegada real for mais de 30 min depois da prevista
-        } else if (diferencaChegada <= 30) {
-            // Se a chegada for até 30 minutos depois do horário previsto
-            if (statusVoo !== "Atrasado") {
-                statusVoo = "Pontual"; // Se a partida não foi atrasada, a chegada até 30 min também é Pontual
+        // Verifica o atraso na partida
+        if (partidaReal) {
+            const diferencaPartida = (partidaReal - partidaPrevista) / (1000 * 60); // Diferença em minutos
+
+            if (diferencaPartida > 30) {
+                statusVoo = "Atrasado"; // Se a partida real for mais de 30 min depois da prevista
+            } else if (diferencaPartida < 0) {
+                // Saída antecipada ainda é Pontual
+                statusVoo = "Pontual";
             }
-        } else if (diferencaChegada < 0) {
-            // Chegada antecipada também é Pontual
-            statusVoo = "Pontual"; 
+        }
+
+        // Verifica o atraso na chegada
+        if (chegadaReal) {
+            const diferencaChegada = (chegadaReal - chegadaPrevista) / (1000 * 60); // Diferença em minutos
+
+            if (diferencaChegada > 30) {
+                statusVoo = "Atrasado"; // Se a chegada real for mais de 30 min depois da prevista
+            } else if (diferencaChegada <= 30) {
+                // Se a chegada for até 30 minutos depois do horário previsto
+                if (statusVoo !== "Atrasado") {
+                    statusVoo = "Pontual"; // Se a partida não foi atrasada, a chegada até 30 min também é Pontual
+                }
+            } else if (diferencaChegada < 0) {
+                // Chegada antecipada também é Pontual
+                statusVoo = "Pontual";
+            }
+        }
+
+        // Verifica se ambos os horários (partida e chegada) são nulos (Cancelado)
+        if (!partidaReal && !chegadaReal) {
+            statusVoo = "Cancelado";
+        }
+
+        return statusVoo;
+    }
+
+    function alterarImagemStatus(statusVoo) {
+        const statusImg = document.getElementById("status_voo");
+        switch (statusVoo) {
+            case "Pontual":
+                statusImg.src = "../assets/imgs/imgAlertGreen.png"; // Caminho para a imagem de pontual
+                statusImg.alt = "Pontual";
+                break;
+            case "Atrasado":
+                statusImg.src = "../assets/imgs/imgAlertYellow.png"; // Caminho para a imagem de atrasado
+                statusImg.alt = "Atrasado";
+                break;
+            case "Cancelado":
+                statusImg.src = "../assets/imgs/imgAlertRed.png"; // Caminho para a imagem de cancelado
+                statusImg.alt = "Cancelado";
+                break;
+            default:
+                statusImg.src = "../assets/imgs/imgAlertDefault.png"; // Imagem padrão
+                statusImg.alt = "Desconhecido";
         }
     }
 
-    // Verifica se ambos os horários (partida e chegada) são nulos (Cancelado)
-    if (!partidaReal && !chegadaReal) {
-        statusVoo = "Cancelado";
+    // Função para formatar a data e hora no formato "dd/mm/aaaa HH:mm:ss" para exibição
+    function formatarDataHora(dataHora) {
+        const data = new Date(dataHora);
+
+        // Formata a data e o horário juntos
+        const dataFormatada = data.toLocaleDateString("pt-BR");  // Formato: dd/mm/aaaa
+        const horarioFormatado = data.toLocaleTimeString("pt-BR", { hour12: false });  // Formato: HH:mm:ss
+
+        return `${dataFormatada}<br>${horarioFormatado}`;
     }
-
-    return statusVoo;
-}
-
-function alterarImagemStatus(statusVoo) {
-    const statusImg = document.getElementById("status_voo");
-    switch (statusVoo) {
-        case "Pontual":
-            statusImg.src = "../assets/imgs/imgAlertGreen.png"; // Caminho para a imagem de pontual
-            statusImg.alt = "Pontual";
-            break;
-        case "Atrasado":
-            statusImg.src = "../assets/imgs/imgAlertYellow.png"; // Caminho para a imagem de atrasado
-            statusImg.alt = "Atrasado";
-            break;
-        case "Cancelado":
-            statusImg.src = "../assets/imgs/imgAlertRed.png"; // Caminho para a imagem de cancelado
-            statusImg.alt = "Cancelado";
-            break;
-        default:
-            statusImg.src = "../assets/imgs/imgAlertDefault.png"; // Imagem padrão
-            statusImg.alt = "Desconhecido";
-    }
-}
-
-// Função para formatar a data e hora no formato "dd/mm/aaaa HH:mm:ss" para exibição
-function formatarDataHora(dataHora) {
-    const data = new Date(dataHora);
-
-    // Formata a data e o horário juntos
-    const dataFormatada = data.toLocaleDateString("pt-BR");  // Formato: dd/mm/aaaa
-    const horarioFormatado = data.toLocaleTimeString("pt-BR", { hour12: false });  // Formato: HH:mm:ss
-
-    return `${dataFormatada}<br>${horarioFormatado}`;
-}
 
 
 </script>

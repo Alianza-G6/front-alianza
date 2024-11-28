@@ -8,10 +8,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <script src="/public/js/sessao.js"></script>
+
+
+
+
+
     <title>Dashboard - Alianza</title>
 </head>
 
-<body onload="verificarUsuario(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
+<body
+    onload="validarSessao(), kpiPercentualVooAtrasado(), kpiPercentualVooPontual(), kpiMediaAtrasosSaida(), kpiMediaAtrasosChegada(),kpiRotasProblematicas()">
     <div>
         <!-- Aqui começa o menu, quando for fazer outro arquivo copie aqui -->
         <div id="menu" class="hidden">
@@ -30,7 +37,8 @@
                 <li><a href="./performanceOperacional.html">Performance Operacional</a></li>
                 <!-- <li><a href="./sugestoesGemini.html">Sugestões Gemini</a></li> -->
 
-                <li><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a></li>
+                <li id="PermissaoCadastrarFuncionario"><a href="./cadastroFuncionario.html">Cadastro de Funcionários</a>
+                </li>
             </ul>
             <div id="div-configuracao">
                 <a href="./configuracoes.html">
@@ -129,13 +137,18 @@
     </script>
 
     <script>
-        let tipoUsuario = sessionStorage.FK_TIPOUSUARIO
 
-        function verificarUsuario() {
-            if (tipoUsuario == 2) {
+        function validarSessao() {
+            let fktipoUsuario = sessionStorage.FK_TIPOUSUARIO; // Recupera como string
+            let usuario = sessionStorage.NOME_USUARIO;
+            const permissaoCadastrarFuncionario = document.getElementById("PermissaoCadastrarFuncionario");
 
+            // Converte para número ou compara com a string '1'
+            if (fktipoUsuario !== "1") { // Comparando como string
+                permissaoCadastrarFuncionario.style.display = "none";
             }
         }
+
 
         const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -209,6 +222,8 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
+
+
         }
 
 
@@ -223,6 +238,7 @@
                 .then(function (resposta) {
                     resposta.json().then((percentual) => {
                         console.log("Esses é o percentual de voo atrasado encontrado: ", percentual[0].percentualAtrasados)
+                        kpiPercentualAtrasados = Number(percentual[0].percentualAtrasados);
                         kpi_percentual_voo_atrasado.innerHTML = percentual[0].percentualAtrasados;
                     });
                 })
@@ -279,8 +295,8 @@
             })
                 .then(function (resposta) {
                     resposta.json().then((qtdRotas) => {
-                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", qtdRotas[0].quantidadeAtrasos)
-                        kpi_rotas_problematicas.innerHTML = qtdRotas[0].quantidadeAtrasos;
+                        console.log("Esses é o qtdRotas de rotas problemáticos encontrado: ", qtdRotas.length)
+                        kpi_rotas_problematicas.innerHTML = qtdRotas.length;
                     });
                 })
                 .catch(function (resposta) {
