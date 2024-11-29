@@ -134,7 +134,7 @@ body {
 /* ...Aqui, para pegar o menu e a "navzinha" */
 
 #div-kpis{
-    height: 35vh;
+    height: 25vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -177,9 +177,9 @@ body {
 }
 
 #grafico{
-    height: 50vh;
+    height: 52vh;
     width: 50vw;
-    background-color: #dbd0c8;
+    background-color: #ffffff;
 }
 
 #info-grafico{
@@ -213,3 +213,11 @@ body {
     width: 100%;
     gap: 2vw;
 }
+
+.tituloDash{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

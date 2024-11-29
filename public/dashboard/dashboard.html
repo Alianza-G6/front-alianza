@@ -115,7 +115,9 @@
         </div>
       </div>
       <!-- Aqui termina as KPIs -->
-
+      <div class="tituloDash">
+        <h1>Pontualidades vs. Atrasos ao Longo dos Meses.</h1>
+      </div>
       <!-- Aqui inicia o gráfico -->
       <div id="div-grafico">
         <div id="grafico">
@@ -123,6 +125,8 @@
             <canvas id="myChart"></canvas>
           </div>
         </div>
+
+
         <div id="info-grafico">
           <div id="div-legenda-pontuais">
             <div class="legenda-grafico" id="cor-legenda-pontuais"></div>
@@ -136,7 +140,9 @@
       </div>
       <!-- Aqui termina o gráfico -->
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
     <script>
       function validarSessao() {
@@ -177,39 +183,56 @@
       // Criar o gráfico após obter os dados
       const ctx = document.getElementById("myChart").getContext("2d");
 
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: [ "Jul", "Ago", "Sep", "Out", "Nov"],
-          datasets: [
-            {
-              label: "Pontualidades",
-              data: totaisPontuais,
-              borderColor: "#619bcc",
-              fill: false,
-              tension: 0.1,
-            },
-            {
-              label: "Atrasos",
-              data: totaisAtrasados, // Atualize os dados se necessário
-              borderColor: "#dd8d54",
-              fill: false,
-              tension: 0.1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Jul", "Ago", "Sep", "Out", "Nov"], 
+        datasets: [
+          {
+            label: "Pontualidades",
+            data: totaisPontuais, 
+            borderColor: "#619bcc", 
+            fill: false, 
+            tension: 0.1, 
+          },
+          {
+            label: "Atrasos",
+            data: totaisAtrasados,
+            borderColor: "#dd8d54", 
+            fill: false, 
+            tension: 0.1, 
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          datalabels: {
+            display: true, 
+            align: "top", 
+            color: "#333", 
+            formatter: (value, context) => {
+         
+              return context.chart.data.labels[context.dataIndex];
             },
           },
         },
-      });
-    })
-    .catch(function (erro) {
-      console.error(`#ERRO: ${erro}`);
+        scales: {
+          y: {
+            beginAtZero: true, 
+          },
+          x:{
+            ticks: {
+          display: false, 
+        },
+          }
+        },
+      },
+      plugins: [ChartDataLabels], 
     });
+  })
+  .catch((erro) => {
+    console.error(`#ERRO: ${erro.message || erro}`); // Captura e exibe erros
+  });
 }
 
     </script>
