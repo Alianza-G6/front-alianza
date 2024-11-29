@@ -179,6 +179,31 @@ function pesquisarVoo(req, res) {
     }
 }
 
+function pegarMediasParaGrafico(req, res) {
+    let fkEmpresaVar = req.params.fkEmpresaVar
+
+    if (fkEmpresaVar == undefined) {
+        res.status(400).send("Seu fkEmpresaVar está undefined!");
+    } else {
+
+        vooModels.pegarMediasParaGrafico(fkEmpresaVar)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro: pegarMediasParaGrafico ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
@@ -186,5 +211,6 @@ module.exports = {
     kpiMediaAtrasosChegada,
     kpiRotasProblematicas,
     listarRotasProblematicas,
-    pesquisarVoo
+    pesquisarVoo,
+    pegarMediasParaGrafico
 }

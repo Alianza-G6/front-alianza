@@ -1,5 +1,7 @@
 var database = require("../database/config")
 
+
+
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function kpiPercentualVooPontual(fkEmpresaVar) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
@@ -291,6 +293,40 @@ function pesquisarVoo(idVoo, dataVoo) {
     return database.executar(instrucaoSql);
 }
 
+function pegarMediasParaGrafico(fkEmpresaVar) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():", fkEmpresaVar)
+
+        var instrucaoSql = `
+SELECT 
+	WEEK(p.partidaPrevista, 1) AS semanaDoAno, -- Número da semana no ano
+	COUNT(CASE 
+			WHEN (p.chegadaPrevista IS NULL) OR 
+				((TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) <= 30) AND 
+				(TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) <= 30))
+			THEN 1 
+			ELSE NULL 
+		END) AS totalPontuais,
+	COUNT(CASE 
+			WHEN (p.chegadaPrevista IS NOT NULL AND 
+				((TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30) OR 
+					(TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30)))
+			THEN 1 
+			ELSE NULL 
+		END) AS totalAtrasados
+FROM 
+	voo p
+WHERE 
+	p.fkCompanhia = ${fkEmpresaVar} -- ID da companhia específica
+	AND p.partidaReal IS NOT NULL
+	AND MONTH(p.partidaPrevista) = 11 -- Mês desejado (ex.: 11 para novembro)
+	AND YEAR(p.partidaPrevista) = 2022 -- Ano desejado (ex.: 2024)
+GROUP BY 
+	WEEK(p.partidaPrevista, 1) -- Agrupa por número da semana no ano
+ORDER BY WEEK(p.partidaPrevista, 1);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     kpiPercentualVooPontual,
     kpiPercentualVooAtrasado,
@@ -298,5 +334,6 @@ module.exports = {
     kpiMediaAtrasosChegada,
     kpiRotasProblematicas,
     listarRotasProblematicas,
-    pesquisarVoo
+    pesquisarVoo,
+    pegarMediasParaGrafico
 };
