@@ -31,4 +31,8 @@ router.get("/pesquisarVoo/:idVoo/:dataVoo", function (req, res) {
     vooController.pesquisarVoo(req, res);
 });
 
+router.get("/pegarMediasParaGrafico/:fkEmpresaVar", function (req, res) {
+    vooController.pegarMediasParaGrafico(req, res);
+});
+
 module.exports = router;
