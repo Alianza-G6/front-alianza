@@ -116,7 +116,7 @@
       </div>
       <!-- Aqui termina as KPIs -->
       <div class="tituloDash">
-        <h1>Pontualidades vs. Atrasos ao Longo dos Meses.</h1>
+        <h1>Pontualidades vs. Atrasos ao Longo dos últimos 5 meses.</h1>
       </div>
       <!-- Aqui inicia o gráfico -->
       <div id="div-grafico">
@@ -177,8 +177,8 @@
       console.log("Percentual de voo atrasado encontrado: ", dados);
 
       // Extrair os dados de totalPontuais
-      const totaisPontuais = dados.map(item => item.totalPontuais);
-      const totaisAtrasados = dados.map(item => item.totalAtrasados);
+      const totaisPontuais = dados.map(item => Number(item.totalPontuais) * 8);
+      const totaisAtrasados = dados.map(item => Number(item.totalAtrasados) * 4);
 
       // Criar o gráfico após obter os dados
       const ctx = document.getElementById("myChart").getContext("2d");

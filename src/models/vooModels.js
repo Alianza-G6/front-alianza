@@ -214,6 +214,7 @@ function listarRotasProblematicas(fkEmpresaVar) {
     var instrucaoSql = `
         -- Rotas problemáticas com mais de um atraso
         SELECT 
+            p.numeroVoo,
             p.fkCompanhia,
             c.siglaICAO AS companhia, 
             p.fkAeroportoOrigem,
@@ -234,7 +235,7 @@ function listarRotasProblematicas(fkEmpresaVar) {
         WHERE 
             -- Regra de atraso na partida e chegada (mais de 30 minutos de atraso)
             TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  
-            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaRe'al) > 30  
             AND p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
             AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
             AND p.partidaReal IS NOT NULL 
@@ -242,6 +243,7 @@ function listarRotasProblematicas(fkEmpresaVar) {
             AND p.chegadaReal IS NOT NULL
             AND p.chegadaPrevista IS NOT NULL
         GROUP BY 
+            p.numeroVoo,
             p.fkCompanhia, 
             c.siglaICAO, 
             p.fkAeroportoOrigem, 
