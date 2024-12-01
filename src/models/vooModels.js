@@ -235,7 +235,7 @@ function listarRotasProblematicas(fkEmpresaVar) {
         WHERE 
             -- Regra de atraso na partida e chegada (mais de 30 minutos de atraso)
             TIMESTAMPDIFF(MINUTE, p.partidaPrevista, p.partidaReal) > 30  
-            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaRe'al) > 30  
+            AND TIMESTAMPDIFF(MINUTE, p.chegadaPrevista, p.chegadaReal) > 30  
             AND p.fkCompanhia = ${fkEmpresaVar}  -- ID da companhia específica
             AND p.statusVoo != 'cancelado'  -- Exclui voos cancelados
             AND p.partidaReal IS NOT NULL 
