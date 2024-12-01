@@ -107,7 +107,7 @@
                         <option value="2">Analista</option>
                     </select>
                     <span>CPF:</span>
-                    <input type="text" id="input_cpf">
+                    <input type="text" id="input_cpf" oninput="aplicarMascaraCPF(this)">
                     <span>Email:</span>
                     <input type="text" id="input_email">
                     <span>Senha:</span>
@@ -128,7 +128,8 @@
                             <span id="nome-func">${empresas[i].nome}</span>
                             <span id="cargo-func">${empresas[i].tipo}</span>
                         </div>
-                        <img src="../assets/imgs/editar-branco.png" alt="editar" onclick="abrirEPreencher(), pegarIdUsuario()">
+                        <img src="../assets/imgs/editar-branco.png" alt="editar"
+                            onclick="abrirEPreencher(), pegarIdUsuario()">
                     </div>
 
                     <!-- LISTA DE FUNCIONARIOS  listarFunc() -->
@@ -169,10 +170,20 @@
     });
 
 
+    function aplicarMascaraCPF(input) {
+        let cpf = input.value;
+        cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        input.value = cpf; // Atualiza o campo com a máscara
+    }
+
+
 
     function cadastrarFunc() {
         var nomeVar = document.getElementById('nome_input').value;
-        var cpfVar = document.getElementById('input_cpf').value;
+        var cpfVar = document.getElementById('input_cpf').value.replace(/\D/g, "");
         var emailVar = document.getElementById('input_email').value;
         var senhaVar = document.getElementById('input_senha').value;
         var tipoUserVar = document.getElementById('select_tipoUsuario').value;
@@ -198,7 +209,7 @@
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    
+
                     nomeServer: nomeVar,
                     cpfServer: cpfVar,
                     emailServer: emailVar,
@@ -228,7 +239,7 @@
                             icon: "success",
                             title: "Cadastrado com sucesso!"
                         });
-                        
+
                     } else {
                         throw "Houve um erro ao tentar realizar o cadastroFunc!";
                         Swal.fire({
@@ -285,7 +296,7 @@
     }
 
     function pegarDados(idUsuario) {
-        
+
         return fetch(`/usuarios/pegarDados/${fkEmpresaVar}/${idUsuario}`, {
             method: "GET",
             headers: {
@@ -309,6 +320,17 @@
         idUsuarioDaEdicao = idUsuario;
     }
 
+    // Função para aplicar a máscara de CPF
+    function aplicarMascaraModalCPF(recebeCPF) {
+        let CPFtrasformado = recebeCPF.replace(/\D/g, ""); ;
+        
+        CPFtrasformado = CPFtrasformado.replace(/(\d{3})(\d)/, "$1.$2");
+        CPFtrasformado = CPFtrasformado.replace(/(\d{3})(\d)/, "$1.$2");
+        CPFtrasformado = CPFtrasformado.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        
+        return CPFtrasformado // Atualiza o campo com a máscara
+    }
+
     function abrirEPreencher(indexDoUsuario) {
 
         pegarDados(indexDoUsuario)
@@ -322,10 +344,12 @@
                 var recebeEmail = funcionario[indexDoUsuario].email || "falhou";
                 var recebeSenha = funcionario[indexDoUsuario].senha || "falhou";
 
-                console.log("recebeCPF:", recebeCPF)
+                var CPFtrasformado = aplicarMascaraModalCPF(recebeCPF)
+
+                console.log("recebeCPF:", CPFtrasformado)
 
                 document.getElementById('nome_input_modal').value = recebeNome;
-                document.getElementById('input_cpf_modal').value = recebeCPF;
+                document.getElementById('input_cpf_modal').value = CPFtrasformado;
                 document.getElementById('input_email_modal').value = recebeEmail;
                 document.getElementById('input_senha_modal').value = recebeSenha;
                 document.getElementById('select_tipoUsuario_modal').value = recebeTipo;
@@ -345,7 +369,7 @@
 
     function editarFunc() {
         var nomeVar = document.getElementById('nome_input_modal').value;
-        var cpfVar = document.getElementById('input_cpf_modal').value;
+        var cpfVar = document.getElementById('input_cpf_modal').value.replace(/\D/g, "");
         var emailVar = document.getElementById('input_email_modal').value;
         var senhaVar = document.getElementById('input_senha_modal').value;
         var tipoUserVar = document.getElementById('select_tipoUsuario_modal').value;
@@ -424,7 +448,7 @@
                     console.log(`#ERRO: ${resposta}`);
 
                 });
-                sairModal()
+            sairModal()
         }
 
         return false;
@@ -458,7 +482,7 @@
 
                     if (resposta.ok) {
                         listarFunc()
-                        
+
                         const Toast = Swal.mixin({
                             toast: true,
                             position: "top-end",
@@ -491,7 +515,7 @@
                     console.log(`#ERRO: ${resposta}`);
 
                 });
-                sairModal()
+            sairModal()
         }
 
         return false;
