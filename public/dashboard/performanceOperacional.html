@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="icon" href="../assets/icon/icon.png" />
 
+    <!-- Sweet Alert -->
+
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
     <title>Performance Operacional - Alianza</title>
 </head>
 
@@ -183,8 +189,6 @@
         let idVoo = idVooVar.value;
         let dataVoo = dataVooVar.value;
 
-        alert(dataVoo);
-
         // Enviando o valor da nova input
         fetch(`/voos/pesquisarVoo/${idVoo}/${dataVoo}`, {
             method: "GET",
@@ -214,7 +218,21 @@
                         aeroporto_origem.innerHTML = dadosVoo.aeroportoOrigem;
                         aeroporto_destino.innerHTML = dadosVoo.aeroportoDestino;
                     } else {
-                        alert("Nenhum voo encontrado para o número e data fornecidos.");
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "error",
+                            title: "Nenhum voo encontrado!"
+                        });
                     }
                 });
             })
