@@ -31,7 +31,7 @@
                 <span>Razão Social:</span>
                 <input type="text" id="razaoSocial_input_modal">
                 <span>CNPJ:</span>
-                <input type="text" id="input_cnpj_modal">
+                <input type="text" id="input_cnpj_modal" oninput="aplicarMascaraCNPJ(this)">
                 <span>Status:</span>
                 <select name="name-select-acesso" class="select-acesso" id="select_tipoEmpresa_modal">
                     <option value="#" default>Selecione</option>
@@ -99,7 +99,7 @@
                     <span>Razão Social:</span>
                     <input type="text" id="razaoSocial">
                     <span>CNPJ:</span>
-                    <input type="text" id="cnpjCadastro">
+                    <input type="text" id="cnpjCadastro" oninput="aplicarMascaraCNPJ(this)">
                     <span>Tipo de Empresa:</span>
                     <select name="name-select-acesso" class="select-acesso" id="tipoEmpresa">
                         <option value="#" default>Selecione</option>
@@ -241,6 +241,17 @@
     tipoEmpresa.addEventListener('change', () => atualizarOpcoes(tipoEmpresa.value));
 
 
+    // Função para aplicar a máscara de CPF
+    function aplicarMascaraCNPJ(input) {
+        let cnpj = input.value;
+        cnpj = cnpj.replace(/\D/g, ""); // Remove caracteres não numéricos
+        cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2"); // Coloca o ponto após os dois primeiros dígitos
+        cnpj = cnpj.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca o ponto após os três seguintes
+        cnpj = cnpj.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca a barra após os três seguintes
+        cnpj = cnpj.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca o hífen antes dos dois últimos dígitos
+        input.value = cnpj; // Atualiza o campo com a máscara
+    }
+
     function gerarCodigo() {
 
         codigoGerado = Math.floor(1000 + Math.random() * 9000);
@@ -269,7 +280,7 @@
     function cadastrarEmpresa() {
 
         let razaoSocial = document.getElementById("razaoSocial").value;
-        let cnpjCadastro = document.getElementById("cnpjCadastro").value;
+        let cnpjCadastro = document.getElementById("cnpjCadastro").value.replace(/\D/g, "");
         let tipoEmpresa = document.getElementById("tipoEmpresa").value;
         let siglaIcao = document.getElementById("siglaIcao").value;
 
@@ -377,9 +388,9 @@
                 resposta.json().then((empresas) => {
                     console.log("Esses são as empresas encontrados: ", empresas)
 
-                    
 
-                    for (let i = 0; i < empresas.length; i++) { 
+
+                    for (let i = 0; i < empresas.length; i++) {
 
                         console.log(`
                             <div class="funcionario">
@@ -446,6 +457,16 @@
     //     });
     // }
 
+    function aplicarMascaraModalCNPJ(recebeCNPJ) {
+        let cnpjFormatado = recebeCNPJ.replace(/\D/g, "") // Remove tudo que não for número
+        cnpjFormatado = cnpjFormatado.replace(/^(\d{2})(\d)/, "$1.$2"); // Coloca o ponto após os dois primeiros dígitos
+        cnpjFormatado = cnpjFormatado.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca o ponto após os três seguintes
+        cnpjFormatado = cnpjFormatado.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca a barra após os três seguintes
+        cnpjFormatado = cnpjFormatado.replace(/(\d{4})(\d{1,2})$/, "$1-$2");
+
+        return cnpjFormatado // Atualiza o campo com a máscara
+    }
+
     function abrirEPreencher(indexEdicao, idEmpresa) {
         // pegarIdEmpresa(idEmpresaDaEdicao)
         idEmpresaDaEdicao = idEmpresa;
@@ -457,8 +478,10 @@
                 var recebeCNPJ = empresas[0].cnpj || "falhou";
                 var recebeStatus = empresas[0].empresaStatus || "falhou";
 
+                var cnpjFormatado = aplicarMascaraModalCNPJ(recebeCNPJ)
+
                 document.getElementById('razaoSocial_input_modal').value = recebeRazaoSocial;
-                document.getElementById('input_cnpj_modal').value = recebeCNPJ;
+                document.getElementById('input_cnpj_modal').value = cnpjFormatado;
                 document.getElementById('select_tipoEmpresa_modal').value = recebeStatus;
 
                 abrirModal();
@@ -477,19 +500,19 @@
 
     function editarEmpresa() {
         var razaoSocialVar = document.getElementById('razaoSocial_input_modal').value;
-        var cnpjVar = document.getElementById('input_cnpj_modal').value;
+        var cnpjVar = document.getElementById('input_cnpj_modal').value.replace(/\D/g, "");
         var empresaStatus = document.getElementById('select_tipoEmpresa_modal').value;
 
         console.log(razaoSocialVar)
         console.log("CNPJJJ>", cnpjVar)
         console.log(empresaStatus)
-        console.log("Esse é o idDaEdição    ", idEmpresaDaEdicao)   
+        console.log("Esse é o idDaEdição    ", idEmpresaDaEdicao)
 
         // Verificando se há algum campo em branco
         if (
             razaoSocialVar == "" ||
             cnpjVar == "" ||
-            empresaStatus == "#" 
+            empresaStatus == "#"
         ) {
             alert("Preencha todos os campos!")
 

@@ -17,7 +17,7 @@ function pegarDados(idFeedback){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >>verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de sei BD está rodando corretamente. \n\n function listarFunc():",idFeedback)
 
     var instrucaoSql = `
-        SELECT tbFeedBack.* FROM tbFeedback WHERE idFeedback = ${idFeedback};
+        SELECT * FROM tbFeedback WHERE idFeedback = ${idFeedback};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
