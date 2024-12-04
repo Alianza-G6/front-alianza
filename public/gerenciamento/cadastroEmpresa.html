@@ -112,6 +112,8 @@
                         <option value="CGH">CGH</option>
                         <option value="BDB">BSB</option>
                     </select>
+                    <span>Email para envio do Código:</span>
+                    <input type="text" id="email_codigo">
                     <div class="codigoAtivacao">
                         <span>Código Ativação:</span>
 
@@ -277,6 +279,51 @@
         botaoCadastrar.disabled = false; // Habilita o botão
     }
 
+    async function enviarEmail() {
+        let email = email_codigo.value
+
+        Swal.fire({
+                title: "Enviando mensagem...",
+                text: "Por favor, aguarde.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+
+            try {
+                const respostaEmail = await fetch("/emails/enviarEmail", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        deServer: "alianza.sptech@gmail.com" ,
+                        paraServer: email,
+                        assuntoServer: "Novo contato",
+                        mensagemServer: `Olá, bem vindo a Alianza!\n\nCrie já sua conta conosco, segue seu codigo de ativação: ${codigoGerado}`,
+                    }),
+                });
+
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Email enviado com sucesso!",
+                    color: "#000",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro ao enviar e-mail.",
+                    text: error.message,
+                    confirmButtonText: "Ok",
+                });
+            }
+    }
+
+
     function cadastrarEmpresa() {
 
         let razaoSocial = document.getElementById("razaoSocial").value;
@@ -325,6 +372,7 @@
                                     toast.onmouseleave = Swal.resumeTimer;
                                 }
                             });
+                            enviarEmail();
                             Toast.fire({
                                 icon: "success",
                                 title: "Empresa cadastrada!"
@@ -338,8 +386,8 @@
                                 console.log(JSON.stringify(json));
                                 sessionStorage.EMAIL_USUARIO = json.email;
                                 sessionStorage.ID_USUARIO = json.id;
-
                             }
+
                         });
                     } else {
                         resposta.text().then(texto => {
